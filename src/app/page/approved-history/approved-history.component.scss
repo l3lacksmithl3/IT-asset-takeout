@@ -1,0 +1,33 @@
+.head{
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  margin-left: 15px;
+  padding-left: 5px;
+  margin-bottom: 0;
+}
+
+
+.showgrid > div {
+
+  background-color: lavender;
+  border: 1px solid rgba(0, 0, 0, 0.459);
+}
+
+
+.setcontrolid{
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.setcontrolid:focus{
+  outline: none;
+}
+
+
+
+.red{
+  color: red;
+}

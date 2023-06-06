@@ -1,0 +1,30 @@
+
+.mat-drawer {
+  width: 200rem;
+}
+// .example-sidenav {
+//   padding: 20px;
+// }
+.mat-expansion-panel-header.mat-expanded {
+  height: auto;
+}
+
+.btn.focus,
+.btn:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.btn{
+  border: none;
+}
+
+.btn:active {
+  outline: none;
+  border: none;
+}
+
+.active, .btn:hover {
+  // background-color: #666;
+  color: rgb(255, 0, 0);
+}

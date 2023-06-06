@@ -1,0 +1,33 @@
+
+
+
+<mat-expansion-panel hideToggle style="box-shadow: none;">
+  <mat-expansion-panel-header style="padding: 0px;">
+    <button class="btn " style="width: 100%; background-color: white; text-align: left;"><img
+        src="assets/user.png" style="width: 25px;margin-right: 5px;margin-bottom: 4px;">Apply IT Asset</button>
+  </mat-expansion-panel-header>
+  <div style="width: 10rem; " *ngFor="let item of apply">
+    <button class="btn " style="width: 100%; background-color: white; text-align: left;"  (click)="onClick()"
+      [routerLink]="[item.path]"><img [src]="item.icon"
+        style="width: 25px;margin-right: 5px;margin-bottom: 4px;">{{item.title}}</button>
+  </div>
+</mat-expansion-panel>
+
+
+<mat-expansion-panel hideToggle style="box-shadow: none;">
+  <mat-expansion-panel-header style="padding: 0px;">
+    <button class="btn " style="width: 100%; background-color: white; text-align: left;"><img
+        src="assets/user.png" style="width: 25px;margin-right: 5px;margin-bottom: 4px;">History</button>
+  </mat-expansion-panel-header>
+  <div style="width: 10rem; " *ngFor="let item of record">
+    <button class="btn " style="width: 100%; background-color: white; text-align: left;" (click)="onClick()"
+      [routerLink]="[item.path]"><img [src]="item.icon"
+        style="width: 25px;margin-right: 5px;margin-bottom: 4px;">{{item.title}}</button>
+  </div>
+</mat-expansion-panel>
+
+<div style="width: 10rem; " *ngFor="let item of page">
+  <button class="btn " (click)="onClick()"
+    style="width: 100%; background-color: white; text-align: left;"
+    [routerLink]="[item.path]"><img [src]="item.icon" style="width: 25px;margin-right: 5px;margin-bottom: 4px;" >{{item.title}}</button>
+</div>

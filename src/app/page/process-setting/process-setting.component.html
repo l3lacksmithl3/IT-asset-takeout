@@ -1,0 +1,100 @@
+<div class="col-lg-12" style="text-align: center;">
+
+
+  <div class="example-container">
+    <h2>ToolBox</h2>
+
+    <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList,ITList]"
+      class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of todo" cdkDrag>
+        <div class="row">
+          <div class="col">
+            <button class="btn btn-info" cdkDrag
+              style=" background-color: rgb(255, 255, 255); text-align: center;width: 5rem;border-radius: 6px; color: black;">
+              <img src="assets/user.png" style="width: 25px;"><br>{{item.permission}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div cdkDropList #binList="cdkDropList" [cdkDropListData]="bin" [cdkDropListConnectedTo]="[]" class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box">
+        <div class="row">
+          <div class="col">
+            <button class="btn btn-info"
+              style=" background-color: rgb(255, 255, 255); text-align: center;width: 5rem;border-radius: 6px; color: black;">
+              <img src="assets/bin.png" style="width: 25px;"><br>Garbage
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <div class="example-container">
+    <h2>User</h2>
+
+    <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[binList]"
+      class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of done;let i = index">
+        <div class="col">
+          <div class="row">
+            <button class="btn btn-info" cdkDrag style=" background-color: white; border-radius: 6px;color: black;"
+              (click)="setting(item,i,'user')">
+              <img src="assets/user.png" style="width: 25px;margin-right: 5px;">
+              <span>Approve</span>
+            </button>
+          </div>
+          <div class="row">
+            <span>{{item.user_tpye}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="example-container">
+    <h2>IT</h2>
+    <div cdkDropList #ITList="cdkDropList" [cdkDropListData]="IT" [cdkDropListConnectedTo]="[binList]"
+      class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of IT; let i = index">
+        <div class="col">
+          <div class="row">
+            <button class="btn btn-info" cdkDrag
+              style=" background-color: white; text-align: left;width: 8rem;border-radius: 6px;color: black;"
+              (click)="settingIt(item,i,'it')">
+              <img src="assets/user.png" style="width: 25px;margin-right: 5px;">
+              <span>Approve</span>
+            </button>
+          </div>
+          <div class="row">
+            <span> {{item.name}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<div class="col-lg-12 pt-5" style="text-align: center;">
+  <div class="example-container">
+    <div class="row">
+      <div class="col" style="text-align: center;">
+        <button class="btn btn-info" (click)="apple()">Apply</button>
+      </div>
+      <div class="col" style="text-align: center;">
+        <button class="btn btn-info" (click)="back()">Back</button>
+      </div>
+    </div>
+
+  </div>
+</div>
