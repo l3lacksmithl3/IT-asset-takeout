@@ -86,6 +86,8 @@ export class HttpService {
   }
 
 
+
+
   // record
   RecordApprove(data: any): Observable<any> {
     return this.http.post(this.Url + "/RecordApprove/", data)
@@ -132,6 +134,16 @@ export class HttpService {
   }
   getAssetByID(data: any): Observable<any> {
     return this.http.post(this.Url + "/ITasset/getByCondition/", data)
+  }
+
+
+
+  // mail
+  sendMailFlow1(data: any): Observable<any> {
+    return this.http.post(this.Url + "/master_it/sendMail/", data)
+  }
+  sendMailFlow2(data: any): Observable<any> {
+    return this.http.post(this.Url + "/master_section/sendMail/", data)
   }
 
 }

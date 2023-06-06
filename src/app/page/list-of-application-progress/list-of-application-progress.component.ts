@@ -14,7 +14,7 @@ export class ListOfApplicationProgressComponent {
 
   head: any = []
   data: any = []
-
+  user: any
 
   Applicant: any = []
   Executor: any = []
@@ -31,6 +31,8 @@ export class ListOfApplicationProgressComponent {
 
 
   async ngOnInit(): Promise<void> {
+    this.user = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
+
     let id = JSON.parse(`${localStorage.getItem("IT-asset-takeout-ViewApprove")}`)
     let res = await lastValueFrom(this.api.getDataApprove({ _id: id }))
     this.data = res[0]
@@ -59,24 +61,25 @@ export class ListOfApplicationProgressComponent {
       }
     }
 
+    if (this.data.name != this.user.name) {
+      this.ShowCommentForHistory()
+    }
 
-    this.ShowCommentForHistory()
   }
 
 
 
   ShowCommentForHistory() {
-    console.log(this.data);
-    let Executor = this.data.Executor.filter((d:any) => d.status == "Approve")
-    let IT = this.data.IT.filter((d:any) => d.status == "Approve")
+    let Executor = this.data.Executor.filter((d: any) => d.status == "Approve")
+    let IT = this.data.IT.filter((d: any) => d.status == "Approve")
     this.ShowComment = Executor.concat(IT)
-    this.ShowComment = this.ShowComment.map((d:any)=>{
+    this.ShowComment = this.ShowComment.map((d: any) => {
 
-      return{
+      return {
         ...d,
-        name : d.name,
-        value : d.Comment,
-        time : moment(d.lastUpdate).format("YYYY/MM/DD HH:mm:ss")
+        name: d.name,
+        value: d.Comment,
+        time: moment(d.lastUpdate).format("YYYY/MM/DD HH:mm:ss")
       }
     })
     console.log(this.ShowComment);

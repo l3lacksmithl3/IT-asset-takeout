@@ -11,6 +11,10 @@ mat-toolbar {
   width: 100%  !important;
 }
 
+.offh:focus {
+  outline: none;
+  box-shadow: none;
+}
 
 // .example-container {
 //   width: 500px;

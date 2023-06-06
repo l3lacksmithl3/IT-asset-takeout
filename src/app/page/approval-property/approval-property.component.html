@@ -7,8 +7,8 @@
        <label for="">Post</label>
     </div>
     <div class="col-lg-9" >
-      <select class="form-select" aria-label="Default select example" [(ngModel)]="this.dataNew.section" (change)="debug()">
-        <option *ngFor="let item of this.Post" [value]="item.section">{{item.section}}</option>
+      <select class="form-select" aria-label="Default select example" [(ngModel)]="this.dataNew.section" (change)="debug()" >
+        <option *ngFor="let item of this.Post" [value]="item" >{{item}}</option>
       </select>
     </div>
   </div>
@@ -17,7 +17,8 @@
        <label for="">Position</label>
     </div>
     <div class="col-lg-9">
-      <select class="form-select" aria-label="Default select example" [(ngModel)]="this.dataNew.position" (change)="debug()">
+      <select class="form-select" aria-label="Default select example" [(ngModel)]="this.dataNew.position" (change)="debug()" [value]="this.dataNew.position">
+        <option ></option>
         <option *ngFor="let item of this.Position" [value]="item.user_tpye">{{item.user_tpye}}</option>
       </select>
     </div>

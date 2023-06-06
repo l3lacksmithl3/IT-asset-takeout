@@ -30,11 +30,13 @@ export class ApprovalPropertyItComponent {
 
   async ngOnInit(): Promise<void> {
 
-    console.log(this.data);
     this.dataNew.section = this.data.code_abbname
     this.dataNew.name = this.data.name
     let data = await lastValueFrom(this.api.getMasterIT())
-    this.user = data[0].value
+    let dataBaseUser = await lastValueFrom(this.api.MasterUserAll())
+    dataBaseUser  = dataBaseUser.filter((d:any)=>d.section == "IT-SP")
+    this.user = dataBaseUser
+
 
     if (this.data.section == "IT-SP" ) {
       this.dataNew.section = this.data.section

@@ -53,13 +53,13 @@ export class ApproveComponent {
           }
         }
         console.log(list);
-
       }
 
     }
     this.data = this.sort(this.data, "createdAt")
     this.dataSource = new MatTableDataSource(this.data)
     this.dataSource.paginator = this.paginator;
+
 
   }
 

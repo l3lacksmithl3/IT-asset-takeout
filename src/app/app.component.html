@@ -1,8 +1,10 @@
-<app-login *ngIf="!this.CheckLogin" ></app-login>
+<app-login *ngIf="!this.CheckLogin"></app-login>
 
-<mat-toolbar *ngIf="this.CheckLogin" color="primary" style="background-color: #9cabff" class="d-flex justify-content-between">
+<mat-toolbar *ngIf="this.CheckLogin" color="primary" style="background-color: #9cabff"
+  class="d-flex justify-content-between">
   <span>
-    <button style="width: 20%;background-color: #9cabff;border: aqua;" (click)="drawer.toggle()">
+    <button class="offh" style="width: 20%;background-color: #9cabff;border: aqua;" (click)="drawer.toggle()"
+      [matBadge]="this.data.length" [matBadgeHidden]="this.data.length == 0" matBadgeColor="warn">
       <img src="http://10.200.90.152:8081/Analysis-Report/assets/img/IconNew.png" alt="Italian Trulli"
         style="width: 100%;    vertical-align: middle;">
     </button>
@@ -31,12 +33,10 @@
 </mat-toolbar>
 
 <mat-drawer-container [hidden]="!this.CheckLogin" class="example-container">
-  <mat-drawer #drawer mode="over"  [opened]="open"  style="color: aqua; width: auto;padding-top: 5rem;" >
-  <app-sidenav (dataChange)="drawer.toggle()" *ngIf="this.CheckLogin" ></app-sidenav>
+  <mat-drawer #drawer mode="over" [opened]="open" style="color: aqua; width: auto;padding-top: 5rem;">
+    <app-sidenav (dataChange)="drawer.toggle()" *ngIf="this.CheckLogin"></app-sidenav>
   </mat-drawer>
   <mat-drawer-content style="padding-top: 5rem;">
-    <router-outlet *ngIf="this.CheckLogin" ></router-outlet>
+    <router-outlet *ngIf="this.CheckLogin"></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
-
-

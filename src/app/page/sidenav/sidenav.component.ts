@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { lastValueFrom } from 'rxjs';
+import { HttpService } from 'src/app/service/http.service';
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
@@ -8,13 +10,20 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class SidenavComponent {
 
   levelID: any[] = []
-  apply:any
-  page:any
-  record:any
+  apply: any
+  page: any
+  record: any
+  user: any
+  data: any = []
 
-  @Output() dataChange : EventEmitter<any> = new EventEmitter()
 
-  constructor() { }
+  @Output() dataChange: EventEmitter<any> = new EventEmitter()
+
+  constructor(
+    private api: HttpService,
+    private route: Router,
+  ) { }
+
 
   ngOnInit(): void {
     let level = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
@@ -40,10 +49,11 @@ export class SidenavComponent {
       ]
     }
 
+
     if (this.levelID[0] == 0 && this.levelID[1] == 1) {
       this.apply = [
         { path: '/ITAssetTakeout', title: 'Takeout application form', icon: 'assets/user.png', class: '' },
-        { path: '/', title: 'Return confirmation', icon: 'assets/user.png', class: '' },
+        { path: '/ItAssetReturn', title: 'Return confirmation', icon: 'assets/user.png', class: '' },
       ]
       this.record = [
         { path: '/AppliedList', title: 'Applied', icon: 'assets/user.png', class: '' },
@@ -51,18 +61,46 @@ export class SidenavComponent {
       ]
       this.page = [
         { path: '/Approve', title: 'Approved', icon: 'assets/user.png', class: '' },
+        { path: '/LogBookRecord', title: 'Log book record', icon: 'assets/user.png', class: '' },
       ]
     }
 
+    this.CheckApprove()
   }
 
-  onClick(){
+  onClick() {
     this.dataChange.emit()
     // setTimeout(() => {
     //   window.location.reload()
-    // }, 100);
+    // }, 500);
   }
 
+
+  async CheckApprove() {
+    let dateRaw = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
+    let listApprove = await lastValueFrom(this.api.getDataApproveAll())
+
+    for (const list of listApprove) {
+      if (list.Approve_Step == 1 && list.Approve_Status == "standby") {
+        for (const item of list.Executor) {
+          if (item.name == dateRaw.name) {
+            this.data.push(list)
+            continue
+          }
+        }
+      }
+      if (list.Approve_Step == 2 && list.Approve_Status == "Approve" ) {
+        for (const item of list.IT) {
+          if (item.name == dateRaw.name) {
+            this.data.push(list)
+            continue
+          }
+        }
+        console.log(list);
+      }
+    }
+
+  }
 
 
 }

@@ -10,6 +10,8 @@ import { LoginComponent } from './page/login/login.component';
 import { ApproveComponent } from './page/approve/approve.component';
 import { ApproveFormComponent } from './page/approve-form/approve-form.component';
 import { ApprovedHistoryComponent } from './page/approved-history/approved-history.component';
+import { ItAssetReturnComponent } from './page/it-asset-return/it-asset-return.component';
+import { LogBookRecordComponent } from './page/log-book-record/log-book-record.component';
 
 const routes: Routes = [
 
@@ -37,6 +39,12 @@ const routes: Routes = [
   },
   {
     path: 'ApprovedHistory', component: ApprovedHistoryComponent,
+  },
+  {
+    path: 'ItAssetReturn', component: ItAssetReturnComponent,
+  },
+  {
+    path: 'LogBookRecord', component: LogBookRecordComponent,
   },
 
 

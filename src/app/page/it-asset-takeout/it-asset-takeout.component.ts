@@ -20,7 +20,7 @@ export class ITAssetTakeoutComponent {
   positionName: any
   device: any
   dataShow: any = {}
-
+  dataApply:any
   BugList: boolean = false
 
   constructor(
@@ -97,8 +97,6 @@ export class ITAssetTakeoutComponent {
     this.updateInput()
     this.Device()
 
-
-
   }
 
 
@@ -146,9 +144,15 @@ export class ITAssetTakeoutComponent {
           let updata = await lastValueFrom(this.api.UpdateControlID(get[0]._id, { ControlID: this.ControlID }))
         }
 
-
         this.data.ControlID = this.ControlID
-        let res = lastValueFrom(this.api.Approve_data(this.data))
+        this.dataApply = await lastValueFrom(this.api.Approve_data(this.data))
+        if (this.dataApply) {
+
+          // alert("asdasd")
+        }
+
+        // console.log(res[0].id); // TODO:id
+
         // console.log(this.data);
 
 
@@ -195,8 +199,11 @@ export class ITAssetTakeoutComponent {
         if (this.mode == 'edit') {
           this.data.Approve_Status = "standby"
           this.data.Apply_Status = "Incomplete"
-          let res = lastValueFrom(this.api.ApproveUpdate(this.data._id, this.data))
+          let res = await lastValueFrom(this.api.ApproveUpdate(this.data._id, this.data))
+          if (res) {
 
+            alert("asdasd")
+          }
         }
         this.route.navigate(['/AppliedList']).then((v: any) => { })
 
@@ -270,5 +277,19 @@ export class ITAssetTakeoutComponent {
   }
 
 
+
+
+  mail() {
+    let login = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
+    let mail = this.data.Executor.map((d: any) =>
+      d.email
+    )
+    let data = {
+      id : this.dataApply[0]._id,
+      user: login.name,
+      section: login.section
+    }
+    let shot = lastValueFrom(this.api.sendMailFlow2(data))
+  }
 
 }

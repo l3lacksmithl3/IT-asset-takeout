@@ -33,8 +33,7 @@ export class AppliedListComponent {
     this.AutoSetITFlow()
     let dateRaw = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
     let res = await lastValueFrom(this.api.getDataApprove({ name: dateRaw.name }))
-    let record = await lastValueFrom(this.api.getRecordApprove({ name: dateRaw.name }))
-    this.data = res.concat(record)
+    this.data = res
 
     this.data = this.data.map((d: any) => {
       var format = 'YYYY/MM/DD';
@@ -164,6 +163,8 @@ export class AppliedListComponent {
     if (ch.length == 0) {
       let code = await this.getCode("13410")
       let data = await this.getUserIT_SP("IT-SP")
+      console.log(data);
+
       data = data.map((d: any) => {
         return {
           ...d,

@@ -56,14 +56,8 @@ export class ApproveFormComponent {
 
       if (!this.id) {
         let id = JSON.parse(`${localStorage.getItem("IT-asset-takeout-ViewApprove")}`)
-        console.log(id);
-
         let res = await lastValueFrom(this.api.getDataApprove({ _id: id }))
-        console.log(res);
-
         this.data = res[0]
-        console.log(this.data);
-
         if (this.isShow == undefined) {
           this.isShow = true
         }
@@ -133,7 +127,10 @@ export class ApproveFormComponent {
         if (this.data.Approve_Step == 3) {
           this.data.Apply_Status = "Complete"
         }
-        let update = lastValueFrom(this.api.ApproveUpdate(this.data._id, this.data))
+        let update = await lastValueFrom(this.api.ApproveUpdate(this.data._id, this.data))
+        if (update && this.data.Approve_Step <= 2) {
+
+        }
 
         this.router.navigate(['/Approve']).then((v: any) => {
           window.location.reload()
@@ -366,6 +363,21 @@ export class ApproveFormComponent {
 
   }
 
+
+  mail() {
+    let login = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
+    let mail = this.data.Executor.map((d: any) =>
+      d.email
+    )
+    let data = {
+      id : this.data._id,
+      user: login.name,
+      section: login.section
+    }
+    let shot = lastValueFrom(this.api.sendMailFlow1(data))
+    console.log(shot);
+
+  }
 
   // this.lastApprove && !this.reject"
 }

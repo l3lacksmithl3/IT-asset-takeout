@@ -19,7 +19,8 @@ export class ApprovedHistoryComponent {
   @ViewChild(MatPaginator) paginator: any = MatPaginator;
   data: any = []
   user: any
-
+  inputFilter: any
+  dataTable: any
   constructor(
     private api: HttpService,
     private route: Router,
@@ -30,6 +31,7 @@ export class ApprovedHistoryComponent {
 
 
   async ngOnInit(): Promise<void> {
+
     this.user = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
     let rew = await lastValueFrom(this.api.getDataApprove({ Approve_Step: 3 }))
     for (const item of rew) {
@@ -39,17 +41,17 @@ export class ApprovedHistoryComponent {
         this.data.push(item)
       }
     }
-    this.data = this.data.map((d: any) =>{
-      return{
+    this.data = this.data.map((d: any) => {
+      return {
         ...d,
-        Apply_Date : moment(d.Apply_Date).format('YYYY/MM/DD HH:mm:ss')
+        Apply_Date: moment(d.Apply_Date).format('YYYY/MM/DD HH:mm:ss')
 
       }
     });
 
     this.data = this.sort(this.data, "Apply_Date")
-
-    this.dataSource = new MatTableDataSource(this.data)
+    this.dataTable = this.data
+    this.dataSource = new MatTableDataSource(this.dataTable)
     this.dataSource.paginator = this.paginator;
 
   }
@@ -68,6 +70,25 @@ export class ApprovedHistoryComponent {
       return b[key].localeCompare(a[key])
     })
     return array
+  }
+
+
+
+  filter() {
+    // console.log(this.inputFilter);
+    let res1 = this.data.filter((d: any) => d["ControlID"].match(new RegExp(this.inputFilter, "i")));
+    let res2 = this.data.filter((d: any) => d["BusinessModel"].match(new RegExp(this.inputFilter, "i")));
+    let res3 = this.data.filter((d: any) => d["name"].match(new RegExp(this.inputFilter, "i")));
+    let res = res1.concat(res2).concat(res3);
+    this.dataTable = removeDuplicates(res)
+
+
+    function removeDuplicates(arr: any) {
+      return arr.filter((item: any,
+        index: any) => arr.indexOf(item) === index);
+    }
+    this.dataSource = new MatTableDataSource(this.dataTable)
+    this.dataSource.paginator = this.paginator;
   }
 
 }
