@@ -68,7 +68,9 @@ export class ApproveComponent {
     // console.log(item);
     let set1 = localStorage.setItem("IT-asset-takeout-ViewApprove", JSON.stringify(item))
     this.route.navigate(['/ApproveFormConfirm']).then((v: any) => {
+
     })
+
     // ApplicationProgress
   }
 
