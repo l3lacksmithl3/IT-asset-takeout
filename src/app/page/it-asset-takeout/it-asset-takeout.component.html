@@ -1,6 +1,6 @@
-<div class="row showgrid" style="margin: 1rem 20rem; border: solid;">
+<div class="row showgrid" style="margin: 1rem 20rem; border: solid 1px;background-color: white;">
   <div class="col pd-0 ">
-    <div class="row " style="background-color: aqua;">
+    <div class="row " style="background-color: rgb(0, 0, 0);color: white;font-weight: normal;">
       <label class="head">IT asset takeout application form</label>
     </div>
     <div *ngIf="this.data?.name" class="row">
@@ -29,7 +29,8 @@
             <label for="">Types of IT assets <sup style="color: red;font-size: 8px;">Required</sup></label>
             <select style="color: blue;" class="form-control" (change)="dataChange();updateInput()"
               [(ngModel)]="this.dataShow.ITassets_1" [ngClass]="{'shake': !this.dataShow.ITassets_1}">
-              <option *ngFor="let item of this.device;let i = index" [value]="item._id">{{item.Type}}</option>
+              <option *ngFor="let item of this.device;let i = index" [value]="item._id">{{item.Type}} ({{item["Host Name"]}}) </option>
+
             </select>
           </div>
           <div class="col-lg-6">
@@ -44,6 +45,7 @@
               [(ngModel)]="this.dataShow.ITassets_2">
               <option id="test" *ngFor="let item of this.device;let i = index" [value]="item._id">{{item.Type}}</option>
             </select>
+
           </div>
           <div class="col-lg-6">
             <label for="">IT assets No </label>
@@ -70,10 +72,10 @@
             <br>
             <mat-form-field class="example-full-width" style="width: 100%;">
               <mat-label>Choose a date</mat-label>
-              <input matInput [matDatepicker]="picker" style="color: blue;" [(ngModel)]="this.data.FromDate"
+              <input [min]="minDate_fromDate" matInput [matDatepicker]="picker" style="color: blue;" [(ngModel)]="this.data.FromDate"
                 (dateChange)="updateInput()">
               <mat-datepicker-toggle matIconSuffix [for]="picker">
-                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                <!-- <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon> -->
               </mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -81,7 +83,7 @@
           <div class="col-lg-6">
             <label for="">To (Date) <sup style="color: red;font-size: 8px;">Required</sup> </label>
             <br>
-            <mat-form-field class="example-full-width" style="width: 100%;" [ngClass]="{'shake': !this.data.ToDate}">
+            <!-- <mat-form-field class="example-full-width" style="width: 100%;" [ngClass]="{'shake': !this.data.ToDate}">
               <mat-label>Choose a date</mat-label>
               <input matInput [matDatepicker]="picker1" style="color: blue;" [(ngModel)]="this.data.ToDate"
                 (dateChange)="updateInput()">
@@ -89,6 +91,13 @@
                 <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
               </mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field> -->
+            <mat-form-field class="example-full-width" style="width: 100%;">
+              <mat-label>Choose a date</mat-label>
+              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" style="color: blue;" [(ngModel)]="this.data.ToDate">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
@@ -133,3 +142,15 @@
 
 
 <a href="asdsadsad">asdasd</a> -->
+
+<!-- <ul id="myUL"> -->
+
+<select style="color: blue;" class="form-control" (change)="dataChange()" [(ngModel)]="this.dataShow.ITassets_3">
+  <option>
+
+  </option>
+</select>
+
+
+
+<!-- </ul> -->

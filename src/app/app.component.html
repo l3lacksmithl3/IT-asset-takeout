@@ -5,8 +5,8 @@
   <span>
     <button class="offh" style="width: 20%;background-color: #9cabff;border: aqua;" (click)="drawer.toggle()"
       [matBadge]="this.data.length" [matBadgeHidden]="this.data.length == 0" matBadgeColor="warn">
-      <img src="http://10.200.90.152:8081/Analysis-Report/assets/img/IconNew.png" alt="Italian Trulli"
-        style="width: 100%;    vertical-align: middle;">
+      <!-- <mat-icon style="vertical-align: middle;">menu</mat-icon> -->
+      <img src="./assets/IconMain.png" alt="Italian Trulli" style="width: 100%;    vertical-align: middle;">
     </button>
 
   </span>
@@ -36,7 +36,7 @@
   <mat-drawer #drawer mode="over" [opened]="open" style="color: aqua; width: auto;padding-top: 5rem;">
     <app-sidenav (dataChange)="drawer.toggle()" *ngIf="this.CheckLogin"></app-sidenav>
   </mat-drawer>
-  <mat-drawer-content style="padding-top: 5rem;">
+  <mat-drawer-content style="padding-top: 5rem;background-image: url('assets/12858.jpg')">
     <router-outlet *ngIf="this.CheckLogin"></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>

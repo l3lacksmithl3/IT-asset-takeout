@@ -19,7 +19,8 @@ export class AppliedListComponent {
   dataSource = new MatTableDataSource
   @ViewChild(MatPaginator) paginator: any = MatPaginator;
   data: any
-
+  inputFilter:any
+  dataTable:any
   constructor(
     private api: HttpService,
     private route: Router,
@@ -32,7 +33,7 @@ export class AppliedListComponent {
     this.AutoSetFlow()
     this.AutoSetITFlow()
     let dateRaw = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
-    let res = await lastValueFrom(this.api.getDataApprove({ name: dateRaw.name }))
+    let res = await lastValueFrom(this.api.getDataApprove({ name: dateRaw.full_name }))
     this.data = res
 
     this.data = this.data.map((d: any) => {
@@ -45,7 +46,8 @@ export class AppliedListComponent {
     })
 
     this.data = this.sort(this.data, "createdAt")
-    this.dataSource = new MatTableDataSource(this.data)
+    this.dataTable = this.data
+    this.dataSource = new MatTableDataSource(this.dataTable)
     this.dataSource.paginator = this.paginator;
     // this.setITasset()
   }
@@ -134,6 +136,7 @@ export class AppliedListComponent {
           "user_id": "",
           "password": "",
           "name": name,
+          "full_name": name,
           "email": email,
           "employee": "",
           "section": section,
@@ -265,5 +268,28 @@ export class AppliedListComponent {
 
 
 
+  }
+
+
+  filter() {
+    // console.log(this.inputFilter);
+    let res1 = this.data.filter((d: any) => d["ControlID"].match(new RegExp(this.inputFilter, "i")));
+    let res2 = this.data.filter((d: any) => d["BusinessModel"].match(new RegExp(this.inputFilter, "i")));
+    let res3 = this.data.filter((d: any) => d["name"].match(new RegExp(this.inputFilter, "i")));
+    let res = res1.concat(res2).concat(res3);
+    this.dataTable = removeDuplicates(res)
+
+
+    function removeDuplicates(arr: any) {
+      return arr.filter((item: any,
+        index: any) => arr.indexOf(item) === index);
+    }
+    this.dataSource = new MatTableDataSource(this.dataTable)
+    this.dataSource.paginator = this.paginator;
+  }
+
+  NavigatorApply(){
+    this.route.navigate(['/ITAssetTakeout']).then((v: any) => {
+    })
   }
 }

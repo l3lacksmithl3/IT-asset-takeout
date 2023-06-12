@@ -1,0 +1,29 @@
+
+.mat-mdc-table .mdc-data-table__header-row {
+  height: 56px;
+  // border: solid 1px;
+  background-color: #b0fff257;
+}
+
+
+.showgrid > div {
+
+  background-color: lavender;
+  // border: 1px solid rgba(0, 0, 0, 0.459);
+}
+
+
+.zzz {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
+
+.offh:focus {
+  outline: none;
+  box-shadow: none;
+}

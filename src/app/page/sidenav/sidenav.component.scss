@@ -2,9 +2,7 @@
 .mat-drawer {
   width: 200rem;
 }
-// .example-sidenav {
-//   padding: 20px;
-// }
+
 .mat-expansion-panel-header.mat-expanded {
   height: auto;
 }
@@ -22,6 +20,11 @@
 .btn:active {
   outline: none;
   border: none;
+  div#subnav a.active {background: #f1f2f2;}
+}
+.button:active:hover {
+  background-color:#002ead;
+  transition: 0.7s;
 }
 
 .active, .btn:hover {
@@ -36,6 +39,25 @@
   align-items: flex-start;
 }
 
-.demo-section + .demo-section {
-  margin-bottom: 5px!important;
+::ng-deep .demo-section + .demo-section {
+  margin-bottom: 50px!important;
+}
+
+
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 24px 0px !important;
+}
+
+
+.test{
+  color: #002ead;
+}
+
+
+
+::ng-deep .is-active{
+  color: #ff0000 !important;
+  width: 100%;
+  background-color: white;
+  text-align: left;
 }

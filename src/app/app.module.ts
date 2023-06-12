@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MaterialModule } from './material/material.module';
@@ -24,6 +25,7 @@ import { ApproveFormComponent } from './page/approve-form/approve-form.component
 import { ApprovedHistoryComponent } from './page/approved-history/approved-history.component';
 import { ItAssetReturnComponent } from './page/it-asset-return/it-asset-return.component';
 import { LogBookRecordComponent } from './page/log-book-record/log-book-record.component';
+import { LogBookDetailComponent } from './page/log-book-detail/log-book-detail.component';
 
 
 
@@ -44,9 +46,11 @@ import { LogBookRecordComponent } from './page/log-book-record/log-book-record.c
     ApprovedHistoryComponent,
     ItAssetReturnComponent,
     LogBookRecordComponent,
+    LogBookDetailComponent
 
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
@@ -55,6 +59,7 @@ import { LogBookRecordComponent } from './page/log-book-record/log-book-record.c
     ReactiveFormsModule, //!im
     FormsModule, //!im
     HttpClientModule,
+
 
   ],
   providers: [],

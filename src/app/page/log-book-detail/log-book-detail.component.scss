@@ -1,0 +1,16 @@
+.mg > div > P {
+  // margin: 0;
+  color: BLUE;
+}
+
+
+.mg > div > label{
+  // margin: 0;
+  // color: BLUE;
+  font-weight: 600;
+}
+
+
+::ng-deep .cdk-overlay-dark-backdrop {
+  background: rgb(159 189 187 / 88%) !important
+}

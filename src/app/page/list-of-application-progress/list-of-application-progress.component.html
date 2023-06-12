@@ -1,19 +1,22 @@
-<app-approve-form [isShow]="false" style="padding: 5rem;"></app-approve-form>
+<app-approve-form [isShow]="false"></app-approve-form>
+
+<div class="row" style="justify-content: center;">
+  <div class="col-lg-6">
+    <div *ngIf="this.comment.name" class="row showgrid " style="margin: 0rem 0rem;margin-top: 1rem;">
+      <div class="col-lg-12">
+        <label for="">{{this.comment.name}} : {{this.comment.time}}</label>
+        <!-- <input type="text" class="form-control" [(ngModel)]="this.comment.value" readonly> -->
+        <textarea class="form-control" [(ngModel)]="this.comment.value" readonly name="w3review" rows="4"></textarea>
+      </div>
+    </div>
 
 
-<div *ngIf="this.comment.name" class="row showgrid " style="margin: 5rem 20rem;margin-top: 1rem;">
-  <div class="col-lg-12">
-    <label for="">{{this.comment.name}} : {{this.comment.time}}</label>
-    <input type="text" class="form-control" [(ngModel)]="this.comment.value" readonly>
+    <div class="row showgrid " style="margin: 0rem 0rem;margin-top: 1rem;" *ngFor="let item of this.ShowComment">
+      <div class="col-lg-12">
+        <label for="">{{item.name}} : {{item.time}}</label>
+        <!-- <input type="text" class="form-control" [value]="item.value" readonly> -->
+        <textarea class="form-control" [value]="item.value" readonly name="w3review" rows="4"></textarea>
+      </div>
+    </div>
   </div>
 </div>
-
-
-<div class="row showgrid " style="margin: 1rem 20rem;margin-top: 1rem;" *ngFor="let item of this.ShowComment">
-  <div class="col-lg-12" >
-    <label for="">{{item.name}} : {{item.time}}</label>
-    <input type="text" class="form-control" [value]="item.value" readonly>
-  </div>
-</div>
-
-

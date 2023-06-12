@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { HttpService } from 'src/app/service/http.service';
 @Component({
@@ -15,17 +15,22 @@ export class SidenavComponent {
   record: any
   user: any
   data: any = []
-
+  logbook:any
+  currentPage:any
 
   @Output() dataChange: EventEmitter<any> = new EventEmitter()
 
   constructor(
     private api: HttpService,
     private route: Router,
+    private rou : ActivatedRoute
   ) { }
 
 
   ngOnInit(): void {
+
+
+
     let level = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
     // console.log("🚀 ~ file: sidenav.component.ts:18 ~ SidenavComponent ~ ngOnInit ~ level:", level)
     if (level.access == "admin") {
@@ -52,18 +57,21 @@ export class SidenavComponent {
 
     if (this.levelID[0] == 0 && this.levelID[1] == 1) {
       this.apply = [
-        { path: '/ITAssetTakeout', title: 'Takeout application form', icon: 'assets/user.png', class: '' },
-        { path: '/ItAssetReturn', title: 'Return confirmation', icon: 'assets/user.png', class: '' },
+        { path: '/ITAssetTakeout', title: 'Takeout application', icon: 'assets/Takeout.png', class: '' },
+        { path: '/ItAssetReturn', title: 'Return confirmation', icon: 'assets/return.png', class: '' },
       ]
       this.record = [
-        { path: '/AppliedList', title: 'Applied', icon: 'assets/user.png', class: '' },
-        { path: '/ApprovedHistory', title: 'Approved', icon: 'assets/user.png', class: '' },
+        { path: '/AppliedList', title: 'Applied', icon: 'assets/applied.png', class: '' },
+        { path: '/ApprovedHistory', title: 'Approved', icon: 'assets/approval.png', class: '' },
       ]
       this.page = [
-        { path: '/Approve', title: 'Approved', icon: 'assets/user.png', class: '' },
-        { path: '/LogBookRecord', title: 'Log book record', icon: 'assets/user.png', class: '' },
+        { path: '/Approve', title: 'Approved', icon: 'assets/approved.png', class: '' },
+      ]
+      this.logbook = [
+        { path: '/LogBookRecord', title: 'Log book record', icon: 'assets/logbook.png', class: '' },
       ]
     }
+
 
     this.CheckApprove()
   }

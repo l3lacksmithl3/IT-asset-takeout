@@ -20,9 +20,14 @@ export class ITAssetTakeoutComponent {
   positionName: any
   device: any
   dataShow: any = {}
-  dataApply:any
+  dataApply: any
   BugList: boolean = false
 
+  minDate :any
+  minDate_fromDate :any
+  maxDate :any
+
+  parentElement: any
   constructor(
     private api: HttpService,
     private route: Router,
@@ -33,6 +38,9 @@ export class ITAssetTakeoutComponent {
   ) { }
 
   async ngOnInit(): Promise<void> {
+    this.minDate = moment().format()
+    this.minDate_fromDate = moment().format()
+    this.maxDate = moment(this.data.FromDate).add(31, 'days').format()
 
     this.getPosition()
     let loo = await lastValueFrom(this.api.MasterUserAll())
@@ -45,18 +53,15 @@ export class ITAssetTakeoutComponent {
       }
     })
 
-
-
-
-
-
     let data = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
+
+    console.log("🚀 ~ file: it-asset-takeout.component.ts:50 ~ ITAssetTakeoutComponent ~ ngOnInit ~ data:", data)
     let IT = await lastValueFrom(this.api.getSectionITBySection({ section: "IT-SP" }))
     let Executor = await lastValueFrom(this.api.getSectionBySection({ section: data.section }))
 
     if (this.mode == 'normal') {
       this.data = {
-        name: data.name,
+        name: data.full_name,
         CorpDivDep: this.positionName,
         Reason: null,
         ITassets_1: null,
@@ -79,6 +84,8 @@ export class ITAssetTakeoutComponent {
         Apply_Date: moment().format(),
         Last_Apply_Date: moment().format()
       }
+      console.log(this.data);
+
     }
 
 
@@ -113,6 +120,34 @@ export class ITAssetTakeoutComponent {
     } else {
       this.checkRequired = false
     }
+    let max = moment(this.data.FromDate).add(31, 'days').format()
+    this.minDate = this.data.FromDate
+    this.maxDate = moment(max).format()
+    // let deff = moment(this.data.ToDate).diff(max, "day")
+    // console.log(deff);
+    // if (deff > 0) {
+    //   Swal.fire({
+    //     title: 'The maximum application period is 31 days.',
+    //     icon: 'question',
+    //     showCancelButton: true,
+    //   }).then(async r => {
+    //     if (r.isConfirmed) {
+    //       //code start
+    //        setTimeout(() => {
+    //     this.data.ToDate = moment(max).format()
+    //   }, 500);
+    //       //code end
+    //       setTimeout(() => {
+    //         Swal.fire('Success', '', 'success')
+    //       }, 200);
+    //     }
+    //   })
+
+
+    //   console.log(this.data.ToDate);
+
+    // }
+    // this.data.ToDate
   }
 
 
@@ -156,10 +191,16 @@ export class ITAssetTakeoutComponent {
         // console.log(this.data);
 
 
-        this.route.navigate(['/AppliedList']).then((v: any) => { })
         //code end
         setTimeout(() => {
-          Swal.fire('Success', '', 'success')
+          Swal.fire({
+            title: 'Success',
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000
+          }).then(v => {
+            this.route.navigate(['/AppliedList']).then((v: any) => { })
+          })
         }, 200);
       }
     })
@@ -274,22 +315,26 @@ export class ITAssetTakeoutComponent {
       this.data.ITassetsNo_3 = data3[0]["Host Name"].toUpperCase()
     }
     this.BugList = true
+
+
   }
 
 
 
 
-  mail() {
-    let login = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
-    let mail = this.data.Executor.map((d: any) =>
-      d.email
-    )
-    let data = {
-      id : this.dataApply[0]._id,
-      user: login.name,
-      section: login.section
-    }
-    let shot = lastValueFrom(this.api.sendMailFlow2(data))
-  }
+  // mail() {
+  //   let login = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
+  //   let mail = this.data.Executor.map((d: any) =>
+  //     d.email
+  //   )
+  //   let data = {
+  //     id : this.dataApply[0]._id,
+  //     user: login.name,
+  //     section: login.section
+  //   }
+  //   let shot = lastValueFrom(this.api.sendMailFlow2(data))
+  // }
+
+
 
 }

@@ -1,6 +1,7 @@
-<div class="row showgrid" style="margin: 1rem 2rem; border: solid;">
+<div class="row showgrid" style="margin: 1rem 2rem; border: solid 1px;    background-color: #ffffff26;
+box-shadow: 7px 8px 5px -5px;;">
   <div class="col pd-0 ">
-    <div class="row " style="background-color: aqua;">
+    <div class="row " style="background-color: rgb(10, 17, 17);color: white;    font-weight: normal;">
       <label class="head">List of application progress</label>
     </div>
 
@@ -12,7 +13,8 @@
 
         <div class="" style="align-self: center;">
           <div class="row" style="justify-content: center; padding: 10px">
-            <button class="btn btn" style="font-size: 14px; width: 12rem;">
+            <button class="btn btn bg"
+              style="font-size: 14px; width: 12rem;margin-left: 8px;background-image: url('./assets/wooden.jpg')">
               {{this.Applicant.code_fullname}}<br>
               {{this.Applicant.name}}<br>
               {{this.Applicant.FromDateNew}}
@@ -21,8 +23,7 @@
         </div>
         <div class="" style="align-self: center;">
           <div class="row" style="justify-content: center;">
-            <button class="btn btn-info"
-              style=" background-color: rgb(255, 255, 255); text-align: center;;border-radius: 6px; color: rgb(255, 255, 255);border: 0;margin: 2rem;">
+            <button class=" hide" style="  text-align: center;border: 0;margin: 2rem;">
               <img src="assets/right-arrow.png" style="width: 25px;"></button>
           </div>
         </div>
@@ -32,18 +33,20 @@
 
         <div class="" style="align-self: center;">
           <div class="row" style="justify-content: center;padding: 10px" *ngFor="let item of this.Applicant.Executor">
-            <button class="btn btn" style="font-size: 14px;     width: 25rem;">
+            <button class="btn btn bg"
+              style="font-size: 14px;     width: 25rem;background-image: url('./assets/wooden.jpg')">
               <span *ngIf="item.code_fullname">{{item.code_fullname}}<br></span>
-              <span *ngIf="item.name">{{item.name}}<br></span>
-              <span *ngIf="item.status">{{item.status}}<br></span>
+              <span *ngIf="item.full_name">{{item.full_name}}<br></span>
+              <span *ngIf="item.status"><B>{{item.status}}</B><br></span>
               <span *ngIf="item.Last_Apply_Date">{{item.Last_Apply_Date}}<br></span>
             </button>
           </div>
         </div>
+
+
         <div class="" style="align-self: center;">
           <div class="row" style="justify-content: center;">
-            <button class="btn btn-info"
-              style=" background-color: rgb(255, 255, 255); text-align: center;width: 5rem;border-radius: 6px; color: black;border: 0;margin: 2rem;">
+            <button class=" hide" style="  text-align: center;border: 0;margin: 2rem;">
               <img src="assets/right-arrow.png" style="width: 25px;"></button>
           </div>
         </div>
@@ -52,28 +55,30 @@
 
         <div class="" style="align-self: center;">
           <div class="row" style="justify-content: center;padding: 10px" *ngFor="let item of this.Applicant.IT">
-            <button class="btn btn" style="font-size: 14px;    width: 12rem;">
-              <span >KTC<br></span>
-              <span *ngIf="item.name">{{item.name}}<br></span>
-              <span *ngIf="item.status">{{item.status}}<br></span>
+            <button class="btn btn bg"
+              style="font-size: 14px;    width: 12rem;background-image: url('./assets/wooden.jpg')">
+              <span>KTC<br></span>
+              <span *ngIf="item.full_name">{{item.full_name}}<br></span>
+              <span *ngIf="item.status"><B>{{item.status}}</B><br></span>
               <span *ngIf="item.Last_Apply_Date">{{item.Last_Apply_Date}}<br></span>
             </button>
           </div>
         </div>
 
+
         <div class="" style="align-self: center;">
           <div class="row" style="justify-content: center;">
-            <button class="btn btn-info"
-              style=" background-color: rgb(255, 255, 255); text-align: center;width: 5rem;border-radius: 6px; color: black;border: 0;margin: 2rem;">
+            <button class=" hide" style="  text-align: center;border: 0;margin: 2rem;">
               <img src="assets/right-arrow.png" style="width: 25px;"></button>
           </div>
         </div>
 
 
 
-        <div class="" style="align-self: center;" >
+        <div class="" style="align-self: center;">
           <div class="row" style="justify-content: center; padding: 10px">
-            <button class="btn btn" style="font-size: 14px;    width: 12rem;">
+            <button class="btn btn bg"
+              style="font-size: 14px;  width: 12rem;background-image: url('./assets/wooden.jpg')">
               <span>Control Division:None<br></span>
               <span *ngIf="this.lastTime?.Last_Apply_Date">{{this.lastTime?.Last_Apply_Date}}<br></span>
             </button>
@@ -88,7 +93,6 @@
 
 
 
-
 <div class="row" style="margin: 5px 20rem">
   <div *ngIf="this.data.Approve_Status == 'reject'" class="col" style="padding: 0;text-align: end;">
     <button class="btn btn-info" style="margin: 1px;" (click)="edit()">Edit</button>
@@ -96,92 +100,98 @@
   </div>
 </div>
 
+<div class="row"  style="place-content: center;">
+  <div class="col-lg-7">
+    <div class="row showgrid"
+      style="margin: 0rem 0rem; border: solid 1px;margin-top: 0rem; background-color: #ffffff5e;box-shadow: 7px 8px 5px -5px">
+      <div class="col pd-0 ">
+        <div class="row "
+          style="background-color: rgb(10, 17, 17);color: white;    font-weight: normal;    box-shadow: 7px 7px 5px -5px;">
+          <label class="head">{{this.data?.ControlID}} : Approve IT asset takeout application form</label>
+        </div>
+        <div *ngIf="data" class="row">
+          <div class="col pd-0">
+            <div class="row showgrid">
+              <div class="col-lg-6">
+                <label for="">Name <sup style="color: red;font-size: 8px;">Required</sup> </label>
+                <input type="text" class="form-control" [(ngModel)]="this.data.name" readonly>
+              </div>
+              <div class="col-lg-6">
+                <label for="">Corp div / Div /Dep <sup style="color: red;font-size: 8px;">Required</sup> </label>
+                <input type="text" class="form-control" [(ngModel)]="this.data.CorpDivDep" readonly>
+              </div>
+            </div>
+            <div class="row showgrid">
+              <div class="col-lg-12">
+                <label for="">Reason <sup style="color: red;font-size: 8px;">Required</sup> </label>
+                <input type="text" class="form-control" [(ngModel)]="this.data.Reason" readonly>
+              </div>
+            </div>
+            <div class="row showgrid">
+              <div class="col-lg-6">
+                <label for="">Types of IT assets <sup style="color: red;font-size: 8px;">Required</sup> </label>
+                <input type="text" class="form-control" [(ngModel)]="this.data.ITassets_1" readonly>
+              </div>
+              <div class="col-lg-6">
+                <label for="">IT assets No <sup style="color: red;font-size: 8px;">Required</sup> </label>
+                <input type="text" class="form-control" [(ngModel)]="this.data.ITassetsNo_1" readonly>
+              </div>
+            </div>
+            <div class="row showgrid">
+              <div class="col-lg-6">
+                <label for="">Types of IT assets </label>
+                <input type="text" class="form-control" [(ngModel)]="this.data.ITassets_2" readonly>
+              </div>
+              <div class="col-lg-6">
+                <label for="">IT assets No </label>
+                <input type="text" class="form-control" [(ngModel)]="this.data.ITassetsNo_2" readonly>
+              </div>
+            </div>
+            <div class="row showgrid">
+              <div class="col-lg-6">
+                <label for="">Types of IT assets </label>
+                <input type="text" class="form-control" [(ngModel)]="this.data.ITassets_3" readonly>
+              </div>
+              <div class="col-lg-6">
+                <label for="">IT assets No </label>
+                <input type="text" class="form-control" [(ngModel)]="this.data.ITassetsNo_3" readonly>
+              </div>
+            </div>
 
-<div class="row showgrid" style="margin: 0rem 20rem; border: solid;margin-top: 0rem;">
-  <div class="col pd-0 ">
-    <div class="row " style="background-color: aqua;">
-      <label class="head">{{this.data?.ControlID}} : Approve IT asset takeout application form</label>
-    </div>
-    <div *ngIf="data" class="row">
-      <div class="col pd-0">
-        <div class="row showgrid">
-          <div class="col-lg-6">
-            <label for="">Name <sup style="color: red;font-size: 8px;">Required</sup> </label>
-            <input type="text" class="form-control" [(ngModel)]="this.data.name" readonly>
-          </div>
-          <div class="col-lg-6">
-            <label for="">Corp div / Div /Dep <sup style="color: red;font-size: 8px;">Required</sup> </label>
-            <input type="text" class="form-control" [(ngModel)]="this.data.CorpDivDep" readonly>
-          </div>
-        </div>
-        <div class="row showgrid">
-          <div class="col-lg-12">
-            <label for="">Reason <sup style="color: red;font-size: 8px;">Required</sup> </label>
-            <input type="text" class="form-control" [(ngModel)]="this.data.Reason" readonly>
-          </div>
-        </div>
-        <div class="row showgrid">
-          <div class="col-lg-6">
-            <label for="">Types of IT assets <sup style="color: red;font-size: 8px;">Required</sup> </label>
-            <input type="text" class="form-control" [(ngModel)]="this.data.ITassets_1" readonly>
-          </div>
-          <div class="col-lg-6">
-            <label for="">IT assets No <sup style="color: red;font-size: 8px;">Required</sup> </label>
-            <input type="text" class="form-control" [(ngModel)]="this.data.ITassetsNo_1" readonly>
-          </div>
-        </div>
-        <div class="row showgrid">
-          <div class="col-lg-6">
-            <label for="">Types of IT assets </label>
-            <input type="text" class="form-control" [(ngModel)]="this.data.ITassets_2" readonly>
-          </div>
-          <div class="col-lg-6">
-            <label for="">IT assets No </label>
-            <input type="text" class="form-control" [(ngModel)]="this.data.ITassetsNo_2" readonly>
-          </div>
-        </div>
-        <div class="row showgrid">
-          <div class="col-lg-6">
-            <label for="">Types of IT assets </label>
-            <input type="text" class="form-control" [(ngModel)]="this.data.ITassets_3" readonly>
-          </div>
-          <div class="col-lg-6">
-            <label for="">IT assets No </label>
-            <input type="text" class="form-control" [(ngModel)]="this.data.ITassetsNo_3" readonly>
-          </div>
-        </div>
+            <div class="row showgrid " style="height: 6rem;">
+              <div class="col-lg-6">
+                <label for="">From (Date) <sup style="color: red;font-size: 8px;">Required</sup> </label>
+                <br>
+                <mat-form-field class="example-full-width" style="width: 100%;">
+                  <mat-label>Choose a date</mat-label>
+                  <input matInput [matDatepicker]="picker" style="color: blue;" [(ngModel)]="this.data.FromDate"
+                    [readonly]="true">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker" disabled>
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-6">
+                <label for="">To (Date) <sup style="color: red;font-size: 8px;">Required</sup> </label>
+                <br>
+                <mat-form-field class="example-full-width" style="width: 100%;" [ngClass]="{'shake': !this.data.ToDate}">
+                  <mat-label>Choose a date</mat-label>
+                  <input matInput [matDatepicker]="picker1" style="color: blue;" [(ngModel)]="this.data.ToDate"
+                    [readonly]="true">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker1" disabled>
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
 
-        <div class="row showgrid " style="height: 6rem;">
-          <div class="col-lg-6">
-            <label for="">From (Date) <sup style="color: red;font-size: 8px;">Required</sup> </label>
-            <br>
-            <mat-form-field class="example-full-width" style="width: 100%;">
-              <mat-label>Choose a date</mat-label>
-              <input matInput [matDatepicker]="picker" style="color: blue;" [(ngModel)]="this.data.FromDate"
-                [readonly]="true">
-              <mat-datepicker-toggle matIconSuffix [for]="picker" disabled>
-              </mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="col-lg-6">
-            <label for="">To (Date) <sup style="color: red;font-size: 8px;">Required</sup> </label>
-            <br>
-            <mat-form-field class="example-full-width" style="width: 100%;" [ngClass]="{'shake': !this.data.ToDate}">
-              <mat-label>Choose a date</mat-label>
-              <input matInput [matDatepicker]="picker1" style="color: blue;" [(ngModel)]="this.data.ToDate"
-                [readonly]="true">
-              <mat-datepicker-toggle matIconSuffix [for]="picker1" disabled>
-              </mat-datepicker-toggle>
-              <mat-datepicker #picker1></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
+            <div class="row showgrid">
+              <div class="col-lg-12">
+                <label for="">Special note①</label>
+                <input type="text" class="form-control" [(ngModel)]="this.data.SpecialNote" readonly>
 
-        <div class="row showgrid">
-          <div class="col-lg-12">
-            <label for="">Special note①</label>
-            <input type="text" class="form-control" [(ngModel)]="this.data.SpecialNote" readonly>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -190,29 +200,37 @@
 </div>
 
 
-<div *ngIf="isShow" class="row showgrid " style="margin: 0rem 20rem;margin-top: 1rem;" >
-  <div class="col-lg-12 pt-3" *ngFor="let item of this.DataComment">
-    <label for="">{{item.name}} : {{item.Last_Apply_Date}}</label>
-    <input type="text" class="form-control" [value]="item.Comment" readonly>
+<div class="row" style="justify-content: center;">
+  <div class="col-lg-6">
+    <div *ngIf="isShow" class="row showgrid " style="margin: 0rem 0rem;margin-top: 1rem;">
+      <div class="col-lg-12 pt-3" style="padding: 0;" *ngFor="let item of this.DataComment">
+        <label for="">{{item.name}} : {{item.Last_Apply_Date}}</label>
+        <textarea class="form-control" [value]="item.Comment" readonly name="w3review" rows="4"></textarea>
+        <!-- <input type="text" class="form-control" [value]="item.Comment" readonly> -->
+      </div>
+    </div>
+
+
+    <div *ngIf="isShow" class="row showgrid " style="margin: 0rem 0rem;margin-top: 1rem;">
+      <div class="col-lg-12" style="padding: 0;">
+        <label for="">Comment</label><br>
+        <textarea class="form-control" [(ngModel)]="this.comment" name="w3review" rows="4"></textarea>
+        <!-- <input type="text" class="form-control" [(ngModel)]="this.comment"> -->
+      </div>
+    </div>
+
+
+    <div *ngIf="isShow" class="row showgrid pt-2" style="place-content: center;">
+      <div class="" *ngIf="!this.lastApprove" style="padding: 15px;">
+        <button class="btn btn-info" (click)="Approve_yes()">Approve</button>
+      </div>
+      <div class="" *ngIf="!this.lastApprove" style="padding: 15px;">
+        <button class="btn btn-info" (click)="Approve_no()">Reject</button>
+      </div>
+      <label *ngIf="this.lastApprove && !this.reject">Approved by {{this.lastApprove}}</label>
+      <label *ngIf="this.lastApprove && this.reject">The request was rejected</label>
+    </div>
   </div>
 </div>
 
 
-<div *ngIf="isShow" class="row showgrid " style="margin: 0rem 20rem;margin-top: 1rem;">
-  <div class="col-lg-12">
-    <label for="">Comment</label>
-    <input type="text" class="form-control" [(ngModel)]="this.comment">
-  </div>
-</div>
-
-
-<div *ngIf="isShow" class="row showgrid pt-2" style="place-content: center;">
-  <div class="" *ngIf="!this.lastApprove" style="padding: 15px;">
-    <button class="btn btn-info" (click)="Approve_yes()">Approve</button>
-  </div>
-  <div class="" *ngIf="!this.lastApprove" style="padding: 15px;">
-    <button class="btn btn-info" (click)="Approve_no()">Reject</button>
-  </div>
-  <label *ngIf="this.lastApprove && !this.reject">Approved by {{this.lastApprove}}</label>
-  <label *ngIf="this.lastApprove && this.reject">The request was rejected</label>
-</div>

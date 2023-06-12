@@ -20,7 +20,7 @@
 .head{
   display: flex;
   align-items: center;
-  height: 2rem;
+  // height: 0rem;
   margin-left: 15px;
   padding-left: 5px;
   margin-bottom: 0;
@@ -47,4 +47,52 @@ input{
   80% { transform: translate(-1px, -1px) rotate(1deg); }
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+
+.bg {
+  /* The image used */
+  // background-image: url('./assets/wooden.jpg');
+
+  /* Full height */
+  // height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 4px 7px 8px -4px;
+  cursor: default !important;
+}
+
+
+.hide {
+  background-color: transparent;
+  // background-repeat: no-repeat;
+  border: none;
+  // cursor: default;
+  overflow: hidden;
+  outline: none;
+  cursor: default !important;
+}
+
+.hide :active{
+  border: none;
+  color: none !important;
+  cursor: default !important;
+}
+
+
+::ng-deep.hide :focus{
+  box-shadow: none !important
+}
+
+.btn:focus, .btn.focus {
+  outline: 0;
+
+}
+
+
+.btn{
+  cursor: pointer;
 }

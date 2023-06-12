@@ -63,7 +63,9 @@ export class ApproveFormComponent {
         }
         this.ShowFlowApplied()
         this.checkApproveSuccess()
-        if (!this.id && this.user.name != this.data.name) {
+        console.log(this.data);
+
+        if (!this.id && this.user.full_name != this.data.name) {
           this.read()
         }
         this.ShowComment()
@@ -132,12 +134,19 @@ export class ApproveFormComponent {
 
         }
 
-        this.router.navigate(['/Approve']).then((v: any) => {
-          window.location.reload()
-        })
+        // this.router.navigate(['/Approve']).then((v: any) => {
+        //   window.location.reload()
+        // })
         //code end
         setTimeout(() => {
-          Swal.fire('Success', '', 'success')
+          Swal.fire({
+            title:'Success',
+            icon:"success",
+            showConfirmButton:false,
+            timer:2000
+          }).then(v=>{
+            this.router.navigate(['/Approve']).then((v: any) => { })
+          })
         }, 200);
       }
     })
@@ -154,7 +163,7 @@ export class ApproveFormComponent {
       if (r.isConfirmed) {
         //code start
 
-        console.log(this.data);
+        // console.log(this.data);
 
         if (this.data.Approve_Step == 1) {
           this.data.Executor = this.data.Executor.map((d: any) => {
@@ -207,12 +216,19 @@ export class ApproveFormComponent {
 
 
         let update = lastValueFrom(this.api.ApproveUpdate(this.data._id, this.data))
-        this.router.navigate(['/Approve']).then((v: any) => {
-          window.location.reload()
-        })
+        // this.router.navigate(['/Approve']).then((v: any) => {
+        //   window.location.reload()
+        // })
         //code end
         setTimeout(() => {
-          Swal.fire('Success', '', 'success')
+          Swal.fire({
+            title:'Success',
+            icon:"success",
+            showConfirmButton:false,
+            timer:2000
+          }).then(v=>{
+            this.router.navigate(['/Approve']).then((v: any) => { })
+          })
         }, 200);
       }
     })
@@ -221,7 +237,9 @@ export class ApproveFormComponent {
 
 
   async ShowFlowApplied() {
+
     this.Applicant = this.data
+    console.log(this.Applicant);
     this.Applicant.code_abbname = this.user.code_abbname
     this.Applicant.code_fullname = this.user.code_fullname
     var format = 'YYYY/MM/DD HH:mm:ss';
@@ -305,14 +323,14 @@ export class ApproveFormComponent {
     if (this.data.Approve_Step == 1) {
       this.data.Executor = this.data.Executor.map((d: any) => {
         let Read
-        if (d.name == this.user.name) {
+        if (d.full_name == this.user.full_name) {
           Read = "Read"
           return {
             ...d,
             status: Read,
           }
         }
-        if (d.name != this.user.name) {
+        if (d.full_name != this.user.full_name) {
           return {
             ...d,
           }
@@ -324,14 +342,14 @@ export class ApproveFormComponent {
       this.data.IT = this.data.IT.map((d: any) => {
         let Read
 
-        if (d.name == this.user.name) {
+        if (d.full_name == this.user.full_name) {
           Read = "Read"
           return {
             ...d,
             status: Read,
           }
         }
-        if (d.name != this.user.name) {
+        if (d.full_name != this.user.full_name) {
           return {
             ...d,
           }
@@ -364,20 +382,20 @@ export class ApproveFormComponent {
   }
 
 
-  mail() {
-    let login = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
-    let mail = this.data.Executor.map((d: any) =>
-      d.email
-    )
-    let data = {
-      id : this.data._id,
-      user: login.name,
-      section: login.section
-    }
-    let shot = lastValueFrom(this.api.sendMailFlow1(data))
-    console.log(shot);
+  // mail() {
+  //   let login = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
+  //   let mail = this.data.Executor.map((d: any) =>
+  //     d.email
+  //   )
+  //   let data = {
+  //     id : this.data._id,
+  //     user: login.name,
+  //     section: login.section
+  //   }
+  //   let shot = lastValueFrom(this.api.sendMailFlow1(data))
+  //   console.log(shot);
 
-  }
+  // }
 
   // this.lastApprove && !this.reject"
 }

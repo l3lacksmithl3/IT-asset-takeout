@@ -1,11 +1,11 @@
 <mat-expansion-panel hideToggle style="box-shadow: none;">
   <mat-expansion-panel-header style="padding: 0px;">
-    <button class="btn " style="width: 100%; background-color: white; text-align: left;"><img src="assets/user.png"
+    <button class="btn " style="width: 100%; background-color: white; text-align: left;"><img src="assets/clipboard.png"
         style="width: 25px;margin-right: 5px;margin-bottom: 4px;">Apply IT Asset</button>
   </mat-expansion-panel-header>
-  <div style="width: 10rem; " *ngFor="let item of apply">
-    <button class="btn " style="width: 100%; background-color: white; text-align: left;" (click)="onClick()"
-      [routerLink]="[item.path]"><img [src]="item.icon"
+  <div style="width: 50%; " *ngFor="let item of apply">
+    <button class="btn " style="width: 50%; background-color: white; text-align: left;" (click)="onClick()"
+      [routerLink]="[item.path]" [routerLinkActive]="['is-active']"><img [src]="item.icon"
         style="width: 25px;margin-right: 5px;margin-bottom: 4px;">{{item.title}}</button>
   </div>
 </mat-expansion-panel>
@@ -13,18 +13,28 @@
 
 <mat-expansion-panel hideToggle style="box-shadow: none;">
   <mat-expansion-panel-header style="padding: 0px;">
-    <button class="btn " style="width: 100%; background-color: white; text-align: left;"><img src="assets/user.png"
-        style="width: 25px;margin-right: 5px;margin-bottom: 4px;">History</button>
+    <button class="btn" style="width: 100%; background-color: white; text-align: left;"><img
+        src="assets/history-book.png" style="width: 25px;margin-right: 5px;margin-bottom: 4px;">History</button>
   </mat-expansion-panel-header>
-  <div style="width: 10rem; " *ngFor="let item of record">
+  <div style="width: 100%; " *ngFor="let item of record">
     <button class="btn " style="width: 100%; background-color: white; text-align: left;" (click)="onClick()"
-      [routerLink]="[item.path]"><img [src]="item.icon"
+      [routerLink]="[item.path]" [routerLinkActive]="['is-active']"><img [src]="item.icon"
         style="width: 25px;margin-right: 5px;margin-bottom: 4px;">{{item.title}}</button>
   </div>
 </mat-expansion-panel>
 
 <div style="width: auto; " *ngFor="let item of page">
-  <button  class="btn demo-section" (click)="onClick()"   [matBadge]="this.data.length" [matBadgeHidden]="this.data.length == 0" matBadgeColor="warn"
-    style="width: 100%; background-color: white; text-align: left;" [routerLink]="[item.path]"><img [src]="item.icon"
+  <button class="btn demo-section" (click)="onClick()" [matBadge]="this.data.length"
+    [matBadgeHidden]="this.data.length == 0" matBadgeColor="warn"
+    style="width: 100%; background-color: white; text-align: left;" [routerLink]="[item.path]"
+    [routerLinkActive]="['is-active']"><img [src]="item.icon"
+      style="width: 25px;margin-right: 5px;margin-bottom: 4px;">{{item.title}}</button>
+</div>
+
+
+<div style="width: 100%; " *ngFor="let item of logbook">
+  <button [ngClass]="{'test': currentPage ==='/ApprovedHistory'}" class="btn"
+    style="width: 100%; background-color: white; text-align: left;" (click)="onClick()" [routerLink]="[item.path]"
+    [routerLinkActive]="['is-active']"><img [src]="item.icon"
       style="width: 25px;margin-right: 5px;margin-bottom: 4px;">{{item.title}}</button>
 </div>
