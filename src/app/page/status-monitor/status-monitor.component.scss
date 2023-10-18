@@ -1,0 +1,46 @@
+.status-monitor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-item {
+  width: 50px;
+  height: 50px;
+  background-color: #ccc;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #fff;
+}
+
+.status-item.active {
+  background-color: #007bff;
+}
+
+.status-item.pass {
+  background-color: #007bff3a;
+}
+
+
+.status{
+  text-align-last: center;
+  align-self: center;
+}
+
+.img_1{
+  width: 25px;height: auto
+}
+
+
+.set_width{
+  width: 20%;
+}
+
+
+.set_panding{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}

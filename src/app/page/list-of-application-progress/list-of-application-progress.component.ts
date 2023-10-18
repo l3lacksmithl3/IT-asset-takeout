@@ -22,6 +22,7 @@ export class ListOfApplicationProgressComponent {
   comment: any = {}
 
   ShowComment: any = []
+  show:boolean = true
 
   constructor(
     private api: HttpService,
@@ -31,39 +32,6 @@ export class ListOfApplicationProgressComponent {
 
 
   async ngOnInit(): Promise<void> {
-    this.user = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
-
-    let id = JSON.parse(`${localStorage.getItem("IT-asset-takeout-ViewApprove")}`)
-    let res = await lastValueFrom(this.api.getDataApprove({ _id: id }))
-    this.data = res[0]
-    if (this.data) {
-      let flow = await lastValueFrom(this.api.getSectionBySection({ section: this.data.section }))
-      let flowIT = await lastValueFrom(this.api.getSectionITBySection({ section: "IT-SP" }))
-      this.Applicant = this.data
-      this.Executor = flow[0].value
-      this.ItExecutor = flowIT[0].value
-      var format = 'YYYY/MM/DD HH:mm:ss';
-      this.Applicant.FromDate = moment(this.Applicant.FromDate).format(format)
-
-    }
-    for (const item of this.data.Executor) {
-      if (item.status == "Reject") {
-        this.comment.name = item.name
-        this.comment.value = item.Comment
-        this.comment.time = moment(item.lastUpdate).format("YYYY/MM/DD HH:mm:ss")
-      }
-    }
-    for (const item of this.data.IT) {
-      if (item.status == "Reject") {
-        this.comment.name = item.name
-        this.comment.value = item.Comment
-        this.comment.time = moment(item.lastUpdate).format("YYYY/MM/DD HH:mm:ss")
-      }
-    }
-
-    if (this.data.name != this.user.name) {
-      this.ShowCommentForHistory()
-    }
 
   }
 
@@ -82,7 +50,11 @@ export class ListOfApplicationProgressComponent {
         time: moment(d.lastUpdate).format("YYYY/MM/DD HH:mm:ss")
       }
     })
-    console.log(this.ShowComment);
+    setTimeout(() => {
+      this.show = false
+    }, 1000);
+
+    // console.log(this.ShowComment);
   }
 
 }

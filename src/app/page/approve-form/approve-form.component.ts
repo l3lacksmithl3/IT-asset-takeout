@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input,Output } from '@angular/core';
 import Swal from 'sweetalert2';
 import { lastValueFrom } from 'rxjs';
 import { HttpService } from 'src/app/service/http.service';
@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { NgxUiLoaderService } from "ngx-ui-loader";
 
 
 @Component({
@@ -16,8 +17,12 @@ import * as moment from 'moment';
 export class ApproveFormComponent {
   data: any = {}
   user: any
-
+  moment: any = moment
   @Input() isShow: any
+  @Input() data_status: any
+
+
+
   Applicant: any = []
   Executor: any = []
   ItExecutor: any = []
@@ -26,376 +31,422 @@ export class ApproveFormComponent {
   reject: any
   comment: any
   DataComment: any = []
-
+  show: boolean = true
   lastTime: any
+  compare: any
+  ShowComments: any = []
+  CommentReject: any = {}
+  reserve: any
+  ControlID: any
+  type: any
+
+  mode: any
+  check_approve: boolean = false
+
 
   constructor(
     private api: HttpService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private ngxService: NgxUiLoaderService
   ) { }
 
 
   async ngOnInit(): Promise<void> {
+    this.ngxService.start()
+
+    // this.loading()
     this.route.queryParams.subscribe(async res => {
       this.user = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
-      this.id = res['id']
+      this.reject = res['reject']
+      let view_takeout = res['view_takeout']
+      let view_return = res['view_return']
 
 
-      if (this.id) {
-        let data = await lastValueFrom(this.api.getDataApprove({ _id: this.id }))
-        if (data.length > 0) {
-          this.data = data[0]
-          this.ShowFlowApplied()
-          this.checkApproveSuccess()
-          this.isShow = true
-          this.ShowComment()
-        }
+
+      let approve = res['approve']
+
+
+      if (res['view_takeout']) {
+        this.mode = null
+        let res = await lastValueFrom(this.api.getDataApprove({ _id: view_takeout }))
+        this.data = res[0].takeout
+        this.type = 1
+        this.mode = 2
+        this.ControlID = res[0].ControlID
+      }
+
+      if (res['view_return']) {
+        this.mode = null
+        let res = await lastValueFrom(this.api.getDataApprove({ _id: view_return }))
+        this.data = res[0].return
+        this.type = 2
+        this.mode = 2
+        this.ControlID = res[0].ControlID
       }
 
 
-      if (!this.id) {
+      if (res['approve']) {
+        let res = await lastValueFrom(this.api.getDataApprove({ _id: approve }))
+        this.user.level == 3 ? this.mode = 1 : this.mode = 1
+        if (res[0].return) {
+          this.data = res[0].return
+          this.type = 2
+        } else {
+          this.data = res[0].takeout
+          this.type = 1
+        }
+        this.id = approve
+        this.ControlID = res[0].ControlID
+      }
+
+
+
+      if (res['reject']) {
+        this.mode = 0
+        let res = await lastValueFrom(this.api.getDataApprove({ _id: this.reject }))
+        console.log(res);
+
+        if (res[0].return) {
+          this.data = res[0].return
+          this.type = 2
+        } else {
+          this.data = res[0].takeout
+          this.type = 1
+        }
+        this.data.reason = res[0].reason
+        console.log(this.data.comment);
+        this.ControlID = res[0].ControlID
+      }
+
+
+      if (Object.keys(res).length === 0) {
         let id = JSON.parse(`${localStorage.getItem("IT-asset-takeout-ViewApprove")}`)
+        this.mode = 2
         let res = await lastValueFrom(this.api.getDataApprove({ _id: id }))
-        this.data = res[0]
-        if (this.isShow == undefined) {
-          this.isShow = true
+        if (res[0].return) {
+          this.data = res[0].return
+          this.type = 2
+        } else {
+          this.data = res[0].takeout
+          this.type = 1
         }
-        this.ShowFlowApplied()
-        this.checkApproveSuccess()
-        console.log(this.data);
-
-        if (!this.id && this.user.full_name != this.data.name) {
-          this.read()
+        this.ControlID = res[0].ControlID
+        let reject = JSON.parse(`${localStorage.getItem("IT-asset-takeout-ViewApprove-type")}`)
+        if (reject?.ApplyStatus == 'Reject') {
+          this.mode = 0
         }
-        this.ShowComment()
+        this.data.reason = res[0].reason
       }
+
+      this.data_status = {...this.data}
+      this.data_status.type = 'takeout'
+      this.ngxService.stop()
     })
+
+
+
 
   }
 
 
+
+
   Approve_yes() {
+    Swal.close()
     Swal.fire({
       title: 'Do you want to approve ?',
       icon: 'question',
       showCancelButton: true,
     }).then(async r => {
       if (r.isConfirmed) {
-
-        if (this.data.Approve_Step == 1) {
-          this.data.Executor = this.data.Executor.map((d: any) => {
-            if (d.name == this.user.name) {
+        let data = await lastValueFrom(this.api.getDataApprove({ _id: this.id }))
+        if (data[0].return) {
+          if (data[0].return.Approve_Step == 2) {
+            Swal.fire(`Approved`, '', 'info').then(async (result) => {
+              window.location.reload()
+            })
+          }
+          if (data[0].return.Approve_Step == 0) {
+            Swal.fire(`Reject`, '', 'info').then(async (result) => {
+              window.location.reload()
+            })
+          }
+          if (data[0].return.Approve_Step == 1) {
+            let aoo = data[0].return.item.filter((d: any) => d.return)
+            aoo = aoo.map((e: any) => {
               return {
-                ...d,
-                status: "Approve",
-                Comment: this.comment,
-                Last_Apply_Date: moment().format('YYYY/MM/DD HH:mm:ss')
+                ...e,
+                Approve_by: this.user.name,
+                Approve_employee: this.user.employee,
+                Approve_time: moment().format()
               }
-            }
-            if (d.name != this.user.name) {
-              return {
-                ...d,
-                Last_Apply_Date: moment().format('YYYY/MM/DD HH:mm:ss')
+            })
+            console.log(aoo);
+
+            data[0].return.item = data[0].return.item.map((d: any) => {
+              const foo = aoo.find((a: any) => a.value == d.value)
+              if (foo) {
+                return {
+                  ...foo
+                }
+              } else {
+                return {
+                  ...d
+                }
               }
-            }
 
-          })
-          this.data.Approve_Status = "Approve"
+            })
+
+            let update = await lastValueFrom(this.api.ApproveUpdate(this.id, data[0]))
+            this.update_status_asset()
+          }
+
+        } else {
+          if (data[0].takeout.Approve_Step == 2) {
+            Swal.fire(`Approved`, '', 'info').then(async (result) => {
+              window.location.reload()
+            })
+          }
+          if (data[0].takeout.Approve_Step == 0) {
+            Swal.fire(`Reject`, '', 'info').then(async (result) => {
+              window.location.reload()
+            })
+          }
+          if (data[0].takeout.Approve_Step == 1) {
+            data[0].takeout.Approve_Step = data[0].takeout.Approve_Step + 1
+            data[0].takeout.Approve_by = this.user.name
+            data[0].takeout.Approve_employee = this.user.employee
+            data[0].takeout.Approve_time = moment().format()
+            data[0].takeout.Apply_Date_Latest = moment().format()
+            this.sendMail_2(this.id, data[0])
+
+            let update = await lastValueFrom(this.api.ApproveUpdate(this.id, data[0]))
+            this.set_return()
+            this.Success_alert()
+          }
         }
-
-        if (this.data.Approve_Step == 2) {
-          this.data.IT = this.data.IT.map((d: any) => {
-            if (d.name == this.user.name) {
-              return {
-                ...d,
-                status: "Approve",
-                Comment: this.comment,
-                Last_Apply_Date: moment().format('YYYY/MM/DD HH:mm:ss')
-              }
-            }
-            if (d.name != this.user.name) {
-              return {
-                ...d,
-                Last_Apply_Date: moment().format('YYYY/MM/DD HH:mm:ss')
-              }
-            }
-          })
-          this.data.Approve_Status = "Approve"
-        }
-
-        this.data.Approve_Step++
-        this.data.Last_Apply_Date = moment().format('YYYY/MM/DD HH:mm:ss')
-        if (this.data.Approve_Step == 3) {
-          this.data.Apply_Status = "Complete"
-        }
-        let update = await lastValueFrom(this.api.ApproveUpdate(this.data._id, this.data))
-        if (update && this.data.Approve_Step <= 2) {
-
-        }
-
-        // this.router.navigate(['/Approve']).then((v: any) => {
-        //   window.location.reload()
-        // })
-        //code end
-        setTimeout(() => {
-          Swal.fire({
-            title:'Success',
-            icon:"success",
-            showConfirmButton:false,
-            timer:2000
-          }).then(v=>{
-            this.router.navigate(['/Approve']).then((v: any) => { })
-          })
-        }, 200);
       }
     })
+  }
 
+  async set_return() {
+    let data = await lastValueFrom(this.api.getDataApprove({ _id: this.id }))
+    data[0].takeout.Approve_Step = 1
+    let update = await lastValueFrom(this.api.ApproveUpdate(this.id, { return: data[0].takeout }))
+  }
+
+
+
+  Success_alert() {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Success',
+      showConfirmButton: false,
+      timer: 1500,
+    }).then(async (result) => {
+      this.router.navigate(['/Approve']).then((v: any) => { })
+    })
   }
 
 
   Approve_no() {
     Swal.fire({
       title: 'Do you want to reject ?',
-      icon: 'question',
+      input: 'textarea', // ให้มีกรอบกรอกข้อมูล reason
       showCancelButton: true,
-    }).then(async r => {
-      if (r.isConfirmed) {
-        //code start
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Cancel',
+      inputValidator: (value) => {
+        return value ? null : 'Please provide a reason !';
+      },
+    }).then(async (result) => {
+      if (result.isConfirmed && result.value) {
+        Swal.close()
+        const reason = result.value;
+        let res = await lastValueFrom(this.api.getDataApprove({ _id: this.id }))
+        res[0].reject = true
+        res[0].reason = {
+          name: this.user.name,
+          comment: reason,
+          date: moment().format()
+        }
+        if (res[0].return) {
 
-        // console.log(this.data);
 
-        if (this.data.Approve_Step == 1) {
-          this.data.Executor = this.data.Executor.map((d: any) => {
-            if (d.name == this.user.name) {
-              return {
-                ...d,
-                Comment: this.comment,
-                status: "Reject",
-                lastUpdate: moment().format()
-              }
-            }
-            if (d.name != this.user.name) {
-              return {
-                ...d,
-              }
-            }
-          })
-          this.data.IT = this.data.IT.map((d: any) => {
-            delete d.status
-            return {
-              ...d,
-            }
-          })
-          this.data.Approve_Status = "reject"
-          this.data.Approve_Step = 1
-          this.data.Apply_Status = "Reject"
+          res[0].return.Approve_Step = 0
+
+        } else {
+          if (res[0].takeout.Approve_Step == 2) {
+            Swal.fire(`Approved`, '', 'info').then(async (result) => {
+              window.location.reload()
+            })
+          }
+          if (res[0].takeout.Approve_Step == 0) {
+            Swal.fire(`Reject`, '', 'info').then(async (result) => {
+              window.location.reload()
+            })
+          }
+          if (res[0].takeout.Approve_Step == 1) {
+            res[0].takeout.Approve_Step = 0
+            this.reject_mail(this.id, res[0])
+            let update = await lastValueFrom(this.api.ApproveUpdate(this.id, res[0]))
+            this.update_status_asset()
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Success',
+              showConfirmButton: false,
+              timer: 1500,
+            }).then(async (result) => {
+              this.router.navigate(['/Approve']).then((v: any) => { })
+            })
+          }
         }
 
-        if (this.data.Approve_Step == 2) {
-          this.data.IT = this.data.IT.map((d: any) => {
-            if (d.name == this.user.name) {
-              return {
-                ...d,
-                Comment: this.comment,
-                status: "Reject",
-                lastUpdate: moment().format()
-              }
-            }
-            if (d.name != this.user.name) {
-              return {
-                ...d,
-              }
-            }
-          })
-          this.data.Approve_Status = "reject"
-          this.data.Approve_Step = 1
-          this.data.Apply_Status = "Reject"
-        }
-        console.log(this.data);
+        //
 
-
-        let update = lastValueFrom(this.api.ApproveUpdate(this.data._id, this.data))
-        // this.router.navigate(['/Approve']).then((v: any) => {
-        //   window.location.reload()
-        // })
-        //code end
-        setTimeout(() => {
-          Swal.fire({
-            title:'Success',
-            icon:"success",
-            showConfirmButton:false,
-            timer:2000
-          }).then(v=>{
-            this.router.navigate(['/Approve']).then((v: any) => { })
-          })
-        }, 200);
       }
-    })
+    });
+
 
   }
 
 
   async ShowFlowApplied() {
-
     this.Applicant = this.data
-    console.log(this.Applicant);
     this.Applicant.code_abbname = this.user.code_abbname
     this.Applicant.code_fullname = this.user.code_fullname
     var format = 'YYYY/MM/DD HH:mm:ss';
-    this.Applicant.FromDateNew = moment(this.Applicant.FromDate).format(format)
-    this.lastTime = this.data.IT[0]
-  }
+    this.Applicant.FromDateNew = moment(this.Applicant.Apply_Date).format(format)
 
 
-  checkApproveSuccess() {
-    let lastName
-    if (this.data.Approve_Status == "reject") {
-      lastName = "2"
-      this.reject = "reject"
-    }
-
-    if (this.data.Approve_Step == 2) {
-      let CheckHaveName = this.data.Executor.filter((d: any) => d.name == this.user.name)
-      if (CheckHaveName.length > 0) {
-        for (const item of this.data.Executor) {
-          if (item.status == "Approve") {
-            lastName = item.name
-          }
-        }
-      }
-    }
-
-    if (this.data.Approve_Step == 3) {
-      let CheckHaveName = this.data.IT.filter((d: any) => d.name == this.user.name)
-      if (CheckHaveName.length > 0) {
-        for (const item of this.data.IT) {
-          if (item.status == "Approve") {
-            lastName = item.name
-          }
-        }
-      }
-    }
-    // console.log(lastName);
-
-    if (this.id) {
-      this.lastApprove = lastName
-    }
-    // console.log(this.reject);
-
-    // console.log(this.lastApprove);
-
-    // console.log("🚀 ~ file: approve-form.component.ts:172 ~ ApproveFormComponent ~ oop ~  this.lastApprove:", this.lastApprove)
+    // this.lastTime = this.data.IT[0]
+    setTimeout(() => {
+      Swal.close()
+      this.show = false
+      this.ngxService.stop()
+    }, 1000);
 
   }
 
+
+
+
+  edit() {
+    let id = JSON.parse(`${localStorage.getItem("IT-asset-takeout-ViewApprove")}`)
+    if (this.reject?.length > 0) {
+      id = this.reject
+    }
+    console.log(this.id);
+    console.log("askdkaskdk");
+
+
+    this.router.navigate(['/ITAssetTakeout'], {
+      relativeTo: this.route,
+      queryParams: { id: id }
+    });
+
+  }
 
   async cancel() {
+    Swal.close()
     Swal.fire({
       title: 'Do you want to cancel data ?',
       icon: 'question',
       showCancelButton: true,
     }).then(async r => {
       if (r.isConfirmed) {
-        //code startAppliedList
-        let data = await lastValueFrom(this.api.delDataApprove({ _id: this.data._id }))
+        //code start
+        let id = JSON.parse(`${localStorage.getItem("IT-asset-takeout-ViewApprove")}`)
+        let data = await lastValueFrom(this.api.delDataApprove({ _id: id }))
         this.router.navigate(['/AppliedList']).then((v: any) => {
         })
         //code end
         setTimeout(() => {
+          Swal.close()
           Swal.fire('Success', '', 'success')
         }, 200);
       }
     })
   }
 
-  edit() {
-    this.router.navigate(['/ITAssetTakeout'], {
-      relativeTo: this.route,
-      queryParams: { id: this.data._id },
-      queryParamsHandling: 'merge'
-    });
-  }
 
 
-
-  read() {
-    if (this.data.Approve_Step == 1) {
-      this.data.Executor = this.data.Executor.map((d: any) => {
-        let Read
-        if (d.full_name == this.user.full_name) {
-          Read = "Read"
-          return {
-            ...d,
-            status: Read,
-          }
+  async update_status_asset() {
+    for (const item of this.data.item) {
+      let data = await lastValueFrom(this.api.getAssetByID({
+        'Host Name': {
+          '$in': [
+            item.value.toUpperCase(), item.value.toLowerCase()
+          ]
         }
-        if (d.full_name != this.user.full_name) {
-          return {
-            ...d,
-          }
-        }
-
-      })
-    }
-    if (this.data.Approve_Step == 2) {
-      this.data.IT = this.data.IT.map((d: any) => {
-        let Read
-
-        if (d.full_name == this.user.full_name) {
-          Read = "Read"
-          return {
-            ...d,
-            status: Read,
-          }
-        }
-        if (d.full_name != this.user.full_name) {
-          return {
-            ...d,
-          }
+      }))
+      data = data.map((e: any) => {
+        return {
+          ...e,
+          status_return: "available",
+          status_latest_user: " "
         }
       })
+      let update_asset_item = lastValueFrom(this.api.updateAsset(data[0]._id, data[0]))
     }
-
-    let update = lastValueFrom(this.api.ApproveUpdate(this.data._id, this.data))
-
   }
 
 
 
 
-  ShowComment() {
-    if (this.data) {
-      for (const item of this.data.Executor) {
-        if (item.Comment) {
-          this.DataComment.push(item)
-        }
-      }
-      for (const item of this.data.IT) {
-        if (item.Comment) {
-          this.DataComment.push(item)
-        }
-      }
+  async sendMail_2(id: any, data: any) {
+    let mail_data = {
+      _id: id,
+      requester: data?.takeout.name,
+      ControlID: data?.ControlID,
+      requester_mail: data?.takeout.email,
+      asset: data?.takeout.item
     }
+    let Mail_Takeout_success = lastValueFrom(this.api.Takeout_success(mail_data))
+    console.log(mail_data);
+  }
 
-
+  async sendMail_1(id: any, data: any) {
+    let mail_data = {
+      _id: id,
+      requester: data?.takeout.name,
+      ControlID: data?.ControlID,
+      requester_mail: data?.takeout.email,
+      asset: data?.takeout.item
+    }
+    let Mail_Return_success = lastValueFrom(this.api.Return_success(mail_data))
+    console.log(mail_data);
   }
 
 
-  // mail() {
-  //   let login = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
-  //   let mail = this.data.Executor.map((d: any) =>
-  //     d.email
-  //   )
-  //   let data = {
-  //     id : this.data._id,
-  //     user: login.name,
-  //     section: login.section
-  //   }
-  //   let shot = lastValueFrom(this.api.sendMailFlow1(data))
-  //   console.log(shot);
 
-  // }
+  async reject_mail(id: any, data: any) {
+    let mail_data = {
+      _id: id,
+      requester: data?.takeout.name,
+      ControlID: data?.ControlID,
+      requester_mail: data?.takeout.email,
+      asset: data?.takeout.item,
+      reason: data?.reason,
+    }
 
-  // this.lastApprove && !this.reject"
+    let Mail_Reject = lastValueFrom(this.api.Mail_Reject(mail_data))
+
+
+
+    //TODO--------------------------------------------------------------------------------------------------------------------------------------------
+    // Takeout_success_to_div
+  }
+
+
+
+
+
+
+
+
+
 }

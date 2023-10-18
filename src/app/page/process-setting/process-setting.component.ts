@@ -150,6 +150,7 @@ export class ProcessSettingComponent {
 
 
   apple() {
+    Swal.close()
     Swal.fire({
       title: 'Do you want to update data ?',
       icon: 'question',
@@ -175,6 +176,7 @@ export class ProcessSettingComponent {
 
         //code end
         setTimeout(() => {
+          Swal.close()
           Swal.fire('Success', '', 'success')
         }, 200);
       }

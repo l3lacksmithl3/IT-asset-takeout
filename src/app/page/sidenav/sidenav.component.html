@@ -1,40 +1,72 @@
-<mat-expansion-panel hideToggle style="box-shadow: none;">
-  <mat-expansion-panel-header style="padding: 0px;">
-    <button class="btn " style="width: 100%; background-color: white; text-align: left;"><img src="assets/clipboard.png"
-        style="width: 25px;margin-right: 5px;margin-bottom: 4px;">Apply IT Asset</button>
+<mat-expansion-panel hideToggle style="box-shadow: none;background-color: inherit" [expanded]="0">
+    <button class="hideeff" (click)="refresh()"><img src="./assets/IconMain.png" alt="Italian Trulli" style="height: 40px;"></button>
+</mat-expansion-panel>
+
+<div class="pt-3" style="width: auto;padding-top : 5px" *ngFor="let item of Inventory">
+  <button class="btn demo-section" (click)="onClick()" [matBadge]="this.inventory_count?.length" [matBadgeHidden]="this.inventory_count?.length == 0" matBadgeColor="warn"
+    style="width: 100%; background-color: inherit; text-align: left;" [routerLink]="[item.path]"
+    [routerLinkActive]="['is-active']"><img [src]="item.icon"
+      style="width: 25px;margin-right: 5px;margin-bottom: 4px;">&nbsp;{{item.title}}</button>
+</div>
+<!-- {{inventory_count.length}} -->
+
+<mat-expansion-panel class="" hideToggle style="box-shadow: none;background-color: inherit" [expanded]="0">
+  <mat-expansion-panel-header style="padding: 0px;background-color:inherit">
+    <button class="btn" style="width: 100%; background-color: inherit; text-align: left;"><img
+        src="assets/clipboard.png" style="width: 25px;margin-right: 5px;margin-bottom: 4px;">&nbsp;IT
+      Asset Takeout</button>
   </mat-expansion-panel-header>
   <div style="width: 50%; " *ngFor="let item of apply">
-    <button class="btn " style="width: 50%; background-color: white; text-align: left;" (click)="onClick()"
-      [routerLink]="[item.path]" [routerLinkActive]="['is-active']"><img [src]="item.icon"
-        style="width: 25px;margin-right: 5px;margin-bottom: 4px;">{{item.title}}</button>
+    <button class="btn " style="width: 50%; background-color: inherit; text-align: left;" (click)="onClick()"
+      [routerLink]="[item.path]" [routerLinkActive]="['is-active']" [ngClass]="{'blacklist': item.title == 'Takeout application' && this.blacklist}" ><img [src]="item.icon"
+        style="width: 25px;margin-right: 5px;margin-bottom: 4px;">&nbsp;{{item.title}}</button>
   </div>
 </mat-expansion-panel>
 
 
-<mat-expansion-panel hideToggle style="box-shadow: none;">
-  <mat-expansion-panel-header style="padding: 0px;">
-    <button class="btn" style="width: 100%; background-color: white; text-align: left;"><img
-        src="assets/history-book.png" style="width: 25px;margin-right: 5px;margin-bottom: 4px;">History</button>
+<mat-expansion-panel hideToggle style="box-shadow: none;background-color: inherit" [expanded]="0">
+  <mat-expansion-panel-header style="padding: 0px;background-color:inherit">
+    <button class="btn" style="width: 100%; background-color: inherit; text-align: left;"><img
+        src="assets/history-book.png" style="width: 25px;margin-right: 5px;margin-bottom: 4px;">&nbsp;History</button>
   </mat-expansion-panel-header>
   <div style="width: 100%; " *ngFor="let item of record">
-    <button class="btn " style="width: 100%; background-color: white; text-align: left;" (click)="onClick()"
+    <button class="btn " style="width: 100%; background-color: inherit; text-align: left;" (click)="onClick()"
       [routerLink]="[item.path]" [routerLinkActive]="['is-active']"><img [src]="item.icon"
-        style="width: 25px;margin-right: 5px;margin-bottom: 4px;">{{item.title}}</button>
+        style="width: 25px;margin-right: 5px;margin-bottom: 4px;">&nbsp;{{item.title}}</button>
   </div>
 </mat-expansion-panel>
 
-<div style="width: auto; " *ngFor="let item of page">
-  <button class="btn demo-section" (click)="onClick()" [matBadge]="this.data.length"
-    [matBadgeHidden]="this.data.length == 0" matBadgeColor="warn"
-    style="width: 100%; background-color: white; text-align: left;" [routerLink]="[item.path]"
+
+<div style="width: auto;padding-top : 5px" *ngFor="let item of page">
+  <button class="btn demo-section" (click)="onClick()" [matBadge]="this.item_approve.length"
+    [matBadgeHidden]="this.item_approve.length == 0" matBadgeColor="warn"
+    style="width: 100%; background-color: inherit; text-align: left;" [routerLink]="[item.path]"
     [routerLinkActive]="['is-active']"><img [src]="item.icon"
-      style="width: 25px;margin-right: 5px;margin-bottom: 4px;">{{item.title}}</button>
+      style="width: 25px;margin-right: 5px;margin-bottom: 4px;">&nbsp;{{item.title}}</button>
 </div>
 
 
-<div style="width: 100%; " *ngFor="let item of logbook">
-  <button [ngClass]="{'test': currentPage ==='/ApprovedHistory'}" class="btn"
-    style="width: 100%; background-color: white; text-align: left;" (click)="onClick()" [routerLink]="[item.path]"
+
+
+<mat-expansion-panel hideToggle style="box-shadow: none; background-color:inherit;" *ngIf="admin">
+  <mat-expansion-panel-header style="padding: 0px;background-color: inherit;">
+    <button class="btn" style="width: 100%; background-color: inherit; text-align: left;"><img src="assets/admin.png"
+        style="width: 25px;margin-right: 9px;margin-bottom: 4px;">System administrator</button>
+  </mat-expansion-panel-header>
+  <div style="width: 100%; " *ngFor="let item of admin">
+    <button class="btn " style="width: 100%; background-color: inherit; text-align: left;" (click)="onClick()"
+      [routerLink]="[item.path]" [routerLinkActive]="['is-active']"><img [src]="item.icon"
+        style="width: 25px;margin-right: 5px;margin-bottom: 4px;">&nbsp;{{item.title}}</button>
+  </div>
+</mat-expansion-panel>
+
+
+<div class="" style="width: auto;padding-top : 5px" *ngFor="let item of this.logbook_head">
+  <button class="btn demo-section" (click)="onClick()"
+    style="width: 100%; background-color: inherit; text-align: left;" [routerLink]="[item.path]"
     [routerLinkActive]="['is-active']"><img [src]="item.icon"
-      style="width: 25px;margin-right: 5px;margin-bottom: 4px;">{{item.title}}</button>
+      style="width: 25px;margin-right: 5px;margin-bottom: 4px;">&nbsp;{{item.title}}</button>
 </div>
+
+
+

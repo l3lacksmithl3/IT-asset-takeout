@@ -1,9 +1,9 @@
-<div class="row showgrid" style="margin: 1rem 20rem; border: solid 1px;background-color: white;">
+<div [hidden]="show" class="row showgrid setCSS" style="margin: 0rem 20%;background-color: #ffffff52;">
   <div class="col pd-0 ">
-    <div class="row " style="background-color: rgb(0, 0, 0);color: white;font-weight: normal;">
-      <label class="head">IT asset takeout application form</label>
+    <div class="row bar">
+      <label class="setheader">IT asset takeout application form</label>
     </div>
-    <div *ngIf="this.data?.name" class="row">
+    <div class="row">
       <div class="col pd-0">
         <div class="row showgrid">
           <div class="col-lg-6">
@@ -17,6 +17,8 @@
               [(ngModel)]="this.data.CorpDivDep" (change)="updateInput()">
           </div>
         </div>
+
+
         <div class="row showgrid">
           <div class="col-lg-12">
             <label for="">Reason <sup style="color: red;font-size: 8px;">Required</sup> </label>
@@ -24,78 +26,108 @@
               [(ngModel)]="this.data.Reason" (change)="updateInput()">
           </div>
         </div>
+
+
         <div class="row showgrid">
           <div class="col-lg-6">
-            <label for="">Types of IT assets <sup style="color: red;font-size: 8px;">Required</sup></label>
-            <select style="color: blue;" class="form-control" (change)="dataChange();updateInput()"
-              [(ngModel)]="this.dataShow.ITassets_1" [ngClass]="{'shake': !this.dataShow.ITassets_1}">
-              <option *ngFor="let item of this.device;let i = index" [value]="item._id">{{item.Type}} ({{item["Host Name"]}}) </option>
-
-            </select>
+            <label for="">IT assets No <sup style="color: red;font-size: 8px;">Required</sup></label>
+            <form [formGroup]="stateForm_1">
+              <input class="form-control" type="text" matInput formControlName="stateGroup_1" required
+                [matAutocomplete]="autoGroup4" (keyup)="check_empty()" [readonly]="this.data.ITassets_1">
+              <mat-autocomplete #autoGroup4="matAutocomplete">
+                <mat-optgroup style="color: aqua;" *ngFor="let group of stateGroupOptions_1  | async"
+                  [label]="group.letter.toUpperCase()">
+                  <mat-option *ngFor="let name of group.names;let i = index" [value]="name.toUpperCase()"
+                    (onSelectionChange)="dataChange();updateInput();selected(name)"
+                    [ngClass]="{'blacklist': group.blacklist[i] == 'T', 'blacklist_1': group.status_return[i] == 'unavailable', 'selected': group.blacklist[i] == 'Z'}"
+                    [disabled]="(group.blacklist[i] == 'T' || group.blacklist[i] == 'Z') || group.status_return[i] == 'unavailable' "
+                    [matTooltip]="group.reason[i] || null" matTooltipPosition="above">
+                    ❁{{name.toUpperCase()}}❁
+                  </mat-option>
+                </mat-optgroup>
+              </mat-autocomplete>
+            </form>
           </div>
           <div class="col-lg-6">
-            <label for="">IT assets No <sup style="color: red;font-size: 8px;">Required</sup> </label>
-            <input type="text" class="form-control" [(ngModel)]="this.data.ITassetsNo_1" readonly>
+            <label for="">Types of IT assets <sup style="color: red;font-size: 8px;">Required</sup> </label>
+            <input type="text" class="form-control" [(ngModel)]="this.data.ITassets_1" readonly>
           </div>
-        </div>
+        </div>{{this.data.ITassets_1|json}}
+
+
         <div class="row showgrid">
-          <div class="col-lg-6">
-            <label for="">Types of IT assets </label>
-            <select style="color: blue;" class="form-control" (change)="dataChange()"
-              [(ngModel)]="this.dataShow.ITassets_2">
-              <option id="test" *ngFor="let item of this.device;let i = index" [value]="item._id">{{item.Type}}</option>
-            </select>
-
-          </div>
           <div class="col-lg-6">
             <label for="">IT assets No </label>
-            <input type="text" class="form-control" [(ngModel)]="this.data.ITassetsNo_2" readonly>
+            <form [formGroup]="stateForm_1">
+              <input class="form-control" type="text" matInput formControlName="stateGroup_2" required
+                [matAutocomplete]="autoGroup2" (keyup)="check_empty()">
+              <mat-autocomplete #autoGroup2="matAutocomplete">
+                <mat-optgroup style="color: aqua;" *ngFor="let group of stateGroupOptions_2  | async"
+                  [label]="group.letter.toUpperCase()">
+                  <mat-option *ngFor="let name of group.names;let i = index" [value]="name.toUpperCase()"
+                    (onSelectionChange)="dataChange();updateInput();selected(name)"
+                    [ngClass]="{'blacklist': group.blacklist[i] == 'T', 'blacklist_1': group.status_return[i] == 'unavailable', 'selected': group.blacklist[i] == 'Z'}"
+                    [disabled]="(group.blacklist[i] == 'T' || group.blacklist[i] == 'Z') || group.status_return[i] == 'unavailable' "
+                    [matTooltip]="group.reason[i] || null" matTooltipPosition="above">
+                    ❁{{name.toUpperCase()}}❁
+                  </mat-option>
+                </mat-optgroup>
+              </mat-autocomplete>
+            </form>
           </div>
-        </div>
-        <div class="row showgrid">
           <div class="col-lg-6">
             <label for="">Types of IT assets </label>
-            <select style="color: blue;" class="form-control" (change)="dataChange()"
-              [(ngModel)]="this.dataShow.ITassets_3">
-              <option id="test" *ngFor="let item of this.device;let i = index" [value]="item._id">{{item.Type}}</option>
-            </select>
-          </div>
-          <div class="col-lg-6">
-            <label for="">IT assets No </label>
-            <input type="text" class="form-control" [(ngModel)]="this.data.ITassetsNo_3" readonly>
+            <input type="text" class="form-control" [(ngModel)]="this.data.ITassets_2" readonly>
           </div>
         </div>
 
-        <div class="row showgrid " style="height: 6rem;">
+        <div class="row showgrid">
+          <div class="col-lg-6">
+            <label for="">IT assets No </label>
+            <form [formGroup]="stateForm_1">
+              <input class="form-control" type="text" matInput formControlName="stateGroup_3" required
+                [matAutocomplete]="autoGroup3" (keyup)="check_empty()">
+              <mat-autocomplete #autoGroup3="matAutocomplete">
+                <mat-optgroup style="color: aqua;" *ngFor="let group of stateGroupOptions_3  | async"
+                  [label]="group.letter.toUpperCase()">
+                  <mat-option *ngFor="let name of group.names;let i = index" [value]="name.toUpperCase()"
+                    (onSelectionChange)="dataChange();updateInput();selected(name)"
+                    [ngClass]="{'blacklist': group.blacklist[i] == 'T', 'blacklist_1': group.status_return[i] == 'unavailable', 'selected': group.blacklist[i] == 'Z'}"
+                    [disabled]="(group.blacklist[i] == 'T' || group.blacklist[i] == 'Z') || group.status_return[i] == 'unavailable' "
+                    [matTooltip]="group.reason[i] || null" matTooltipPosition="above">
+                    ❁{{name.toUpperCase()}}❁
+                  </mat-option>
+                </mat-optgroup>
+              </mat-autocomplete>
+            </form>
+          </div>
+          <div class="col-lg-6">
+            <label for="">Types of IT assets </label>
+            <input type="text" class="form-control" [(ngModel)]="this.data.ITassets_3" readonly>
+          </div>
+        </div>
+
+
+
+
+        <div class="row showgrid ">
           <div class="col-lg-6">
             <label for="">From (Date) <sup style="color: red;font-size: 8px;">Required</sup> </label>
-            <br>
             <mat-form-field class="example-full-width" style="width: 100%;">
               <mat-label>Choose a date</mat-label>
-              <input [min]="minDate_fromDate" matInput [matDatepicker]="picker" style="color: blue;" [(ngModel)]="this.data.FromDate"
-                (dateChange)="updateInput()">
+              <input [min]="minDate_fromDate" matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker"
+                style="color: blue;" [(ngModel)]="this.data.FromDate" (dateChange)="updateInput()">
               <mat-datepicker-toggle matIconSuffix [for]="picker">
-                <!-- <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon> -->
               </mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
           </div>
           <div class="col-lg-6">
             <label for="">To (Date) <sup style="color: red;font-size: 8px;">Required</sup> </label>
-            <br>
-            <!-- <mat-form-field class="example-full-width" style="width: 100%;" [ngClass]="{'shake': !this.data.ToDate}">
-              <mat-label>Choose a date</mat-label>
-              <input matInput [matDatepicker]="picker1" style="color: blue;" [(ngModel)]="this.data.ToDate"
-                (dateChange)="updateInput()">
-              <mat-datepicker-toggle matIconSuffix [for]="picker1">
-                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-              </mat-datepicker-toggle>
-              <mat-datepicker #picker1></mat-datepicker>
-            </mat-form-field> -->
             <mat-form-field class="example-full-width" style="width: 100%;">
               <mat-label>Choose a date</mat-label>
-              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" style="color: blue;" [(ngModel)]="this.data.ToDate">
-              <mat-hint>MM/DD/YYYY</mat-hint>
+              <input matInput [matDatepickerFilter]="myFilter" [min]="minDate" [max]="maxDate" [matDatepicker]="picker2"
+                style="color: blue;" [(ngModel)]="this.data.ToDate">
               <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>
@@ -109,48 +141,52 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col-lg-12" style="padding: 0;">
+            <mat-divider style="margin-top: 8px;"></mat-divider>
+          </div>
+        </div>
+
+
+        <div [hidden]="show" class="row pt-1">
+          <div class="col-lg-12">
+            <div class="row" style="justify-content: space-between;margin: 5px;">
+              <div class="">
+                <button *ngIf="this.mode == 'normal'" [disabled]="this.checkRequired" class="btn btn-info"
+                  style="font-weight: 600;" (click)="apply()">
+                  <img src="assets/apply.png" style="width: 25px;">
+                  Apply</button>
+                <button *ngIf="this.mode == 'edit'" [disabled]="this.checkRequired" class="btn btn-info"
+                  style="font-weight: 600;" (click)="update()">
+                  <img src="assets/apply.png" style="width: 25px;">
+                  Update</button>
+              </div>
+              <div class="">
+                <button class="btn" style="background-color: gray;color: white;font-weight: 600;" (click)="cancel()">
+                  <img src="assets/cancel.png" style="width: 25px;">
+                  Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
-  </div>
-</div>
 
-<div class="row showgrid" style="margin: 1rem 20rem;width: fit-content;">
-  <!-- <div class="col">
-    <button class="btn btn-info">SAVE</button>
-  </div> -->
-  <div class="col">
-    <button *ngIf="this.mode == 'normal'" [disabled]="this.checkRequired" class="btn btn-info"
-      (click)="apply()">Apply</button>
-    <button *ngIf="this.mode == 'edit'" [disabled]="this.checkRequired" class="btn btn-info"
-      (click)="update()">Update</button>
+
+
+
   </div>
-  <div class="col">
-    <button class="btn btn-info" (click)="cancel()">Cancel</button>
-  </div>
-  <!-- <div class="col">
-    <button class="btn btn-info">Attach</button>
-  </div> -->
-  <div class="col">
-    <button class="btn btn-info" (click)="ChangeFlow()">Change Flow</button>
-  </div>
+
+
+
 </div>
 
 
 
-<!-- <button class="btn btn-info" (click)="mail()">mail</button>
-
-
-<a href="asdsadsad">asdasd</a> -->
-
-<!-- <ul id="myUL"> -->
-
-<select style="color: blue;" class="form-control" (change)="dataChange()" [(ngModel)]="this.dataShow.ITassets_3">
-  <option>
-
-  </option>
-</select>
 
 
 
-<!-- </ul> -->
+
+
+<button (click)="test_999()">Debug</button>

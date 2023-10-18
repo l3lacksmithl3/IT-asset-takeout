@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ITAssetTakeoutComponent } from './it-asset-takeout.component';
+import { ITAssetTakeoutComponent } from './ITAssetTakeoutComponent';
 
 describe('ITAssetTakeoutComponent', () => {
   let component: ITAssetTakeoutComponent;

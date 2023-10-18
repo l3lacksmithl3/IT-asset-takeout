@@ -1,0 +1,66 @@
+<div class="row " style="margin: 0;" *ngIf="check_item_empty()">
+  <div class="col set_radius" style="margin: 0rem 2rem; margin-top: 5px;padding: 0;">
+    <div class="col setCss bar" style="border-radius: 5px;">
+      <label class="setheader">Inventory</label>
+    </div>
+    <div class="" style="overflow: auto; ">
+      <table mat-table [dataSource]="dataSource" style="background-color: #ffffff15;">
+        <ng-container matColumnDef="1">
+          <th mat-header-cell *matHeaderCellDef style="width: 5%;text-align: center;"> No. </th>
+          <td mat-cell *matCellDef="let element" [ngClass]="{'color_reds': element['Temp_Remain'] <= 0}"style="text-align: center;"> {{element["Temp_No."]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="2">
+          <th mat-header-cell *matHeaderCellDef>Takeout No.</th>
+          <td mat-cell *matCellDef="let element" [ngClass]="{'color_reds': element['Temp_Remain'] <= 0}"> {{element["Temp_Take out no."]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="3">
+          <th mat-header-cell *matHeaderCellDef> Asset No. </th>
+          <td mat-cell *matCellDef="let element" [ngClass]="{'color_reds': element['Temp_Remain'] <= 0}"> {{element["Temp_Item No."]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="4">
+          <th mat-header-cell *matHeaderCellDef> Asset Type </th>
+          <td mat-cell *matCellDef="let element" [ngClass]="{'color_reds': element['Temp_Remain'] <= 0}"> {{element["Temp_type"]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="5">
+          <th mat-header-cell *matHeaderCellDef> Take out period</th>
+          <td mat-cell *matCellDef="let element" [ngClass]="{'color_reds': element['Temp_Remain'] <= 0}"> {{element["Temp_Take out period"]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="6">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Q'ty (day) </th>
+          <td mat-cell *matCellDef="let element" style="text-align: center;" [ngClass]="{'color_reds': element['Temp_Remain'] <= 0}"> {{element["Temp_Q'ty"]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="7">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Remain (day) </th>
+          <td mat-cell *matCellDef="let element" style="text-align: center;" [ngClass]="{'color_reds': element['Temp_Remain'] <= 0 }"> {{element["Temp_Remain"]}} </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+      </table>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons aria-label="Select page of periodic elements"
+      style="background-color: #ffffff15;">
+    </mat-paginator>
+
+    <input matInput [matDatepicker]="monthPicker" style="display: none;max-height: 75vh;">
+    <mat-datepicker touchUi #monthPicker style="display: none;" startView="year"></mat-datepicker>
+  </div>
+</div>
+
+<div class="row center-content" style="margin: 0;" *ngIf="!check_item_empty()">
+  <div class="text-container">
+    <p>There are currently no items.</p>
+  </div>
+</div>
+
+
+<div class="row center-content" style="margin: 0;" *ngIf="!check_item_empty()">
+  <img src="assets/inventory_empty.png" alt="" style="width: 20%;margin-top: 10%;">
+</div>
+
+
+

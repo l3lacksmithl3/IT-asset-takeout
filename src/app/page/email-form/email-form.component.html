@@ -1,0 +1,144 @@
+
+
+<div [hidden]="show" class="row" style="margin:0rem 20%">
+  <div class="row">
+    <div class="col">
+      <h1>Email Form Approve</h1>
+    </div>
+  </div>
+
+
+  <div class="col-lg-12" style="padding: 16px;background-color:rgba(255, 255, 255, 0.485);;border: solid 1px;border-radius: 15px;">
+    <div class="row">
+      <div class="col">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3">Subject</span>
+          </div>
+          <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"
+            [(ngModel)]="data.subject">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <!-- <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="data.htmlContent" [config]="editorConfig" ></angular-editor> -->
+        <div class="NgxEditor__Wrapper">
+          <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+          <ngx-editor [editor]="editor" [(ngModel)]="this.htmlContent" [disabled]="false"
+            [placeholder]="'Type here...'"></ngx-editor>
+        </div>
+        <div class="row" style="justify-content: space-between;margin: 10px 1px;">
+          <div class="">
+            <button class="btn btn-info" (click)="save()">UPDATE</button>
+          </div>
+          <div class="">
+            <button class="btn btn-info" (click)="testmail()">TEST E-MAIL</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+<div [hidden]="show" class="row pt-5" style="margin:0rem 20%">
+  <div class="row">
+    <div class="col">
+      <h1>Email Form Re-main</h1>
+    </div>
+  </div>
+
+
+  <div class="col-lg-12" style="padding: 16px;background-color:rgba(255, 255, 255, 0.479);border: solid 1px;border-radius: 15px;">
+    <div class="row">
+      <div class="col">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3">Subject</span>
+          </div>
+          <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"
+            [(ngModel)]="data.subject_alert">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <!-- <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="data.htmlContent" [config]="editorConfig" ></angular-editor> -->
+        <div class="NgxEditor__Wrapper">
+          <ngx-editor-menu [editor]="editor_alert" [toolbar]="toolbar"> </ngx-editor-menu>
+          <ngx-editor [editor]="editor_alert" [(ngModel)]="this.htmlContent_alert" [disabled]="false"
+            [placeholder]="'Type here...'"></ngx-editor>
+        </div>
+        <div class="row" style="justify-content: space-between;margin: 10px 1px;">
+          <div class="">
+            <button class="btn btn-info" (click)="save_alert()">UPDATE</button>
+          </div>
+          <div class="">
+            <button class="btn btn-info" (click)="testmail_alert()">TEST E-MAIL</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+
+<div [hidden]="show" class="row pt-5" style="margin:0rem 20%">
+  <div class="row">
+    <div class="col">
+      <h1>Email Form Requester</h1>
+    </div>
+  </div>
+
+
+  <div class="col-lg-12" style="padding: 16px;background-color:rgba(255, 255, 255, 0.479);border: solid 1px;border-radius: 15px;">
+    <div class="row">
+      <div class="col">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3">Subject</span>
+          </div>
+          <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"
+            [(ngModel)]="data.subject_Requester">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <!-- <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="data.htmlContent" [config]="editorConfig" ></angular-editor> -->
+        <div class="NgxEditor__Wrapper">
+          <ngx-editor-menu [editor]="editor_Requester" [toolbar]="toolbar"> </ngx-editor-menu>
+          <ngx-editor [editor]="editor_Requester" [(ngModel)]="this.htmlContent_Requester" [disabled]="false"
+            [placeholder]="'Type here...'"></ngx-editor>
+        </div>
+        <div class="row" style="justify-content: space-between;margin: 10px 1px;">
+          <div class="">
+            <button class="btn btn-info" (click)="save_Requester()">UPDATE</button>
+          </div>
+          <div class="">
+            <button class="btn btn-info" (click)="testmail_Requester()">TEST E-MAIL</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+
+
+

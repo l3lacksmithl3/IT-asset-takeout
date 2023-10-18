@@ -25,10 +25,15 @@ export class LogBookDetailComponent {
 
   async ngOnInit(): Promise<void> {
     let item = await lastValueFrom(this.api.getAssetIT())
-    let item_1 = item.filter((d: any) => d["Host Name"] == (this.data.ITassetsNo_1?.toUpperCase() && this.data.ITassetsNo_1?.toLowerCase()) );
-    let item_2 = item.filter((d: any) => d["Host Name"] == (this.data.ITassetsNo_2?.toUpperCase() && this.data.ITassetsNo_2?.toLowerCase()) );
-    let item_3 = item.filter((d: any) => d["Host Name"] == (this.data.ITassetsNo_3?.toUpperCase() && this.data.ITassetsNo_3?.toLowerCase()) );
+    let item_1 = item.filter((d: any) => d["Host Name"] == this.data.ITassetsNo_1?.toUpperCase() || d["Host Name"] == this.data.ITassetsNo_1?.toLowerCase())
+    let item_2 = item.filter((d: any) => d["Host Name"] == this.data.ITassetsNo_2?.toUpperCase() || d["Host Name"] == this.data.ITassetsNo_2?.toLowerCase())
+    let item_3 = item.filter((d: any) => d["Host Name"] == this.data.ITassetsNo_3?.toUpperCase() || d["Host Name"] == this.data.ITassetsNo_3?.toLowerCase())
+    // let item_2 = item.filter((d: any) => d["Host Name"] == (this.data.ITassetsNo_2?.toUpperCase() || this.data.ITassetsNo_2?.toLowerCase()) );
+    // let item_3 = item.filter((d: any) => d["Host Name"] == (this.data.ITassetsNo_3?.toUpperCase() || this.data.ITassetsNo_3?.toLowerCase()) );
+    // console.log(this.data.ITassetsNo_1?.toLowerCase());
+
     this.assetItem = item_1.concat(item_2).concat(item_3)
+    // console.log(this.assetItem);
 
   }
 

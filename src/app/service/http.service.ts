@@ -84,7 +84,15 @@ export class HttpService {
   ApproveUpdate(id: any, data: any): Observable<any> {
     return this.http.put(this.Url + "/Approve_data/insert/" + id, data)
   }
-
+  updateAt(): Observable<any> {
+    return this.http.get(this.Url + "/Approve_data/lastData")
+  }
+  ApproveDelField(data: any): Observable<any> {
+    return this.http.post(this.Url + "/Approve_data/delete/", data)
+  }
+  // getApprove(data: any): Observable<any> {
+  //   return this.http.post(this.Url + "/Approve_data/getByAggregate/", data)
+  // }
 
 
 
@@ -121,11 +129,16 @@ export class HttpService {
   MasterCode(): Observable<any> {
     return this.http.get("http://10.200.90.152:4012/code_masterGet")
   }
-
+  MasterHoliDay(): Observable<any> {
+    return this.http.get("http://10.200.90.152:4012/date_masterGet")
+  }
 
 
 
   //ITasset
+  updateAsset(id: any, data: any): Observable<any> {
+    return this.http.put(this.Url + "/ITasset/insert/" + id, data)
+  }
   addAsset(data: any): Observable<any> {
     return this.http.post(this.Url + "/ITasset/", data)
   }
@@ -135,16 +148,172 @@ export class HttpService {
   getAssetByID(data: any): Observable<any> {
     return this.http.post(this.Url + "/ITasset/getByCondition/", data)
   }
+  delAssetByID(data: any): Observable<any> {
+    return this.http.post(this.Url + "/ITasset/delByCondition/", data)
+  }
 
 
 
-  // // mail
-  // sendMailFlow1(data: any): Observable<any> {
-  //   return this.http.post(this.Url + "/master_it/sendMail/", data)
+
+  // mail
+  Mail_Send(data: any): Observable<any> {
+    return this.http.post(this.Url + "/Mailer/sendMail/", data)
+  }
+
+ //TODO mail reject takeout
+  Mail_Reject(data: any): Observable<any> {
+    return this.http.post(this.Url + "/Mailer/RejectM/", data)
+  }
+
+  //TODO mail reject extend
+  Mail_Reject_Extend(data: any): Observable<any> {
+    return this.http.post(this.Url + "/Mailer/Mail_Reject_Extend/", data)
+  }
+
+  //TODO mail takeout
+  Mail_Approve_Extends(data: any): Observable<any> {
+    return this.http.post(this.Url + "/Mailer/Approve_Extend/", data)
+  }
+
+  //TODO mail extend approve
+  Mail_Approve_Request(data: any): Observable<any> {
+    return this.http.post(this.Url + "/Mailer/Approve_request/", data)
+  }
+
+  //TODO mail return
+  Mail_Approve_return(data: any): Observable<any> {
+    return this.http.post(this.Url + "/Mailer/Approve_return/", data)
+  }
+
+
+  //TODO mail takeout success
+  Takeout_success(data: any): Observable<any> {
+    return this.http.post(this.Url + "/Mailer/Takeout_success/", data)
+  }
+  Return_success(data: any): Observable<any> {
+    return this.http.post(this.Url + "/Mailer/Return_success/", data)
+  }
+  Extend_success(data: any): Observable<any> {
+    return this.http.post(this.Url + "/Mailer/Extend_success/", data)
+  }
+
+  //TODO mail force return
+  Mail_Return_Force(data: any): Observable<any> {
+    return this.http.post(this.Url + "/Mailer/Return_Force/", data)
+  }
+
+
+
+  //TODO mail extend
+  Mail_Extend(data: any): Observable<any> {
+    return this.http.post(this.Url + "/Mailer/Extend/", data)
+  }
+
+
+
+  SSO_login(data: any): Observable<any> {
+    return this.http.post(this.Url + "/AzureLogin/getByCondition/", data)
+  }
+
+
+
+  // Mail_Reserve_Approve(data: any): Observable<any> {
+  //   return this.http.post(this.Url + "/Mailer/reserve_approve/", data)
   // }
-  // sendMailFlow2(data: any): Observable<any> {
-  //   return this.http.post(this.Url + "/master_section/sendMail/", data)
+  // Mail_Auto_Approve(data: any): Observable<any> {
+  //   return this.http.post(this.Url + "/Mailer/AutoApprove/", data)
   // }
+  // Mail_Approve_Success(data: any): Observable<any> {
+  //   return this.http.post(this.Url + "/Mailer/Approve_Success/", data)
+  // }
+
+
+
+  TestMail(data: any): Observable<any> {
+    return this.http.post(this.Url + "/Mailer/testmail/", data)
+  }
+
+
+
+
+
+
+  //set form mail
+  Mail_Form_Get(): Observable<any> {
+    return this.http.get(this.Url + "/email_form/")
+  }
+  Mail_Form_Update(id: any, data: any): Observable<any> {
+    return this.http.put(this.Url + "/email_form/insert/" + id, data)
+  }
+  Mail_Form_Save(data: any): Observable<any> {
+    return this.http.post(this.Url + "/email_form/", data)
+  }
+  Mail_Form_Get_ByCondition(data: any): Observable<any> {
+    return this.http.post(this.Url + "/email_form/getByCondition/", data)
+  }
+
+
+
+  Black_List_Add(data: any): Observable<any> {
+    return this.http.post(this.Url + "/blacklist/", data)
+  }
+  Black_List_Get(): Observable<any> {
+    return this.http.get(this.Url + "/blacklist/")
+  }
+  Black_List_Del(data: any): Observable<any> {
+    return this.http.post(this.Url + "/blacklist/delByCondition/", data)
+  }
+  Black_List_Get_ByCondition(data: any): Observable<any> {
+    return this.http.post(this.Url + "/blacklist/getByCondition/", data)
+  }
+  testflow(data: any): Observable<any> {
+    return this.http.post(this.Url + "/email_form/testdata", data)
+  }
+
+
+
+
+  section_head_Get_ByCondition(data: any): Observable<any> {
+    return this.http.post(this.Url + "/section_head/getByCondition/", data)
+  }
+  section_head_update(id: any, data: any): Observable<any> {
+    return this.http.put(this.Url + "/section_head/insert/" + id, data)
+  }
+
+  section_head_Get_All(): Observable<any> {
+    return this.http.get(this.Url + "/section_head/")
+  }
+
+
+  Master_reserve_getByCondition(data: any): Observable<any> {
+    return this.http.post(this.Url + "/master_reserve/getByCondition/", data)
+  }
+
+
+  //Master Organization
+  MasterOrganization_getall(): Observable<any> {
+    return this.http.get(this.Url + "/master_organization/")
+  }
+  MasterOrganization_update(id: any, data: any): Observable<any> {
+    return this.http.put(this.Url + "/master_organization/insert/" + id, data)
+  }
+  MasterOrganization_ByCondition(data: any): Observable<any> {
+    return this.http.post(this.Url + "/master_organization/getByCondition/", data)
+  }
+  //Master_code
+  Master_Code(): Observable<any> {
+    return this.http.get(this.Url + "/master_code/")
+  }
+  Master_Code_ByCondition(data: any): Observable<any> {
+    return this.http.post(this.Url + "/master_code/getByCondition/", data)
+  }
+  Master_Code_update(id: any, data: any): Observable<any> {
+    return this.http.put(this.Url + "/master_code/insert/" + id, data)
+  }
+  Master_Code_Add(data: any): Observable<any> {
+    return this.http.post(this.Url + "/master_code/", data)
+  }
+
 
 }
 

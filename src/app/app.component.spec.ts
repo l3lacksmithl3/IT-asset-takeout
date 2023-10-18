@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'IS-asset-takeout'`, () => {
+  it(`should have as title 'IT-asset-takeout'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('IS-asset-takeout');
+    expect(app.title).toEqual('IT-asset-takeout');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('IS-asset-takeout app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('IT-asset-takeout app is running!');
   });
 });

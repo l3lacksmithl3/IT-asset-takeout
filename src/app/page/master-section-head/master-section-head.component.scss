@@ -1,0 +1,23 @@
+.success {
+	box-shadow:inset -1px 2px 0px 0px #8ef598;
+	background:linear-gradient(to bottom, #37f23d 5%, #2dc61f 100%);
+	background-color:#6cf237;
+	border-radius:5px;
+	border:2px solid #4fd018;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	padding:4px 8px;
+	text-decoration:none;
+}
+
+.success:hover {
+	background:linear-gradient(to bottom, #43c61f 5%, #6cf237 100%);
+	background-color:#3bc61f;
+}
+.success:active {
+	position:relative;
+	top:1px;
+}

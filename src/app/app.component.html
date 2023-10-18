@@ -1,25 +1,18 @@
+
+<title>{{this.number}}</title>
+<ngx-ui-loader></ngx-ui-loader>
 <app-login *ngIf="!this.CheckLogin"></app-login>
 
-<mat-toolbar *ngIf="this.CheckLogin" color="primary" style="background-color: #9cabff"
-  class="d-flex justify-content-between">
-  <span>
-    <button class="offh" style="width: 20%;background-color: #9cabff;border: aqua;" (click)="drawer.toggle()"
-      [matBadge]="this.data.length" [matBadgeHidden]="this.data.length == 0" matBadgeColor="warn">
-      <!-- <mat-icon style="vertical-align: middle;">menu</mat-icon> -->
-      <img src="./assets/IconMain.png" alt="Italian Trulli" style="width: 100%;    vertical-align: middle;">
+<mat-toolbar *ngIf="this.CheckLogin" style="background-color: #9cabff;height: 8vh;"
+  class="d-flex justify-content-between bar">
+  <span >
+    <button class="offh " style="background-color: inherit;border: inherit;cursor: pointer;" (click)="drawer.toggle()" >
+      <mat-icon *ngIf="icons" class="maticon"  >menu</mat-icon>
+      <span [matBadge]="this.item_approve.length" [matBadgeHidden]="this.item_approve.length == 0" matBadgeColor="warn" style="font-size: 30px;color: white; padding-right: 10px; font-weight: 600;">IT asset takeout</span>
     </button>
-
   </span>
-  <button mat-button [matMenuTriggerFor]="menu">{{this.name}}</button>
+  <button class="offh" mat-button [matMenuTriggerFor]="menu" style="font-weight: 600;">{{this.name}}</button>
   <mat-menu #menu="matMenu">
-    <!-- <div class="row" style="width: 1px;">
-      <div class="col-lg-1">
-        <button mat-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="setting()">
-          <i class="bi bi-sliders mr-1" ></i>
-          <span>Setting</span>
-        </button>
-      </div>
-    </div> -->
     <div class="row" style="width: 1px;">
       <div class="col-lg-1">
         <button mat-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="logout()">
@@ -32,11 +25,13 @@
 
 </mat-toolbar>
 
-<mat-drawer-container [hidden]="!this.CheckLogin" class="example-container">
-  <mat-drawer #drawer mode="over" [opened]="open" style="color: aqua; width: auto;padding-top: 5rem;">
-    <app-sidenav (dataChange)="drawer.toggle()" *ngIf="this.CheckLogin"></app-sidenav>
+<mat-drawer-container [hidden]="!this.CheckLogin" >
+  <mat-drawer #drawer mode="side" opened="true" style="color: aqua; width: auto;background-image: url('assets/12858.jpg');">
+    ------------------------------------------------------
+    <app-sidenav style="padding-top: 7vh;" (dataChange)="drawer.toggle()" *ngIf="this.CheckLogin"></app-sidenav>
   </mat-drawer>
-  <mat-drawer-content style="padding-top: 5rem;background-image: url('assets/12858.jpg')">
+  <mat-drawer-content style="padding-top: 12px;padding-bottom: 12px;background-image: url('assets/12858.jpg');height: 92vh;">
     <router-outlet *ngIf="this.CheckLogin"></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
+

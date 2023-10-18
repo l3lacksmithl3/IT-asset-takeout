@@ -1,0 +1,186 @@
+<div class="col setCenter" style="padding-top :10px">
+  <div class="row" style="place-content: center;width: 110vh;">
+    <div class="col">
+
+      <app-status-monitor *ngIf="data_status" [(data_status)]="data_status"></app-status-monitor>
+
+      <div class="row showgrid set_radius" style="margin: 0rem 0rem;margin-top: 0rem; background-color: #ffffff5e;">
+        <div class="col pd-0 ">
+          <div class="row bar redius" style="padding: 0px;">
+            <label class="setheader" style="font-size: 18px;" *ngIf="this.type == 1">{{this.ControlID}} :
+              Approve IT asset takeout application form</label>
+            <label class="setheader" style="font-size: 18px;" *ngIf="this.type == 2">{{this.ControlID}} :
+              Approve IT asset return confirmation</label>
+            <label class="setheader" style="font-size: 18px;" *ngIf="this.type == 3">{{this.ControlID}} :
+              Approve IT asset return confirmation</label>
+          </div>
+
+          <mat-card style="padding: 8px;margin-top: 8px;">
+            <div class="row">
+              <div class="col pd-0 " style="width: 70vh;">
+                <div class="row showgrid">
+                  <div class="col-lg-6">
+                    <label for="">Name <sup style="color: red;font-size: 8px;">Required</sup> </label>
+                    <input type="text" class="form-control" [(ngModel)]="this.data.name" readonly>
+                  </div>
+                  <div class="col-lg-6">
+                    <label for="">Corp div / Div /Dep <sup style="color: red;font-size: 8px;">Required</sup> </label>
+                    <input type="text" class="form-control" [(ngModel)]="this.data.CorpDivDep" readonly>
+                  </div>
+                </div>
+                <div class="row showgrid">
+                  <div class="col-lg-12">
+                    <label for="">Reason <sup style="color: red;font-size: 8px;">Required</sup> </label>
+                    <input type="text" class="form-control" [(ngModel)]="this.data.Reason" readonly>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="pt-2 col-lg-12" *ngFor="let item of this.data.last_item">
+                    <mat-card class="example-card">
+                      <mat-card-header>
+                        <mat-card-title-group>
+                          <mat-card-title>{{item.name}}</mat-card-title>
+                          <mat-card-subtitle>{{item.value}}</mat-card-subtitle>
+                          <mat-card-subtitle class="set_color">Period : {{item.period}}
+                          </mat-card-subtitle>
+                          <mat-card-subtitle style="color: green;">Return date: {{moment(item.time).format('ll')}}
+                          </mat-card-subtitle>
+                          <img mat-card-sm-image src="assets/list-items.png">
+                        </mat-card-title-group>
+                      </mat-card-header>
+                      <mat-card-content>
+                      </mat-card-content>
+                      <mat-card-actions>
+                        <button mat-button [disabled]="true">RETURN</button>
+                      </mat-card-actions>
+                    </mat-card>
+                  </div>
+                </div>
+
+
+
+
+
+                <!--
+              <div >
+                <div class="row showgrid" *ngFor="let item of data.last_item">
+                  <div class="col-lg-6">
+                    <label for="">IT assets No <sup style="color: red;font-size: 8px;">Required</sup> </label>
+                    <input type="text" class="form-control" [value]="item.name" readonly>
+                  </div>
+                  <div class="col-lg-6">
+                    <label for="">Types of IT assets <sup style="color: red;font-size: 8px;">Required</sup> </label>
+                    <input type="text" class="form-control" [value]="item.value" readonly>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row showgrid ">
+                <div class="col-lg-6">
+                  <label for="" style="float: left;">From (Date) <sup style="color: red;font-size: 8px;">Required</sup>
+                  </label>
+                  <mat-form-field class="example-full-width" style="width: 100%;">
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker" style="color: blue;" [(ngModel)]="this.data.Date_first"
+                      [readonly]="true">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker" disabled>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                  <label for="" style="float: left;">To (Date) <sup style="color: red;font-size: 8px;">Required</sup>
+                  </label>
+                  <mat-form-field class="example-full-width" style="width: 100%;">
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker1" style="color: blue;" [(ngModel)]="this.data.Date_end"
+                      [readonly]="true">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker1" disabled>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div> -->
+
+                <div class="row showgrid pt-2">
+                  <div class="col-lg-12">
+                    <label for="">Special note①</label>
+                    <input type="text" class="form-control" [(ngModel)]="this.data.SpecialNote" readonly>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </mat-card>
+
+
+          <div class="row">
+            <div class="col-lg-12" style="padding: 0;">
+              <mat-divider style="margin-top: 20px;"></mat-divider>
+            </div>
+          </div>
+
+
+          <div *ngIf="!checkApprove() && this.user.level > this.data.level"
+            style="padding: 15px;    text-align-last: center;">
+            <button class="btn btn-info" (click)="Approve_yes()" style="font-weight: 600;">
+              <img src="assets/apply.png" style="width: 25px;">Approve</button>
+          </div>
+
+          <ng-container *ngIf="checkApprove()" class="mt-3">
+            <div class="row showgrid pt-2" style="place-content: center">
+              <label>Approved by {{this.data.last_item[0]?.Approve_by}}
+                {{moment(this.data.last_item[0]?.Approve_time).format('l H:mm:ss')}} </label>
+            </div>
+          </ng-container>
+
+
+          <div *ngIf="true" class="row" style="justify-content: center;">
+            <div class="col-lg-12">
+
+
+
+              <!-- <ng-container *ngIf="checkApprove()">
+                <div  class="row showgrid pt-2 button_approve"
+                  [ngClass]="{'set_center': this.type == 2}">
+                  <div class="" *ngIf="this.data.Approve_Step == 1" style="padding: 15px;">
+                    <button class="btn btn-info" (click)="Approve_yes()" style="font-weight: 600;">
+                      <img src="assets/apply.png" style="width: 25px;">
+                      Approve</button>
+                  </div>
+                  <div class="" *ngIf="this.data.Approve_Step == 1 && this.type != 2" style="padding: 15px;">
+                    <button class="btn btn-info" (click)="Approve_no()" style="font-weight: 600;">
+                      <img src="assets/cancel.png" style="width: 25px;">
+                      Reject</button>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="!checkApprove()">
+                <div class="row showgrid pt-2" style="place-content: center">
+                  <label *ngIf="this.data.Approve_by">Approved by {{this.data.Approve_by}}
+                    {{moment(this.data.Apply_Date_Latest).format('l H:mm:ss')}} </label>
+                  <label *ngIf="!this.data.Approve_by">Approved {{this.data.Approve_by}}
+                    {{moment(this.data.Apply_Date_Latest).format('l H:mm:ss')}} </label>
+                </div>
+              </ng-container> -->
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>

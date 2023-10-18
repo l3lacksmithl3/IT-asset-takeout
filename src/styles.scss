@@ -1,8 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+// @import 'ngx-toastr/toastr';
+// @import '~ngx-toastr/toastr';
+
+
+
 
 html, body { height: 100% !important; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.setheader{
+  display: flex;
+  align-items: center;
+  height: 2.5rem;
+  margin-left: 15px;
+  padding-left: 5px;
+  margin-bottom: 0;
+  font-weight: 600;
+  font-size: 24px;
+  color: white
+}
+
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+@import 'material-icons/iconfont/material-icons.css';
+// @import 'assets/font-awesome-4.7.0/css/font-awesome.css'
+@import 'assets/fontawesome-free-6.4.0-web/css/all.css';
+@import 'node_modules/ngx-spinner/animations/ball-scale-multiple.css'
+
+

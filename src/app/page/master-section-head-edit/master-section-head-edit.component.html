@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Edit</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="form-container">
+  <div class="form-row">
+    <label for="input1">Department</label>
+    <input type="text" id="input1" style="text-align: center;color: blue;" [value]="this.data.department" readonly>
+  </div>
+  <div class="form-row">
+    <label for="input2">Section</label>
+    <input type="text" id="input2" style="text-align: center;color: blue;" [value]="this.data.section" readonly>
+  </div>
+  <div class="form-row">
+    <label for="input3">Employee Code</label>
+    <mat-select class="form-control" style="text-align: center" [(ngModel)]="data_department" (selectionChange)="dataChange()">
+      <mat-option *ngFor="let item of this.data.user" [value]="item.employee" style="color: blue;">
+        {{item.employee}}   {{item.name}}
+      </mat-option>
+    </mat-select>
+  </div>
+  <div class="form-row">
+    <label for="input4">Name</label>
+    <input type="text" id="input4" [value]="this.data.name" readonly style="text-align: center; color: blue;">
+  </div>
+  <div class="btn-container">
+    <button class="btn-close" style="background-color: green;" (click)="confirm()">Confirm</button>
+  </div>
+  <div class="btn-container">
+    <button class="btn-close" (click)="close()">Close</button>
+  </div>
+</div>
+

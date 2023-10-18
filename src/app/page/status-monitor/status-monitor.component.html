@@ -1,0 +1,86 @@
+<div class="status-monitor" style="text-align: -webkit-center;">
+
+  <div class="col">
+
+    <!-- time -->
+    <div class="row" style="text-align-last: center;">
+      <div class="col set_width">{{moment(this.data_status?.Apply_Date_Start).format('MMM Do YY LT')}}</div>
+      <div class="col set_width"></div>
+      <div class="col set_width" *ngIf="this.time_approve">{{moment(this.time_approve).format('MMM Do YY LT')}}</div>
+      <div class="col set_width" *ngIf="!this.time_approve"></div>
+      <div class="col set_width"></div>
+      <div class="col set_width" *ngIf="this.time_approve">{{moment(this.time_approve).format('MMM Do YY LT')}}</div>
+      <div class="col set_width" *ngIf="!this.time_approve"></div>
+    </div>
+
+
+    <!-- status -->
+    <div class="row set_panding">
+      <div class="col set_width">
+        <div class="status-item"
+          [ngClass]="{ 'pass': currentStep > 1 && currentStep != 4 ,'active': currentStep == 1 }">1</div>
+      </div>
+      <div class="col set_width status">
+        <img class="img_1" src="assets/right-arrow-color.png" alt="">
+      </div>
+      <div class="col set_width">
+        <div class="status-item" [ngClass]="{ 'pass': currentStep > 2 && currentStep != 4,'active': currentStep == 2 }">
+          2</div>
+      </div>
+      <div class="col set_width status">
+        <img class="img_1" src="assets/right-arrow-color.png" alt="">
+      </div>
+      <div class="col set_width">
+        <div class="status-item" [ngClass]="{ 'pass': currentStep > 3 && currentStep != 4,'active': currentStep == 3 }">
+          3</div>
+      </div>
+    </div>
+
+
+    <!-- label -->
+    <div class="row" style="text-align-last: center; height: 20px;">
+      <div class="col set_width">
+        <h4>Requester</h4>
+      </div>
+      <div class="col set_width"></div>
+      <div class="col set_width">
+        <h4>Approver</h4>
+      </div>
+      <div class="col set_width"></div>
+      <div class="col set_width">
+        <h4>Done</h4>
+      </div>
+    </div>
+
+
+
+    <!-- span -->
+    <div class="row" style="text-align-last: center;">
+      <div class="col set_width">
+        <h5>{{this.data_status?.name}}</h5>
+      </div>
+      <div class="col set_width"></div>
+
+      <div class="col set_width">
+        <h5 *ngFor="let item of this.username" class="mb-0">{{item}}</h5>
+      </div>
+
+      <div class="col set_width"></div>
+      <div class="col set_width">
+        <h5>Done</h5>
+      </div>
+    </div>
+    <!-- {{this.date_status | json}} -->
+
+
+
+
+
+  </div>
+
+
+
+
+
+
+</div>

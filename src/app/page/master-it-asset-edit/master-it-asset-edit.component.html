@@ -1,0 +1,29 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Edit</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+<div class="col-lg-12">
+
+  <div class="row">
+    <div class="col" style="border: solid 1px;margin: 1rem; border-radius: 8px;">
+      <div class="row pt-2">
+        <div  class="col-lg-3" *ngFor="let item of this.data | keyvalue" style="padding: 8px 16px;">
+          <div class="material-textfield" >
+            <input type="text" [value]="item.value" (change)="event(item.key,item,$event)" >
+            <label>{{item.key}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row pt-2 pb-2"   style="justify-content: center"  >
+    <button class="btn btn-primary" style="margin: 2px;" (click)="update()">Apply</button>
+    <button class="btn btn-info" style="margin: 2px;" (click)="close()">Cancel</button>
+  </div>
+
+</div>
+

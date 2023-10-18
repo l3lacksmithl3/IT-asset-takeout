@@ -1,0 +1,93 @@
+<div [hidden]="show" class="row" style="margin: 0px;">
+  <div class="col-lg-12" style="height: 90vh !important;">
+
+
+    <div class="row" style="margin: 10px 5%;padding: 0;">
+      <div class="col-lg-2" style="align-self: self-end;">
+        <div class="row">
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon3"
+                style="background-color: rgb(255, 255, 255);border-right: none;"><img src="assets/search.png"
+                  style="width: 25px;"></span>
+            </div>
+            <input style="border-left: none;background-color: rgba(255, 255, 255, 0.998);" type="text"
+              class="form-control" id="basic-url" aria-describedby="basic-addon3" [(ngModel)]="inputFilter"
+              (keyup)="applyFilter()">
+            <button (click)="toggleFunction()" style="background: none; border: none; padding: 0; cursor: pointer;"
+              matTooltip="filter blacklist" matTooltipPosition="above">
+              <img src="assets/sort.png" style="width: auto; height: 25px;">
+            </button>
+          </div>
+
+        </div>
+      </div>
+      <div class="col">
+        <div class="row" style="place-content: end;">
+          <input hidden type="file" id="files" (change)="def_import($event)" multiple="false">
+          <label class="btn btn-info " for="files" style="margin: 2px;"><img src="assets/excel.png" alt=""
+              style="width: 20px;margin: 5px;">Import</label>
+
+          <button class="btn btn-info" (click)="def_export()" style="    margin: 2px;"><img src="assets/excel.png"
+              alt="" style="width: 20px;margin: 5px;">Export</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="row" style="border: solid 1px;margin: 0rem 5%;">
+      <div class="col setCss bar">
+        <label class="head">Master IT asset</label>
+      </div>
+    </div> -->
+
+    <div class="row set_radius" style="margin: 0rem 5%;">
+      <div class="col setCss bar " style="border-radius: 5px;">
+        <label class="setheader">Master IT asset</label>
+      </div>
+
+
+      <div class="col " style="padding: 0;">
+        <div class="" style="overflow: auto;">
+          <table mat-table [dataSource]="dataSource" matSort style="background-color: #ffffff15;">
+            <ng-container matColumnDef="Action">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Acton </th>
+              <td mat-cell *matCellDef="let element" [ngClass]="{'set_gray': element?.blacklist == 'T'}">
+                <button class="success mr-1" (click)="def_edit(element)"><img src="assets/edit.png  " matTooltip="Edit" matTooltipPosition="above"
+                    style="width: 20px;" alt=""></button>
+                <button class="dagger mr-1" (click)="def_delete(element)"><img src="  assets/delete.png" matTooltip="Delete" matTooltipPosition="above"
+                    style="width: 20px;" alt=""></button>
+                <button class="blacklist mr-1" *ngIf="element?.blacklist == 'F'" (click)="def_black_true(element)" matTooltip="Lock" matTooltipPosition="above"><img
+                    src="  assets/unlock_2.png" style="width: 20px;" alt=""></button>
+                <button class="blacklist mr-1" *ngIf="element?.blacklist == 'T'" (click)="def_black_false(element)" matTooltip="UnLock" matTooltipPosition="above"><img
+                    src="  assets/padlock.png" style="width: 20px;" alt=""></button>
+                <button class="yellow mr-1" *ngIf="element?.status_return == 'unavailable'"
+                  (click)="return_force(element)" matTooltip="Force return" matTooltipPosition="above" ><img src="  assets/product-return.png" style="width: 20px;"
+                    alt=""></button>
+              </td>
+            </ng-container>
+            <div *ngFor="let item of row">
+              <ng-container [matColumnDef]="item.header">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{item.header}} </th>
+                <td mat-cell *matCellDef="let element" [ngClass]="{'set_gray': element?.blacklist == 'T'}">
+                  {{element[item.value]}} </td>
+              </ng-container>
+            </div>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+        </div>
+        <mat-paginator [pageSizeOptions]="[5,10, 20]" showFirstLastButtons aria-label="Select page of periodic elements"
+          style="background-color: #ffffff15;">
+        </mat-paginator>
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+</div>

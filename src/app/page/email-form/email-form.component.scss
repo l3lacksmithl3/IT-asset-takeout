@@ -1,0 +1,14 @@
+
+::ng-deep.swal2-loader {
+  display: none !important;
+  align-items: center;
+  justify-content: center;
+  width: 2.2em;
+  height: 2.2em;
+  margin: 0 1.875em;
+  animation: swal2-rotate-loading 1.5s linear 0s infinite normal;
+  border-width: .25em;
+  border-style: solid;
+  border-radius: 100%;
+  border-color: #2778c4 rgba(0,0,0,0) #2778c4 rgba(0,0,0,0);
+}

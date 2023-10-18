@@ -1,1 +1,179 @@
-<p>it-asset-return works!</p>
+<div [hidden]="show" class="row showgrid setCSS" style="margin: 0rem 20%;background-color: #ffffff7a;">
+  <div class="col pd-0 ">
+    <div class="row bar">
+      <label class="setheader">IT asset return confirmation</label>
+    </div>
+
+    <div *ngIf="true" class="row">
+      <div class="col pd-0">
+
+
+        <div class="row showgrid">
+          <div class="col-lg-6">
+            <label for="">Name </label>
+            <input type="text" class="form-control" [(ngModel)]="this.data.name" readonly>
+          </div>
+          <div class="col-lg-6">
+            <label for="">Corp div / Div /Dep </label>
+            <input type="text" class="form-control" [(ngModel)]="this.data.CorpDivDep" readonly>
+          </div>
+        </div>
+
+        <div class="row showgrid">
+          <div class="col-lg-6">
+            <label for="">Take-out request No. <sup style="color: red;font-size: 8px;">Required</sup> </label>
+            <select *ngIf="this.dataList?.length != 0" class="form-control" [ngClass]="{'shake': !take_out_no}"
+              (change)="dataChange();update()" [disabled]="this.dataList?.length == 0" [(ngModel)]="take_out_no"
+              style="color: blue;">
+              <option *ngFor="let item of this.dataList" [value]="item?.ControlID">{{item?.ControlID}}</option>
+            </select>
+
+
+            <select *ngIf="this.dataList?.length == 0" class="form-control" [disabled]="this.dataList?.length == 0"
+              [(ngModel)]="take_out_no" style="color: blue;">
+              <option *ngFor="let item of this.dataList" [value]="item?.ControlID">{{item?.ControlID}}</option>
+            </select>
+          </div>
+          <div class="col-lg-6">
+            <label for=""> Take out period </label>
+            <input type="text" class="form-control" [(ngModel)]="this.data.period" readonly>
+          </div>
+        </div>
+
+
+
+        <div *ngIf="mode == 1" class="col-lg-12" style="padding: 5px;;">
+          <div class="row" style="padding-top: 1rem">
+            <div class="col-lg-12" *ngFor="let item of this.data?.old_data?.return.item;let i = index">
+              <mat-card class="example-card">
+                <mat-card-header style="padding: 6px 16px 0;">
+                  <mat-card-title-group>
+                    <mat-card-title>{{item.name}}</mat-card-title>
+                    <mat-card-subtitle>{{item.value}}</mat-card-subtitle>
+                    <mat-card-subtitle
+                      [ngClass]="{'set_color_red': moment(item.period.split('-')[1]).diff(moment().format(),'days') <= 99 }"
+                      *ngIf="!item.return_success_1 ||!item.return_success_2">Period :
+                      {{item.period}}</mat-card-subtitle>
+                    <mat-card-subtitle *ngIf="item.extend_success" style="color: green;">Extend :
+                      {{moment(item.title).format('ll')}}</mat-card-subtitle>
+                    <mat-card-subtitle *ngIf="item.time_return" style="color: green;">Return date :
+                      {{item.time_return}}</mat-card-subtitle>
+                    <mat-card-subtitle *ngIf="!item.time_return && !item.extend_success"
+                      style="color: rgba(255, 255, 255, 0);">Empty</mat-card-subtitle>
+                    <!-- <mat-card-subtitle *ngIf="item.return_success_2">Return at {{item.time_return}}</mat-card-subtitle> -->
+                    <img mat-card-sm-image src="assets/list-items.png">
+                  </mat-card-title-group>
+                </mat-card-header>
+                <mat-card-content>
+                </mat-card-content>
+                <mat-card-actions>
+                  <div class="col-lg-11" style="padding: 0px;">
+
+                    <button class="btn btn-info " style="margin: 0px 0px 0px 8px;" (click)="Extend_function(item,i);"
+                      *ngIf="item.return == false && def_On_Extend(item) && remain(item) "
+                      [disabled]="item.extend_success && !item.extend">
+                      <img *ngIf="item.extend == true" src="assets/cancel.png" style="width: 25px;">
+                      EXTEND</button>
+
+
+                    <button class="btn btn-info" style="margin: 0px 0px 0px 8px" (click)="Return_function(i)"
+                      *ngIf="!item.extend_success" [disabled]="!item.return_success_1 && item.time_return">
+                      <img *ngIf="item.return == true && item.return_success_1 && item.time_return"
+                        src="assets/cancel.png" style="width: 25px;">
+                      RETURN</button>
+                  </div>
+
+                  <mat-form-field class="example-full-width" style="display: none; max-height: 75vh;" color="accent">
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="def_extend_return"
+                      disableClose="true" [min]="this.date_select.min" [max]="this.date_select.max"
+                      [(ngModel)]="date_select.date">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="def_extend_return"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #def_extend_return
+                      (closed)="extend(this.data?.old_data?.return.item,this.temp_extend)"></mat-datepicker>
+                  </mat-form-field>
+
+                </mat-card-actions>
+              </mat-card>
+
+
+            </div>
+          </div>
+        </div>
+
+
+        <div *ngIf="!this.take_out_no && this.dataList?.length > 0" class="col-lg-12" style="padding: 5px;;">
+          <div class="row" style="padding-top: 1rem">
+            <div class="col-lg-12">
+              <mat-card class="example-card">
+                <mat-card-header>
+                  <mat-card-title-group>
+                    <!-- <mat-card-subtitle>BBBBBB</mat-card-subtitle> -->
+                    <mat-card-title style="opacity: 0;">inv</mat-card-title>
+                    <mat-card-title style="color:rgb(0, 0, 0)">Please select request to return</mat-card-title>
+                    <mat-card-title style="opacity: 0;">inv</mat-card-title>
+                    <!-- <mat-card-subtitle>CCCCCC</mat-card-subtitle> -->
+                    <img mat-card-sm-image src="assets/list-items.png">
+                  </mat-card-title-group>
+                </mat-card-header>
+                <mat-card-content>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="this.dataList?.length == 0" class="col-lg-12" style="padding: 5px;;">
+          <div class="row" style="padding-top: 1rem">
+            <div class="col-lg-12">
+              <mat-card class="example-card">
+                <mat-card-header>
+                  <mat-card-title-group>
+                    <!-- <mat-card-subtitle>BBBBBB</mat-card-subtitle> -->
+                    <mat-card-title style="opacity: 0;">inv</mat-card-title>
+                    <mat-card-title style="color:red">No return items</mat-card-title>
+                    <mat-card-title style="opacity: 0;">inv</mat-card-title>
+                    <!-- <mat-card-subtitle>CCCCCC</mat-card-subtitle> -->
+                    <img mat-card-sm-image src="assets/list-items.png">
+                  </mat-card-title-group>
+                </mat-card-header>
+                <mat-card-content>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-lg-12" style="padding: 0;">
+            <mat-divider style="margin-top: 8px;"></mat-divider>
+          </div>
+        </div>
+
+
+
+        <div [hidden]="show" class="row pt-1">
+          <div class="col-lg-12">
+            <div class="row" style="justify-content: center;margin: 5px;">
+              <div class="">
+                <button class="btn btn-info" (click)="apply()" [disabled]="!this.check_action"
+                  [hidden]="!this.check_action" style="font-weight: 600;width: 10rem;">
+                  <img src="assets/apply.png" style="width: 25px;">
+                  Apply</button>
+              </div>
+              <!-- <div class="">
+                <button class="btn" style="background-color: gray;color: white;font-weight: 600;" (click)="cancel()">
+                  <img src="assets/cancel.png" style="width: 25px;">
+                  Cancel</button>
+              </div> -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

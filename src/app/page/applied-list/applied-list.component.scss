@@ -5,19 +5,21 @@
   margin-left: 15px;
   padding-left: 5px;
   margin-bottom: 0;
+  font-weight: 100;
+  font-size: 16px;
 }
 
 
 .showgrid > div {
 
-  background-color: lavender;
-  border: 1px solid rgba(0, 0, 0, 0.459);
+  // background-color: rgba(230, 230, 250, 0.302);
+  // border: 1px solid rgba(0, 0, 0, 0.459);
 }
 
 
 .setcontrolid{
   border: none;
-  background-color: white;
+  // background-color: white;
   cursor: pointer;
   text-decoration: underline;
 }
@@ -57,4 +59,42 @@
 
 .setShadow{
   box-shadow: 5px 5px 5px -5px;
+}
+
+
+.bar{
+  background: linear-gradient(90deg, rgba(37,0,54,1) 0%, rgba(9,70,121,1) 38%, rgba(0,212,255,1) 100%);
+}
+
+.set_radius{
+  box-shadow: 2px 2px 5px;
+  border-radius: 5px;
+}
+
+
+.color_red{
+  color: red;
+}
+
+
+
+::ng-deep.swal2-loader {
+  display: none !important;
+  align-items: center;
+  justify-content: center;
+  width: 2.2em;
+  height: 2.2em;
+  margin: 0 1.875em;
+  animation: swal2-rotate-loading 1.5s linear 0s infinite normal;
+  border-width: .25em;
+  border-style: solid;
+  border-radius: 100%;
+  border-color: #2778c4 rgba(0,0,0,0) #2778c4 rgba(0,0,0,0);
+}
+
+
+.img_btn{
+  width: 25px;
+  height: auto;
+  padding-right: 3px;
 }

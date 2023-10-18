@@ -1,66 +1,123 @@
-<div class="row" style="margin: 0rem 2rem;padding: 0;">
-  <div class="col-lg-2">
-    <div class="row">
-      <div class="" style="padding: 0;">
-        <button class="btn offh zzz" style="width: 100%;  text-align: left;cursor:default;">
-          <img src="assets/search.png" style="width: 25px;"></button>
-      </div>
-      <div class="col" style="padding: 0;">
-        <input class="form-control" type="text" [(ngModel)]="inputFilter" (keyup)="filter()">
-      </div>
-    </div>
-
+<div [hidden]="show" class="row" style="margin: 0rem 2rem;padding: 0;">
+  <div class="col">
   </div>
 </div>
 
-<div class="mat-elevation-z8 " style="margin: 5px 2rem;">
-  <table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="1" >
-      <th mat-header-cell *matHeaderCellDef style="width: 5%;"> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element["Temp_No."]}} </td>
-    </ng-container>
-    <ng-container matColumnDef="2">
-      <th mat-header-cell *matHeaderCellDef style="width: 10%;"> Record Date</th>
-      <td mat-cell *matCellDef="let element"> {{element["Temp_RecordDate"]}} </td>
-    </ng-container>
-    <ng-container matColumnDef="3">
-      <th mat-header-cell *matHeaderCellDef style="width: 10%;">  Take out no. </th>
-      <td mat-cell *matCellDef="let element"> {{element["Temp_Take out no."]}} </td>
-    </ng-container>
-    <ng-container matColumnDef="4">
-      <th mat-header-cell *matHeaderCellDef style="width: 10%;"> Requester </th>
-      <td mat-cell *matCellDef="let element"> {{element["Temp_Requester"]}} </td>
-    </ng-container>
-    <ng-container matColumnDef="5">
-      <th mat-header-cell *matHeaderCellDef style="width: 20%;"> Item No. </th>
-      <td mat-cell *matCellDef="let element"> {{element["Temp_Item No."]}} </td>
-    </ng-container>
-    <ng-container matColumnDef="6">
-      <th mat-header-cell *matHeaderCellDef style="width: 15%;"> Take out period </th>
-      <td mat-cell *matCellDef="let element" > {{element["Temp_Take out period"]}} </td>
-    </ng-container>
-    <ng-container matColumnDef="7">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center;width: 10%;"> Q'ty (day) </th>
-      <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element["Temp_Q'ty"]}} </td>
-    </ng-container>
-    <ng-container matColumnDef="8">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center;width: 10%;" > Remain (Day) </th>
-      <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element["Temp_Remain"]}} </td>
-    </ng-container>
-    <ng-container matColumnDef="9">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center;width: 10%;" > Return Date </th>
-      <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element["Temp_ReturnDate"]}} </td>
-    </ng-container>
-    <ng-container matColumnDef="10">
-      <th mat-header-cell *matHeaderCellDef style="text-align: center;width: 10%;" > Status </th>
-      <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element["Temp_Status"]}} </td>
-    </ng-container>
 
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="view(row)">s</tr>
-  </table>
+<div [hidden]="show" class="row" style="margin: 0rem 2rem;padding: 0;">
+  <div class="col-lg-2">
+    <div class="row">
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
-  </mat-paginator>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon3" style="background-color: rgb(255, 255, 255);border-right: none;"><img
+              src="assets/search.png" style="width: 25px;"></span>
+        </div>
+        <input style="border-left: none;background-color: rgb(255, 255, 255)" type="text" class="form-control" id="basic-url"
+          aria-describedby="basic-addon3" [(ngModel)]="inputFilter" (keyup)="applyFilter($event)">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-1 " style="margin-left: 15px;">
+    <div class="row">
+      <button class="btn btn-success"
+        style="width: 100%;  text-align: center;cursor:default; box-shadow: 2px 2px 6px black;" (click)="showFilter(1)"
+        [ngClass]="{'color_op': this.mode != 1 }">All </button>
+    </div>
+  </div>
+
+  <div class="col-lg-1 " style="margin-left: 15px;">
+    <div class="row">
+      <button class="btn btn-success"
+        style="width: 100%;  text-align: center;cursor:default;box-shadow: 2px 2px 6px black;" (click)="showFilter(2)"
+        [ngClass]="{'color_op': this.mode != 2 }">PASS </button>
+    </div>
+  </div>
+
+  <div class="col-lg-1 " style="margin-left: 15px;">
+    <div class="row">
+      <button class="btn btn-success"
+        style="width: 100%;  text-align: center;cursor:default;box-shadow: 2px 2px 6px black;" (click)="showFilter(3)"
+        [ngClass]="{'color_op': this.mode != 3 }">OVER </button>
+    </div>
+  </div>
+
+  <div class="col-lg-1 " style="margin-left: 15px;align-items: right;">
+    <div class="row">
+      <button class="btn btn-info" style="  text-align: center;cursor:default;box-shadow: 2px 2px 6px black;"
+        (click)="monthPicker.open()"><img src="assets/excel.png" style="width: 25px;"> Export </button>
+    </div>
+  </div>
+
+</div>
+
+<div [hidden]="show" class="row " style="margin: 0;">
+  <div class="col set_radius" style="margin: 0rem 2rem; margin-top: 5px;padding: 0;">
+    <div class="col setCss bar" style="border-radius: 5px;">
+      <label class="setheader">Log Book Record</label>
+    </div>
+    <div class="" style="overflow: auto; ">
+      <table mat-table [dataSource]="dataSource" style="background-color: #ffffff15;">
+        <ng-container matColumnDef="1">
+          <th mat-header-cell *matHeaderCellDef style="width: 5%;"> No. </th>
+          <td mat-cell *matCellDef="let element"> {{element["Temp_No"]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="2">
+          <th mat-header-cell *matHeaderCellDef style="width: 10%;"> Record Date</th>
+          <td mat-cell *matCellDef="let element"> {{element["Temp_RecordDate"]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="3">
+          <th mat-header-cell *matHeaderCellDef style="width: 10%;"> Take out no. </th>
+          <td mat-cell *matCellDef="let element"> {{element["Temp_Take out no."]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="4">
+          <th mat-header-cell *matHeaderCellDef style="width: 15%;"> Requester </th>
+          <td mat-cell *matCellDef="let element"> {{element["Temp_Requester"]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="5">
+          <th mat-header-cell *matHeaderCellDef style="width: 10%;"> Item No. </th>
+          <td mat-cell *matCellDef="let element" id="test"> {{element["Temp_Item No."]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="6">
+          <th mat-header-cell *matHeaderCellDef style="width: 15%;"> Take out period </th>
+          <td mat-cell *matCellDef="let element"> {{element["Temp_Take out period"]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="7">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;width: 10%;"> Q'ty (day) </th>
+          <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element["Temp_Q'ty"]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="8">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;width: 10%;"> Remain (Day) </th>
+          <td mat-cell *matCellDef="let element" style="text-align: center;" [ngClass]="{'color_reds': element['Temp_Status'] == 'OVER'}"> {{element["Temp_Remain"]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="9">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;width: 10%;"> Return Date </th>
+          <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element["Temp_ReturnDate"]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="10">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;width: 10%;"> Status </th>
+          <td mat-cell *matCellDef="let element" style="text-align: center;"
+            [ngClass]="{'color_red': element['Temp_Status'] == 'OVER' , 'color_green': element['Temp_Status'] == 'PASS' , 'color_yellow': element['Temp_Status'] == 'Borrowing'}">
+            {{element["Temp_Status"]}} </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+      </table>
+    </div>
+
+    <mat-paginator [hidden]="show" [pageSizeOptions]="[10, 20]" showFirstLastButtons
+      aria-label="Select page of periodic elements" style="background-color: #ffffff15;">
+    </mat-paginator>
+
+    <input matInput [matDatepicker]="monthPicker" style="display: none;max-height: 75vh;"
+      [(ngModel)]="monthPickerValue">
+    <mat-datepicker touchUi #monthPicker style="display: none;" startView="year"
+      (monthSelected)="onMonthPicker($event)"></mat-datepicker>
+  </div>
 </div>
