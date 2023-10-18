@@ -31,8 +31,11 @@
         <div class="row showgrid">
           <div class="col-lg-6">
             <label for="">IT assets No <sup style="color: red;font-size: 8px;">Required</sup></label>
+            <!-- <button class="itasset" (click)="remove('ITassets_1')">
+              <img src="assets/cancel.png" alt="" style="width: 20px;">
+            </button> -->
             <form [formGroup]="stateForm_1">
-              <input class="form-control" type="text" matInput formControlName="stateGroup_1" required
+              <input class="form-control" id="ITassets_1" type="text" matInput formControlName="stateGroup_1" required
                 [matAutocomplete]="autoGroup4" (keyup)="check_empty()" >
               <mat-autocomplete #autoGroup4="matAutocomplete">
                 <mat-optgroup style="color: aqua;" *ngFor="let group of stateGroupOptions_1  | async"
@@ -58,9 +61,12 @@
         <div class="row showgrid">
           <div class="col-lg-6">
             <label for="">IT assets No </label>
+            <!-- <button class="itasset"  (click)="remove('ITassets_2')">
+              <img src="assets/cancel.png" alt="" style="width: 20px;">
+            </button> -->
             <form [formGroup]="stateForm_1">
-              <input class="form-control" type="text" matInput formControlName="stateGroup_2" required
-                [matAutocomplete]="autoGroup2" (keyup)="check_empty()">
+              <input class="form-control" id="ITassets_2" type="text" matInput formControlName="stateGroup_2" required
+                [matAutocomplete]="autoGroup2" (keyup)="check_empty()" >
               <mat-autocomplete #autoGroup2="matAutocomplete">
                 <mat-optgroup style="color: aqua;" *ngFor="let group of stateGroupOptions_2  | async"
                   [label]="group.letter.toUpperCase()">
@@ -84,9 +90,12 @@
         <div class="row showgrid">
           <div class="col-lg-6">
             <label for="">IT assets No </label>
+            <!-- <button class="itasset"  (click)="remove('ITassets_3')">
+              <img src="assets/cancel.png" alt="" style="width: 20px;">
+            </button> -->
             <form [formGroup]="stateForm_1">
-              <input class="form-control" type="text" matInput formControlName="stateGroup_3" required
-                [matAutocomplete]="autoGroup3" (keyup)="check_empty()">
+              <input class="form-control" id="ITassets_3" type="text" matInput formControlName="stateGroup_3" required
+                [matAutocomplete]="autoGroup3" (keyup)="check_empty()" >
               <mat-autocomplete #autoGroup3="matAutocomplete">
                 <mat-optgroup style="color: aqua;" *ngFor="let group of stateGroupOptions_3  | async"
                   [label]="group.letter.toUpperCase()">
@@ -184,7 +193,7 @@
 
 
 
-<!-- <button (click)="debug()"></button> -->
+<!-- <button (click)="removesadsad()"></button> -->
 
 
 

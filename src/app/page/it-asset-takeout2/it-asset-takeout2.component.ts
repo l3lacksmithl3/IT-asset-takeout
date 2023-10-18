@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from 'src/app/service/http.service';
@@ -200,7 +200,8 @@ export class ItAssetTakeout2Component implements OnInit {
 
 
   updateInput() {
-    setTimeout(() => {
+    setTimeout(async () => {
+
       if (!this.data.name || !this.data.CorpDivDep || !this.data.Reason || !this.data.ITassets_1) {
         this.checkRequired = true
       } else {
@@ -518,9 +519,42 @@ export class ItAssetTakeout2Component implements OnInit {
 
 
   check_empty() {
-    if (this.stateForm_1.value.stateGroup_1 == "") {
-      console.log(this.data.ITassetsNo_1);
 
+    if (this.data.ITassetsNo_1 != this.stateForm_1.value.stateGroup_1) {
+      for (let group of this.stateGroups_1) {
+        const index = group.names.indexOf(this.data.ITassetsNo_1?.toLowerCase());
+        if (index !== -1) {
+          group.blacklist[index] = 'F';
+        }
+      }
+      this.data.ITassets_1 = null
+      this.data.ITassetsNo_1 = null
+    }
+
+    if (this.data.ITassetsNo_2 != this.stateForm_1.value.stateGroup_2) {
+      for (let group of this.stateGroups_1) {
+        const index = group.names.indexOf(this.data.ITassetsNo_2?.toLowerCase());
+        if (index !== -1) {
+          group.blacklist[index] = 'F';
+        }
+      }
+      this.data.ITassets_2 = null
+      this.data.ITassetsNo_2 = null
+    }
+
+    if (this.data.ITassetsNo_3 != this.stateForm_1.value.stateGroup_3) {
+      for (let group of this.stateGroups_1) {
+        const index = group.names.indexOf(this.data.ITassetsNo_3?.toLowerCase());
+        if (index !== -1) {
+          group.blacklist[index] = 'F';
+        }
+      }
+      this.data.ITassets_3 = null
+      this.data.ITassetsNo_3 = null
+    }
+
+
+    if (this.stateForm_1.value.stateGroup_1 == "") {
       for (let group of this.stateGroups_1) {
         const index = group.names.indexOf(this.data.ITassetsNo_1?.toLowerCase());
         if (index !== -1) {
@@ -531,7 +565,6 @@ export class ItAssetTakeout2Component implements OnInit {
       this.data.ITassetsNo_1 = null
       this.updateInput()
       this.stateGroups_1 = this.UniqueDevice.concat(this.asset_full)
-
     }
     if (this.stateForm_1.value.stateGroup_2 == "") {
       for (let group of this.stateGroups_1) {
@@ -666,7 +699,7 @@ export class ItAssetTakeout2Component implements OnInit {
           this.dataValue.takeout.Approve_Step = 2
         }
 
-        console.log(approver);
+        // console.log(approver);
 
 
         //TODO sand data and mail -----------------------------------------------------------------------------------------------------------------------------//
@@ -717,10 +750,22 @@ export class ItAssetTakeout2Component implements OnInit {
       asset: data?.takeout.item
     }
     let Mail_Takeout_success = lastValueFrom(this.api.Takeout_success(mail_data))
-    console.log(mail_data);
   }
 
 
+
+
+
+
+
+
+  // removesadsad(){
+  //   console.log(this.data);
+  //   console.log(this.stateForm_1.value.stateGroup_1);
+  //   console.log(this.stateForm_1.value.stateGroup_2);
+  //   console.log(this.stateForm_1.value.stateGroup_3);
+
+  // }
 }
 
 
