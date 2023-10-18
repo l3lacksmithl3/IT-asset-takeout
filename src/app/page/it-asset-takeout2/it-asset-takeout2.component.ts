@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import * as moment from 'moment';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { Observable, lastValueFrom, map, startWith } from 'rxjs';
+import { Component,OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from 'src/app/service/http.service';
+import * as moment from 'moment';
+import { lastValueFrom, Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { NgxUiLoaderService } from "ngx-ui-loader";
 
 @Component({
   selector: 'app-it-asset-takeout2',
@@ -87,7 +89,8 @@ export class ItAssetTakeout2Component implements OnInit {
     let data = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
     if (this.mode == 'normal') {
       this.data = {
-        name: data.full_name,
+        full_name: data.full_name,
+        name: data.name,
         CorpDivDep: this.positionName,
         email: data.email,
         Reason: null,
@@ -120,7 +123,8 @@ export class ItAssetTakeout2Component implements OnInit {
       let dataOld = await lastValueFrom(this.api.getDataApprove({ _id: this.id }))
       if (dataOld[0].takeout) {
         this.data = {
-          name: data.full_name,
+          full_name: data.full_name,
+          name: data.name,
           CorpDivDep: this.positionName,
           email: data.email,
           Reason: dataOld[0].takeout.Reason,
@@ -778,17 +782,4 @@ export const _filter_2 = (opt: string[], value: string): string[] => {
 };
 
 
-// private _filterGroup_1(value: string): StateGroup_1[] {
-//   if (value) {
-//     return this.stateGroups_1
-//       .map(group => ({
-//         letter: group.letter,
-//         names: _filter_1(group.names, value),
-//         blacklist: _filter_1(group.blacklist, value),
-//         reason: _filter_1(group.reason, value),
-//         status_return: _filter_1(group.status_return, value),
-//       }))
-//       .filter(group => group.names.length > 0 || group.blacklist.length > 0 || group.reason.length > 0 || group.status_return.length > 0);
-//   }
-//   return this.stateGroups_1;
-// }
+

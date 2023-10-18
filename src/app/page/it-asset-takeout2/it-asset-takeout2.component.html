@@ -33,7 +33,7 @@
             <label for="">IT assets No <sup style="color: red;font-size: 8px;">Required</sup></label>
             <form [formGroup]="stateForm_1">
               <input class="form-control" type="text" matInput formControlName="stateGroup_1" required
-                [matAutocomplete]="autoGroup4" (keyup)="check_empty()" [readonly]="this.data.ITassets_1">
+                [matAutocomplete]="autoGroup4" (keyup)="check_empty()" >
               <mat-autocomplete #autoGroup4="matAutocomplete">
                 <mat-optgroup style="color: aqua;" *ngFor="let group of stateGroupOptions_1  | async"
                   [label]="group.letter.toUpperCase()">
@@ -52,7 +52,7 @@
             <label for="">Types of IT assets <sup style="color: red;font-size: 8px;">Required</sup> </label>
             <input type="text" class="form-control" [(ngModel)]="this.data.ITassets_1" readonly>
           </div>
-        </div>{{this.data.ITassets_1|json}}
+        </div>
 
 
         <div class="row showgrid">
@@ -184,7 +184,7 @@
 
 
 
-
+<!-- <button (click)="debug()"></button> -->
 
 
 

@@ -52,12 +52,13 @@ export class ItAssetReturnComponent {
   //set data
   async setData() {
     let data = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
+    console.log(data);
 
     this.data = {
       name: data.full_name,
       CorpDivDep: this.positionName,
     }
-    console.log(this.positionName);
+    // console.log(this.positionName);
 
 
     let list = {
@@ -68,6 +69,8 @@ export class ItAssetReturnComponent {
 
 
     this.dataList = await lastValueFrom(this.api.getDataApprove(list))
+    console.log(data.name);
+
     // console.log("🚀 ~ file: it-asset-return.component.ts:70 ~ ItAssetReturnComponent ~ setData ~  this.dataList:",  this.dataList)
 
 
