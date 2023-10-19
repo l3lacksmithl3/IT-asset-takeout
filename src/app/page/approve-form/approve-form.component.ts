@@ -1,4 +1,4 @@
-import { Component, Input,Output } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import Swal from 'sweetalert2';
 import { lastValueFrom } from 'rxjs';
 import { HttpService } from 'src/app/service/http.service';
@@ -139,7 +139,7 @@ export class ApproveFormComponent {
         this.data.reason = res[0].reason
       }
 
-      this.data_status = {...this.data}
+      this.data_status = { ...this.data }
       this.data_status.type = 'takeout'
       this.ngxService.stop()
     })
@@ -442,6 +442,9 @@ export class ApproveFormComponent {
   }
 
 
+  PreviousPage() {
+    this.router.navigate(['..'])
+  }
 
 
 

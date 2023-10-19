@@ -9,12 +9,12 @@
           <div class="col-lg-6">
             <label for="">Name <sup style="color: red;font-size: 8px;">Required</sup> </label>
             <input type="text" class="form-control" [ngClass]="{'shake': !this.data.name}" [(ngModel)]="this.data.name"
-              (change)="updateInput()">
+              (change)="updateInput()" readonly>
           </div>
           <div class="col-lg-6">
             <label for="">Corp div / Div /Dep <sup style="color: red;font-size: 8px;">Required</sup> </label>
             <input type="text" class="form-control" [ngClass]="{'shake': !this.data.CorpDivDep}"
-              [(ngModel)]="this.data.CorpDivDep" (change)="updateInput()">
+              [(ngModel)]="this.data.CorpDivDep" (change)="updateInput()" readonly>
           </div>
         </div>
 

@@ -362,7 +362,9 @@ export class ApproveExtendComponent {
   }
 
 
-
+  PreviousPage() {
+    this.router.navigate(['..'])
+  }
 
 
 

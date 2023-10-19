@@ -156,3 +156,24 @@ input{
 .set_color{
   color: orange;
 }
+
+.clean{
+  cursor: pointer;
+  border: inherit;
+  background: inherit
+}
+
+.clean:focus{
+  outline: none;
+}
+
+
+.button-back {
+  width: 250px;
+  position: absolute;
+  left: 0%;
+  top: -1%;
+  z-index: 1;
+  // transform: translate(-50%, -50%);
+}
+

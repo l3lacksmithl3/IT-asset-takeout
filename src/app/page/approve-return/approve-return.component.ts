@@ -380,7 +380,9 @@ export class ApproveReturnComponent {
 
 
 
-
+  PreviousPage() {
+    this.router.navigate(['..'])
+  }
 
 
 
