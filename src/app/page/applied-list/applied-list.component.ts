@@ -45,7 +45,6 @@ export class AppliedListComponent {
     this.ngxService.start()
     this.runtime()
 
-
     let data_old = ""
     setInterval(async () => {
       let ck = await lastValueFrom(this.api.updateAt())
@@ -163,7 +162,7 @@ export class AppliedListComponent {
       }
     })
 
-    console.log(this.data);
+    // console.log(this.data);
 
     this.data = this.sort(this.data, "time")
     // element.Value?.Apply_Date
@@ -194,7 +193,7 @@ export class AppliedListComponent {
           ApplyStatus = "Complete"
         }
 
-        if (d?.Value[`extend_${d.type}`]?.some((e:any)=>e.reason)) {
+        if (d?.Value[`extend_${d.type}`]?.some((e: any) => e.reason)) {
           ApplyStatus = "Reject "
         }
       }

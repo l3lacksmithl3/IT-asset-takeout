@@ -66,7 +66,7 @@ export class SidenavComponent {
         await this.check_blacklist(level) == false ?
           { path: '/ITAssetTakeout', title: 'Takeout application', icon: 'assets/Takeout.png', class: '' } :
           { path: '/Error', title: 'Takeout application', icon: 'assets/Takeout.png', class: '' },
-        { path: '/ItAssetReturn', title: 'Return application', icon: 'assets/return.png', class: '' },
+        { path: '/ItAssetReturn', title: 'Return & Extend application', icon: 'assets/return.png', class: '' },
       ]
       this.record = [
         { path: '/AppliedList', title: 'Applied', icon: 'assets/applied.png', class: '' },
@@ -102,7 +102,7 @@ export class SidenavComponent {
           { path: '/ITAssetTakeout', title: 'Takeout application', icon: 'assets/Takeout.png', class: '' } :
           { path: '/Error', title: 'Takeout application', icon: 'assets/Takeout.png', class: '' },
 
-        { path: '/ItAssetReturn', title: 'Return application', icon: 'assets/return.png', class: '' },
+        { path: '/ItAssetReturn', title: 'Return & Extend application', icon: 'assets/return.png', class: '' },
       ]
       this.record = [
         { path: '/AppliedList', title: 'Applied', icon: 'assets/applied.png', class: '' },

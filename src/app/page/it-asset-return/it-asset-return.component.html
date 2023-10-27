@@ -70,17 +70,25 @@
                   <div class="col-lg-11" style="padding: 0px;">
 
                     <button class="btn btn-info " style="margin: 0px 0px 0px 8px;" (click)="Extend_function(item,i);"
-                      *ngIf="item.return == false && def_On_Extend(item) && remain(item) "
+                      *ngIf="item.return == false && def_On_Extend(item) && remain(item)  && !item.extend"
                       [disabled]="item.extend_success && !item.extend">
                       <img *ngIf="item.extend == true" src="assets/cancel.png" style="width: 25px;">
                       EXTEND</button>
 
+                      <button class="btn btn-info " style="margin: 0px 0px 0px 8px;" (click)="def_cancel_extend(item,i);"
+                      [disabled]="item.extend_success && !item.extend" *ngIf="item.extend == true">
+                      <img  src="assets/cancel.png" style="width: 25px;">
+                      EXTEND</button>
 
-                    <button class="btn btn-info" style="margin: 0px 0px 0px 8px" (click)="Return_function(i)"
-                      *ngIf="!item.extend_success" [disabled]="!item.return_success_1 && item.time_return">
-                      <img *ngIf="item.return == true && item.return_success_1 && item.time_return"
-                        src="assets/cancel.png" style="width: 25px;">
-                      RETURN</button>
+
+                    <button class="btn btn-info" style="margin: 0px 0px 0px 8px" (click)="def_return_mode(i)"
+                      *ngIf="!item.extend_success && !item.return_success_1"
+                      [disabled]="!item.return_success_1 && item.time_return">RETURN</button>
+
+                    <button class="btn btn-info" style="margin: 0px 0px 0px 8px" (click)="def_cancel_mode(i)"
+                      *ngIf="item.return == true && item.return_success_1 && item.time_return">
+                      <img src="assets/cancel.png" style="width: 25px;">RETURN</button>
+
                   </div>
 
                   <mat-form-field class="example-full-width" style="display: none; max-height: 75vh;" color="accent">
@@ -111,7 +119,7 @@
                   <mat-card-title-group>
                     <!-- <mat-card-subtitle>BBBBBB</mat-card-subtitle> -->
                     <mat-card-title style="opacity: 0;">inv</mat-card-title>
-                    <mat-card-title style="color:rgb(0, 0, 0)">Please select request to return</mat-card-title>
+                    <mat-card-title style="color:rgb(0, 0, 0)">Please select request to return & extend</mat-card-title>
                     <mat-card-title style="opacity: 0;">inv</mat-card-title>
                     <!-- <mat-card-subtitle>CCCCCC</mat-card-subtitle> -->
                     <img mat-card-sm-image src="assets/list-items.png">
@@ -164,11 +172,6 @@
                   <img src="assets/apply.png" style="width: 25px;">
                   Apply</button>
               </div>
-              <!-- <div class="">
-                <button class="btn" style="background-color: gray;color: white;font-weight: 600;" (click)="cancel()">
-                  <img src="assets/cancel.png" style="width: 25px;">
-                  Cancel</button>
-              </div> -->
             </div>
           </div>
         </div>
@@ -177,3 +180,6 @@
     </div>
   </div>
 </div>
+
+
+<!-- <button (click)="Debug()"> Debug </button> -->

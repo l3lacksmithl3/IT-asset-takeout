@@ -40,6 +40,8 @@ export class AppComponent {
     this.CheckLogin = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
     this.name = this.CheckLogin?.name
     this.CheckApprove()
+    this.number = `IT asset takeout`
+
 
 
     // console.log(this.name);
@@ -164,6 +166,7 @@ export class AppComponent {
       } else {
         this.number = `(${this.item_approve.length}) IT asset takeout`
       }
+
     }
 
 

@@ -328,8 +328,6 @@ export class ItAssetReturnComponent {
 
 
   def_return_mode(i: any) {
-    console.log("aaa");
-
     this.data.old_data.return.item[i].return = true
     this.data.old_data.return.item[i].return_success_1 = true
     this.data.old_data.return.item[i].time_return = moment().format('ll')
@@ -515,16 +513,18 @@ export class ItAssetReturnComponent {
   async extend(e: any, i: any) {
     console.log(e);
     console.log(i);
-    e = e[i]
+    let x = e[i]
     if (this.date_select.date) {
-      e.title = `${this.date_select.date}`
-      e.extend_success = true
-      e.extend = true
+      x.title = `${this.date_select.date}`
+      x.extend_success = true
+      x.extend = true
       this.def_check_action_mode()
     }else{
       this.extend_btn = false
     }
-    if (e.extend) {
+    console.log(this.data.old_data.return.item[i]);
+    console.log(x);
+    if (x.extend) {
       this.extend_item.push(this.data.old_data.return.item[i])
     }
   }
@@ -655,28 +655,24 @@ export class ItAssetReturnComponent {
 
 
 
-  return_btn = false;
-  Return_function(i:any) {
-    this.return_btn = !this.return_btn;
-    if (this.return_btn) {
-      this.def_return_mode(i)
-    } else {
-      this.def_cancel_mode(i)
-    }
-  }
+
 
   extend_btn = false;
   @ViewChild('def_extend_return') defExtendReturn!: MatDatepicker<any>;
   Extend_function(item: any, i: any) {
-    this.extend_btn = !this.extend_btn;
-    if (this.extend_btn) {
       this.defExtendReturn.open()
       this.temp_extend = i
       this.extend_data(item)
-    } else {
-      this.def_cancel_extend(item,i)
-    }
   }
 
+
+
+
+  Debug(){
+    console.log(this.extend_item);
+    // console.log(this.last_item);
+
+
+  }
 }
 
