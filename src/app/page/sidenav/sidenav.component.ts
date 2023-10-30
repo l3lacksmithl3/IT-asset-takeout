@@ -164,6 +164,7 @@ export class SidenavComponent {
   async CheckApprove() {
     this.user = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
     let data_organization = await lastValueFrom(this.api.MasterOrganization_ByCondition({ code: { $in: [`${this.user.position_code}`, Number(this.user.position_code)] } }))
+
     let NewFormate = data_organization.map((d: any) => {
       return d.code
     })
@@ -181,9 +182,17 @@ export class SidenavComponent {
       result = [...new Set(flattenedData)];
     }
 
+
     result = result.map((e: any) => {
-      return JSON.stringify(e)
+      if (typeof e == 'string') {
+        return e
+      }else{
+        return JSON.stringify(e)
+      }
     })
+
+
+
 
 
     let filter = {
@@ -192,6 +201,7 @@ export class SidenavComponent {
         { 'return.position_code': { $in: result }, "return.Approve_Step": 1 }
       ]
     }
+
     // this.item_approve
     let rew = await lastValueFrom(this.api.getDataApprove(filter))
     let list = []
@@ -239,6 +249,8 @@ export class SidenavComponent {
 
     }
     this.item_approve = list.filter((d: any) => d.Value.Approve_Step == 1)
+    console.log(this.item_approve);
+
   }
 
   refresh(){
@@ -248,7 +260,6 @@ export class SidenavComponent {
 
   async inventory_counts(){
     let login = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
-
     let filter = {
       'takeout.Approve_Step': {
         '$in': [

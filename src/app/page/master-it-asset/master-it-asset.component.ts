@@ -122,15 +122,7 @@ export class MasterITAssetComponent {
     })
     this.table = database
 
-    // console.log(this.table);
 
-
-    // for (const key in this.table[0]) {
-    //   this.displayedColumns.push(key)
-    // }
-    // console.log(this.displayedColumns);
-
-    // console.log(this.displayedColumns);
 
 
     this.dataSource = new MatTableDataSource(this.table)
@@ -308,6 +300,8 @@ export class MasterITAssetComponent {
 
   }
 
+
+  //TODO Don't Remove
   def_import(evt: any) {
 
     const target: DataTransfer = <DataTransfer>(evt.target);
@@ -323,7 +317,7 @@ export class MasterITAssetComponent {
       const data: any[] = []
       const files = evt.target.files
       data.push(...files)
-      console.log(data);
+      // console.log(data);
       this.MasterData(wb, data)
       // this.ImportExcelList(evt, wb, data)
 
@@ -333,19 +327,40 @@ export class MasterITAssetComponent {
     id_import.value = ""
   }
 
-  // async setData() {
-  //   let data = await lastValueFrom(this.api.getAssetIT())
-  //   data = data.map((d: any) => {
-  //     return {
-  //       ...d,
-  //       blacklist:"false"
-  //     }
-  //   })
-  //   for (const item of data) {
-  //     let update = await lastValueFrom(this.api.updateAsset(item._id, item))
-  //   }
-  //   console.log(data);
-  // }
+  def_import_mouse(evt: any) {
+    const target: DataTransfer = <DataTransfer>(evt.target);
+    if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+    const reader: FileReader = new FileReader();
+    reader.onload = async (e: any) => {
+      const bstr: string = e.target.result;
+      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+      const data: any[] = []
+      const files = evt.target.files
+      data.push(...files)
+      this.MasterAssetMouse(wb, data)
+    };
+    reader.readAsBinaryString(target.files[0]);
+    let id_import = document.getElementById("files") as HTMLInputElement
+    id_import.value = ""
+  }
+
+  def_import_keypadkeyboard(evt: any) {
+    const target: DataTransfer = <DataTransfer>(evt.target);
+    if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+    const reader: FileReader = new FileReader();
+    reader.onload = async (e: any) => {
+      const bstr: string = e.target.result;
+      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+      const data: any[] = []
+      const files = evt.target.files
+      data.push(...files)
+      this.MasterAssetKeypadKeyboard(wb, data)
+    };
+    reader.readAsBinaryString(target.files[0]);
+    let id_import = document.getElementById("files") as HTMLInputElement
+    id_import.value = ""
+  }
+
 
   def_export() {
     this.http.get('assets/file/IT-Asset.xlsx', { responseType: "arraybuffer" })
@@ -440,100 +455,239 @@ export class MasterITAssetComponent {
     }
   }
 
-
-
-
   async MasterData(wb: any, data: any) {
-    const wsname: string = wb.SheetNames[0];
-    const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+    this.ngxService.start()
+    const ws: XLSX.WorkSheet = wb.Sheets['OfficePC'];
     let header
-    // this.fullData = []
-    let text = "OfficePC"
-    if (wsname == text) {
-      this.dataExcel = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
-      header = this.dataExcel[0].map((d: any) => {
-        let text = d.replaceAll('.', '')
-        let text2 = text.replaceAll('\r\n', '')
-        return text2
-      })
+    this.dataExcel = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
 
-      let data_raw: any = {}
-      let max_row: any
+    header = this.dataExcel[0].map((d: any) => {
+      let text = d.replaceAll('.', '')
+      let text2 = text.replaceAll('\r\n', '')
+      return text2
+    })
 
-      for (let index = 0; index < this.dataExcel.length; index++) {
-        if (this.dataExcel[index].length == 0) {
-          max_row = index
-          break
-        }
+    let data_raw: any = {}
+    let max_row: any
+
+    for (let index = 0; index < this.dataExcel.length; index++) {
+      if (this.dataExcel[index].length == 0) {
+        max_row = index
+        break
       }
-
-
-      let database_asset = await lastValueFrom(this.api.getAssetIT())
-
-      for (let index = 1; index < max_row; index++) {
-        data_raw = {}
-        for (const [i, item] of this.dataExcel[index].entries()) {
-          let datanew = item
-          if (item == undefined || item == "") {
-            // console.log("aaaa");
-            datanew = "-"
-          }
-          data_raw[header[i]] = datanew
-        }
-
-        database_asset = database_asset.filter((d: any) => d["Host Name"] != data_raw["Host Name"])
-
-        let check_2 = this.table.filter((d: any) => d["Host Name"] == data_raw["Host Name"])
-
-
-        if (check_2.length == 0) {
-          //new
-          let addnew = await lastValueFrom(this.api.addAsset(data_raw))
-
-        }
-        if (check_2.length > 0) {
-          //update
-          let update = await lastValueFrom(this.api.updateAsset(check_2[0]._id, data_raw))
-
-        }
-      }
-
-
-      for (const item of database_asset) {
-        let del = lastValueFrom(this.api.delAssetByID(item))
-      }
-
-      Swal.close()
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Success',
-        width: 300,
-        showConfirmButton: false,
-        timer: 1500,
-      })
-
-      let database = await lastValueFrom(this.api.getAssetIT())
-      database = database.map((d: any, i: any) => {
-        return {
-          ...d,
-          "No": i + 1
-        }
-      })
-      this.table = database
-
-
-      this.dataSource = new MatTableDataSource(this.table)
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    } else {
-      Swal.close()
-      Swal.fire('Invalid data', '', 'error')
     }
+
+    let rawdata = []
+    for (let index = 1; index < max_row; index++) {
+      data_raw = {}
+      for (const [i, item] of this.dataExcel[index].entries()) {
+        let datanew = item
+        if (item == undefined || item == "") {
+          // console.log("aaaa");
+          datanew = "-"
+        }
+        data_raw[header[i]] = datanew
+      }
+      rawdata.push(data_raw)
+
+    }
+
+    let database_asset = await lastValueFrom(this.api.AssetPCGetAll())
+    let group_A = []
+    if (database_asset.length) { group_A = database_asset.map((d: any) => d["Host Name"]) }
+    let group_B = rawdata.map((d: any) => d["Host Name"])
+    let group_asset = group_A.concat(group_B)
+    const unique = [...new Set(group_asset.map((item: any) => item))];
+
+    for (const name of unique) {
+      if (rawdata.filter((d: any) => d["Host Name"] == name).length != 0) {
+        if (database_asset.filter((d: any) => d["Host Name"] == name).length != 0) {
+          //upload
+          let id = database_asset.filter((d: any) => d["Host Name"] == name)
+          let data = rawdata.filter((d: any) => d["Host Name"] == name)
+          let Update = await lastValueFrom(this.api.AssetPCUpdate(id[0]._id, data[0]))
+        } else {
+          //add
+          let data = rawdata.filter((d: any) => d["Host Name"] == name)
+          let Adddate = await lastValueFrom(this.api.AssetPCAdd(data[0]))
+          // console.log(data[0]);
+        }
+      } else {
+        // let data = rawdata.filter((d: any) => d["Host Name"] == name)
+        let delDel = await lastValueFrom(this.api.AssetPCDelByID({ "Host Name": name }))
+
+        //del
+      }
+
+    }
+    this.ngxService.stop()
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Success',
+      showConfirmButton: false,
+      timer: 1500,
+    })
   }
 
-  function1Active = false;
+  async MasterAssetMouse(wb: any, data: any) {
+    this.ngxService.start()
+    const ws: XLSX.WorkSheet = wb.Sheets['Mouse'];
+    let header
+    this.dataExcel = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
 
+    let startRow = 3
+    header = this.dataExcel[startRow -1].map((d: any) => {
+      let text = d.replaceAll('.', '')
+      let text2 = text.replaceAll('\r\n', '')
+      return text2
+    })
+
+    let data_raw: any = {}
+    let max_row: any
+
+
+    for (let index = startRow; index < this.dataExcel.length; index++) {
+      max_row = this.dataExcel.length
+      if (this.dataExcel[index].length == 0) {
+        max_row = index
+        break
+      }
+    }
+
+      // console.log(max_row);
+    let rawdata = []
+    for (let index = startRow; index < max_row; index++) {
+      data_raw = {}
+      for (const [i, item] of this.dataExcel[index].entries()) {
+        let datanew = item
+        if (item == undefined || item == "") {
+          datanew = "-"
+        }
+        data_raw[header[i]] = datanew
+      }
+      rawdata.push(data_raw)
+    }
+
+    let database_asset = await lastValueFrom(this.api.AssetMouseGetAll())
+    console.log("🚀 ~ file: master-it-asset.component.ts:576 ~ MasterAssetMouse ~ database_asset:", database_asset)
+    let group_A = []
+    if (database_asset.length) { group_A = database_asset.map((d: any) => d[" Control Code"]) }
+    let group_B = rawdata.map((d: any) => d[" Control Code"])
+    let group_asset = group_A.concat(group_B)
+    const unique = [...new Set(group_asset.map((item: any) => item))];
+
+    for (const name of unique) {
+      if (rawdata.filter((d: any) => d[" Control Code"] == name).length != 0) {
+        if (database_asset.filter((d: any) => d[" Control Code"] == name).length != 0) {
+          //upload
+          let id = database_asset.filter((d: any) => d[" Control Code"] == name)
+          let data = rawdata.filter((d: any) => d[" Control Code"] == name)
+          let Update = await lastValueFrom(this.api.AssetMouseUpdate(id[0]._id, data[0]))
+        } else {
+          //add
+          let data = rawdata.filter((d: any) => d[" Control Code"] == name)
+          let Adddate = await lastValueFrom(this.api.AssetMouseAdd(data[0]))
+          // console.log(data[0]);
+        }
+      } else {
+        // let data = rawdata.filter((d: any) => d[" Control Code"] == name)
+        let delDel = await lastValueFrom(this.api.AssetMouseDelByID({ " Control Code": name }))
+
+        //del
+      }
+
+    }
+    this.ngxService.stop()
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Success',
+      showConfirmButton: false,
+      timer: 1500,
+    })
+  }
+
+  async MasterAssetKeypadKeyboard(wb: any, data: any) {
+    this.ngxService.start()
+    const ws: XLSX.WorkSheet = wb.Sheets['Keypad-Keyboard'];
+    let header
+    this.dataExcel = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
+
+    let startRow = 3
+    header = this.dataExcel[startRow -1].map((d: any) => {
+      let text = d.replaceAll('.', '')
+      let text2 = text.replaceAll('\r\n', '')
+      return text2
+    })
+
+    let data_raw: any = {}
+    let max_row: any
+
+
+    for (let index = startRow; index < this.dataExcel.length; index++) {
+      max_row = this.dataExcel.length
+      if (this.dataExcel[index][1] == undefined) {
+        max_row = index
+        break
+      }
+    }
+
+      // console.log(max_row);
+    let rawdata = []
+    for (let index = startRow; index < max_row; index++) {
+      data_raw = {}
+      for (const [i, item] of this.dataExcel[index].entries()) {
+        let datanew = item
+        if (item == undefined || item == "") {
+          datanew = "-"
+        }
+        data_raw[header[i]] = datanew
+      }
+      rawdata.push(data_raw)
+    }
+
+    let database_asset = await lastValueFrom(this.api.AssetKeypadKeyboardGetAll())
+    console.log("🚀 ~ file: master-it-asset.component.ts:576 ~ MasterAssetMouse ~ database_asset:", database_asset)
+    let group_A = []
+    if (database_asset.length) { group_A = database_asset.map((d: any) => d[" Control Code"]) }
+    let group_B = rawdata.map((d: any) => d[" Control Code"])
+    let group_asset = group_A.concat(group_B)
+    const unique = [...new Set(group_asset.map((item: any) => item))];
+
+    for (const name of unique) {
+      if (rawdata.filter((d: any) => d[" Control Code"] == name).length != 0) {
+        if (database_asset.filter((d: any) => d[" Control Code"] == name).length != 0) {
+          //upload
+          let id = database_asset.filter((d: any) => d[" Control Code"] == name)
+          let data = rawdata.filter((d: any) => d[" Control Code"] == name)
+          let Update = await lastValueFrom(this.api.AssetKeypadKeyboardUpdate(id[0]._id, data[0]))
+        } else {
+          //add
+          let data = rawdata.filter((d: any) => d[" Control Code"] == name)
+          let Adddate = await lastValueFrom(this.api.AssetKeypadKeyboardAdd(data[0]))
+          // console.log(data[0]);
+        }
+      } else {
+        // let data = rawdata.filter((d: any) => d[" Control Code"] == name)
+        let delDel = await lastValueFrom(this.api.AssetKeypadKeyboardDelByID({ " Control Code": name }))
+
+        //del
+      }
+
+    }
+    this.ngxService.stop()
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Success',
+      showConfirmButton: false,
+      timer: 1500,
+    })
+  }
+
+
+  function1Active = false;
   toggleFunction() {
     this.function1Active = !this.function1Active;
     if (this.function1Active) {
@@ -560,7 +714,7 @@ export class MasterITAssetComponent {
     this.dataSource.paginator = this.paginator;
   }
 
-  return_force(d:any){
+  return_force(d: any) {
     Swal.close()
     Swal.fire({
       title: `Force Return [${d["Host Name"]}] ?`,
@@ -591,9 +745,9 @@ export class MasterITAssetComponent {
             })
             const reason = result.value;
             let data = {
-              asset : d["Host Name"],
-              reason : reason,
-              asset_type : d["Type"]
+              asset: d["Host Name"],
+              reason: reason,
+              asset_type: d["Type"]
             }
             let res = await lastValueFrom(this.api.Mail_Return_Force(data))
           }
@@ -601,6 +755,10 @@ export class MasterITAssetComponent {
         //code end
       }
     })
+  }
+
+  async CheckUpdateMaster(){
+    let database_asset = await lastValueFrom(this.api.AssetPCGetAll())
   }
 
 

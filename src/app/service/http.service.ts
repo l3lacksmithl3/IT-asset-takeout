@@ -153,6 +153,56 @@ export class HttpService {
   }
 
 
+  //ITassetOfficePC
+  AssetPCUpdate(id: any, data: any): Observable<any> {
+    return this.http.put(this.Url + "/AssetOfficePC/insert/" + id, data)
+  }
+  AssetPCAdd(data: any): Observable<any> {
+    return this.http.post(this.Url + "/AssetOfficePC/", data)
+  }
+  AssetPCGetAll(): Observable<any> {
+    return this.http.get(this.Url + "/AssetOfficePC/")
+  }
+  AssetPCGetByID(data: any): Observable<any> {
+    return this.http.post(this.Url + "/AssetOfficePC/getByCondition/", data)
+  }
+  AssetPCDelByID(data: any): Observable<any> {
+    return this.http.post(this.Url + "/AssetOfficePC/delByCondition/", data)
+  }
+
+  //ITassetMouse
+  AssetMouseUpdate(id: any, data: any): Observable<any> {
+    return this.http.put(this.Url + "/AssetMouser/insert/" + id, data)
+  }
+  AssetMouseAdd(data: any): Observable<any> {
+    return this.http.post(this.Url + "/AssetMouser/", data)
+  }
+  AssetMouseGetAll(): Observable<any> {
+    return this.http.get(this.Url + "/AssetMouser/")
+  }
+  AssetMouseGetByID(data: any): Observable<any> {
+    return this.http.post(this.Url + "/AssetMouser/getByCondition/", data)
+  }
+  AssetMouseDelByID(data: any): Observable<any> {
+    return this.http.post(this.Url + "/AssetMouser/delByCondition/", data)
+  }
+
+  //ITassetKeypadKeyboard
+  AssetKeypadKeyboardUpdate(id: any, data: any): Observable<any> {
+    return this.http.put(this.Url + "/AssetKeypadKeyboard/insert/" + id, data)
+  }
+  AssetKeypadKeyboardAdd(data: any): Observable<any> {
+    return this.http.post(this.Url + "/AssetKeypadKeyboard/", data)
+  }
+  AssetKeypadKeyboardGetAll(): Observable<any> {
+    return this.http.get(this.Url + "/AssetKeypadKeyboard/")
+  }
+  AssetKeypadKeyboardGetByID(data: any): Observable<any> {
+    return this.http.post(this.Url + "/AssetKeypadKeyboard/getByCondition/", data)
+  }
+  AssetKeypadKeyboardDelByID(data: any): Observable<any> {
+    return this.http.post(this.Url + "/AssetKeypadKeyboard/delByCondition/", data)
+  }
 
 
   // mail
@@ -160,7 +210,7 @@ export class HttpService {
     return this.http.post(this.Url + "/Mailer/sendMail/", data)
   }
 
- //TODO mail reject takeout
+  //TODO mail reject takeout
   Mail_Reject(data: any): Observable<any> {
     return this.http.post(this.Url + "/Mailer/RejectM/", data)
   }

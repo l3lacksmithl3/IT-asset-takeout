@@ -79,7 +79,11 @@ export class ApproveComponent {
     }
 
     result = result.map((e: any) => {
-      return JSON.stringify(e)
+      if (typeof e == 'string') {
+        return e
+      }else{
+        return JSON.stringify(e)
+      }
     })
 
     console.log(result);

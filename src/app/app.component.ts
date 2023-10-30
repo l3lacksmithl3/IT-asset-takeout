@@ -99,7 +99,11 @@ export class AppComponent {
       }
 
       result = result.map((e: any) => {
-        return JSON.stringify(e)
+        if (typeof e == 'string') {
+          return e
+        }else{
+          return JSON.stringify(e)
+        }
       })
 
       let filter = {
