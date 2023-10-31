@@ -241,8 +241,8 @@ export class ApproveExtendComponent {
     if (this.reject?.length > 0) {
       id = this.reject
     }
-    console.log(this.id);
-    console.log("askdkaskdk");
+    //console.log(this.id);
+    //console.log("askdkaskdk");
 
 
     this.router.navigate(['/ITAssetTakeout'], {
@@ -340,7 +340,7 @@ export class ApproveExtendComponent {
       extend_count: this.extend_count
     }
     let Mail_Reject = lastValueFrom(this.api.Mail_Reject_Extend(mail_data))
-    console.log(mail_data);
+    //console.log(mail_data);
     //TODO--------------------------------------------------------------------------------------------------------------------------------------------
     // Takeout_success_to_div
   }

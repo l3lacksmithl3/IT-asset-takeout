@@ -118,7 +118,7 @@ export class ProcessSettingComponent {
       data: item,
     });
     closeDialog.afterClosed().subscribe(close => {
-      console.log(close);
+      // console.log(close);
       if (type == 'user') {
         // this.approvalData.data = close
         // this.approvalData.index = index
@@ -137,7 +137,7 @@ export class ProcessSettingComponent {
       data: item,
     });
     closeDialog.afterClosed().subscribe(close => {
-      console.log(close);
+      // console.log(close);
       if (type == 'it') {
         // this.approvalDataIT = close
         if (close) {

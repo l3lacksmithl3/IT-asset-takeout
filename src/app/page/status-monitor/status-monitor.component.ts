@@ -65,7 +65,7 @@ export class StatusMonitorComponent implements OnInit {
     // console.log(this.username);
     // console.log(this.time_approve);
 
-    console.log(this.data_status);
+    // console.log(this.data_status);
 
   }
 

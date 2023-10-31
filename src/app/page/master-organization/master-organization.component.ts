@@ -94,7 +94,7 @@ export class MasterOrganizationComponent implements OnInit {
 
 
   def_edit(e: any) {
-    console.log(e);
+    // console.log(e);
     let closeDialog = this.dialog.open(MasterOrganizationEditComponent, {
       autoFocus: false,
       width: '500px',
@@ -128,7 +128,7 @@ export class MasterOrganizationComponent implements OnInit {
       position: position,
       code_employee: [this.code_employee]
     }
-    console.log(list);
+    // console.log(list);
     let add = lastValueFrom(this.api.Master_Code_Add(list))
     Swal.fire({
       position: 'center',

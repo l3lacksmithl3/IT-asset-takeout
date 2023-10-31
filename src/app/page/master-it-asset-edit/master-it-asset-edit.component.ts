@@ -33,8 +33,8 @@ export class MasterItAssetEditComponent {
 
   update() {
     Swal.close()
-    console.log(this.data);
-    console.log(this.id);
+    // console.log(this.data);
+    // console.log(this.id);
     Swal.close()
     Swal.fire({
       title: 'Do you want to update data ?',

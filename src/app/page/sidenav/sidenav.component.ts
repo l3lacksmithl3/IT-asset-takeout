@@ -249,7 +249,7 @@ export class SidenavComponent {
 
     }
     this.item_approve = list.filter((d: any) => d.Value.Approve_Step == 1)
-    console.log(this.item_approve);
+    // console.log(this.item_approve);
 
   }
 

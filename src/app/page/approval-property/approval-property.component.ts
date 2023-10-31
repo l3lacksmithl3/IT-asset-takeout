@@ -63,7 +63,7 @@ export class ApprovalPropertyComponent {
 
   async getUserByDepartment(code: any) {
     let data = await lastValueFrom(this.api.MasterUserAll())
-    console.log(data);
+    //console.log(data);
 
     return data.filter((d: any) => d.department == code)
   }
@@ -123,7 +123,7 @@ export class ApprovalPropertyComponent {
         Corporate("Yuji Sakakibara", "yuji-sakakibara@kyocera.co.th", "AMT")
         break;
       case "AMT QA":
-        console.log("asdasdasdasd");
+        //console.log("asdasdasdasd");
 
         Corporate("Yuji Sakakibara", "yuji-sakakibara@kyocera.co.th", "AMT")
         break;

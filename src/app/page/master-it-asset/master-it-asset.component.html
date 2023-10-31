@@ -32,7 +32,8 @@
 
             <div class="col " style="padding: 0;">
               <div class="" style="overflow: auto;">
-                <table mat-table [dataSource]="dataSourcePC" matSort style="background-color: #ffffff15;">
+                <table mat-table #sortCol1="matSort" [dataSource]="dataSourcePC" matSort
+                  style="background-color: #ffffff15;">
                   <ng-container matColumnDef="Action">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Acton </th>
                     <td mat-cell *matCellDef="let element" [ngClass]="{'set_gray': !Blacklist(element['Host Name'])}">
@@ -44,6 +45,10 @@
                       <button class="blacklistA mr-1" *ngIf="!Blacklist(element['Host Name'])"
                         (click)="def_black_false(element['Host Name'])" matTooltip="Lock"
                         matTooltipPosition="above"><img src="assets/padlock.png" style="width: 20px;" alt=""></button>
+                      <button class="yellow mr-1" *ngIf="ReturnForce(element['Control Code'])"
+                        (click)="return_force(element['Host Name'],element['Type'])" matTooltip="Lock"
+                        matTooltipPosition="above"><img src="assets/product-return.png" style="width: 20px;"
+                          alt=""></button>
                     </td>
                   </ng-container>
                   <div *ngFor="let item of row">
@@ -88,26 +93,31 @@
             </div>
             <div class="col " style="padding: 0;">
               <div class="" style="overflow: auto;">
-                <table mat-table [dataSource]="dataSourceMouse" matSort style="background-color: #ffffff15;">
+                <table mat-table #sortCol2="matSort" [dataSource]="dataSourceMouse" matSort
+                  style="background-color: #ffffff15;">
                   <ng-container matColumnDef="Action">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Acton </th>
                     <td mat-cell *matCellDef="let element"
-                      [ngClass]="{'set_gray': !Blacklist(element[' Control Code'])}">
+                      [ngClass]="{'set_gray': !Blacklist(element['Control Code'])}">
                       <button class="success mr-1" (click)="def_view(element)"><img src="assets/search-file.png  "
                           matTooltip="View" matTooltipPosition="above" style="width: 21px;" alt=""></button>
-                      <button class="blacklist mr-1" *ngIf="Blacklist(element[' Control Code'])"
-                        (click)="def_black_true(element[' Control Code'])" matTooltip="UnLock"
+                      <button class="blacklist mr-1" *ngIf="Blacklist(element['Control Code'])"
+                        (click)="def_black_true(element['Control Code'])" matTooltip="UnLock"
                         matTooltipPosition="above"><img src="assets/unlock_2.png" style="width: 20px;" alt=""></button>
-                      <button class="blacklistA mr-1" *ngIf="!Blacklist(element[' Control Code'])"
-                        (click)="def_black_false(element[' Control Code'])" matTooltip="Lock"
+                      <button class="blacklistA mr-1" *ngIf="!Blacklist(element['Control Code'])"
+                        (click)="def_black_false(element['Control Code'])" matTooltip="Lock"
                         matTooltipPosition="above"><img src="assets/padlock.png" style="width: 20px;" alt=""></button>
+                      <button class="yellow mr-1" *ngIf="ReturnForce(element['Control Code'])"
+                        (click)="return_force(element['Control Code'],'Mouse')" matTooltip="Lock"
+                        matTooltipPosition="above"><img src="assets/product-return.png" style="width: 20px;"
+                          alt=""></button>
                     </td>
                   </ng-container>
                   <div *ngFor="let item of H_Mouse">
                     <ng-container [matColumnDef]="item.header">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{item.header}} </th>
                       <td mat-cell *matCellDef="let element"
-                        [ngClass]="{'set_gray': !Blacklist(element[' Control Code'])}">
+                        [ngClass]="{'set_gray': !Blacklist(element['Control Code'])}">
                         {{element[item.value]}} </td>
                     </ng-container>
                   </div>
@@ -145,26 +155,31 @@
             </div>
             <div class="col " style="padding: 0;">
               <div class="" style="overflow: auto;">
-                <table mat-table [dataSource]="dataSourceKeyPad" matSort style="background-color: #ffffff15;">
+                <table mat-table #sortCol3="matSort" [dataSource]="dataSourceKeyPad" matSort
+                  style="background-color: #ffffff15;">
                   <ng-container matColumnDef="Action">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Acton </th>
                     <td mat-cell *matCellDef="let element"
-                      [ngClass]="{'set_gray': !Blacklist(element[' Control Code'])}">
+                      [ngClass]="{'set_gray': !Blacklist(element['Control Code'])}">
                       <button class="success mr-1" (click)="def_view(element)"><img src="assets/search-file.png  "
                           matTooltip="View" matTooltipPosition="above" style="width: 21px;" alt=""></button>
-                      <button class="blacklist mr-1" *ngIf="Blacklist(element[' Control Code'])"
-                        (click)="def_black_true(element[' Control Code'])" matTooltip="UnLock"
+                      <button class="blacklist mr-1" *ngIf="Blacklist(element['Control Code'])"
+                        (click)="def_black_true(element['Control Code'])" matTooltip="UnLock"
                         matTooltipPosition="above"><img src="assets/unlock_2.png" style="width: 20px;" alt=""></button>
-                      <button class="blacklistA mr-1" *ngIf="!Blacklist(element[' Control Code'])"
-                        (click)="def_black_false(element[' Control Code'])" matTooltip="Lock"
+                      <button class="blacklistA mr-1" *ngIf="!Blacklist(element['Control Code'])"
+                        (click)="def_black_false(element['Control Code'])" matTooltip="Lock"
                         matTooltipPosition="above"><img src="assets/padlock.png" style="width: 20px;" alt=""></button>
+                      <button class="yellow mr-1" *ngIf="ReturnForce(element['Control Code'])"
+                        (click)="return_force(element['Control Code'],'Keypad Keyboard')" matTooltip="Lock"
+                        matTooltipPosition="above"><img src="assets/product-return.png" style="width: 20px;"
+                          alt=""></button>
                     </td>
                   </ng-container>
                   <div *ngFor="let item of H_KeyPad">
                     <ng-container [matColumnDef]="item.header">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{item.header}} </th>
                       <td mat-cell *matCellDef="let element"
-                        [ngClass]="{'set_gray': !Blacklist(element[' Control Code'])}">
+                        [ngClass]="{'set_gray': !Blacklist(element['Control Code'])}">
                         {{element[item.value]}} </td>
                     </ng-container>
                   </div>

@@ -52,7 +52,7 @@ export class ItAssetReturnComponent {
   //set data
   async setData() {
     let data = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
-    console.log(data);
+    // console.log(data);
 
     this.data = {
       name: data.full_name,
@@ -69,7 +69,7 @@ export class ItAssetReturnComponent {
 
 
     this.dataList = await lastValueFrom(this.api.getDataApprove(list))
-    console.log(data.name);
+    // console.log(data.name);
 
     // console.log("🚀 ~ file: it-asset-return.component.ts:70 ~ ItAssetReturnComponent ~ setData ~  this.dataList:",  this.dataList)
 
@@ -131,7 +131,7 @@ export class ItAssetReturnComponent {
         }
 
       })
-      console.log(this.data.old_data.return.item);
+      // console.log(this.data.old_data.return.item);
 
 
       this.data.period = `${moment(this.data.old_data.takeout.FromDate).format("ll")} - ${moment(this.data.old_data.takeout.ToDate).format("ll")}`
@@ -394,7 +394,7 @@ export class ItAssetReturnComponent {
     mail = mail.map((d: any) => {
       return d.email
     })
-    console.log(mail);
+    // console.log(mail);
 
     let mail_data = {
       _id: this.data?.id,
@@ -455,7 +455,7 @@ export class ItAssetReturnComponent {
       asset: data,
       extend_count: count
     }
-    console.log(mail_data);
+    // console.log(mail_data);
 
     // Mail_Approve_return
     let Mail_Approve_Extend = await lastValueFrom(this.api.Mail_Approve_Extends(mail_data))
@@ -511,8 +511,8 @@ export class ItAssetReturnComponent {
 
 
   async extend(e: any, i: any) {
-    console.log(e);
-    console.log(i);
+    // console.log(e);
+    // console.log(i);
     let x = e[i]
     if (this.date_select.date) {
       x.title = `${this.date_select.date}`
@@ -522,8 +522,8 @@ export class ItAssetReturnComponent {
     }else{
       this.extend_btn = false
     }
-    console.log(this.data.old_data.return.item[i]);
-    console.log(x);
+    // console.log(this.data.old_data.return.item[i]);
+    // console.log(x);
     if (x.extend) {
       this.extend_item.push(this.data.old_data.return.item[i])
     }
@@ -669,7 +669,7 @@ export class ItAssetReturnComponent {
 
 
   Debug(){
-    console.log(this.extend_item);
+    // console.log(this.extend_item);
     // console.log(this.last_item);
 
 

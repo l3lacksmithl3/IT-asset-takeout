@@ -105,7 +105,7 @@ export class ApproveFormComponent {
       if (res['reject']) {
         this.mode = 0
         let res = await lastValueFrom(this.api.getDataApprove({ _id: this.reject }))
-        console.log(res);
+        //console.log(res);
 
         if (res[0].return) {
           this.data = res[0].return
@@ -115,7 +115,7 @@ export class ApproveFormComponent {
           this.type = 1
         }
         this.data.reason = res[0].reason
-        console.log(this.data.comment);
+        //console.log(this.data.comment);
         this.ControlID = res[0].ControlID
       }
 
@@ -182,7 +182,7 @@ export class ApproveFormComponent {
                 Approve_time: moment().format()
               }
             })
-            console.log(aoo);
+            // console.log(aoo);
 
             data[0].return.item = data[0].return.item.map((d: any) => {
               const foo = aoo.find((a: any) => a.value == d.value)
@@ -339,8 +339,8 @@ export class ApproveFormComponent {
     if (this.reject?.length > 0) {
       id = this.reject
     }
-    console.log(this.id);
-    console.log("askdkaskdk");
+    // console.log(this.id);
+    // console.log("askdkaskdk");
 
 
     this.router.navigate(['/ITAssetTakeout'], {
@@ -406,7 +406,7 @@ export class ApproveFormComponent {
       asset: data?.takeout.item
     }
     let Mail_Takeout_success = lastValueFrom(this.api.Takeout_success(mail_data))
-    console.log(mail_data);
+    // console.log(mail_data);
   }
 
   async sendMail_1(id: any, data: any) {
@@ -418,7 +418,7 @@ export class ApproveFormComponent {
       asset: data?.takeout.item
     }
     let Mail_Return_success = lastValueFrom(this.api.Return_success(mail_data))
-    console.log(mail_data);
+    // console.log(mail_data);
   }
 
 

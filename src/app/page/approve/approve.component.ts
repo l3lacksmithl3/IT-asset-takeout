@@ -86,7 +86,7 @@ export class ApproveComponent {
       }
     })
 
-    console.log(result);
+    //console.log(result);
 
     let filter = {
       $or: [
@@ -96,7 +96,7 @@ export class ApproveComponent {
     }
 
     let rew = await lastValueFrom(this.api.getDataApprove(filter))
-    console.log(rew);
+    //console.log(rew);
 
 
 
@@ -210,7 +210,7 @@ export class ApproveComponent {
 
     // console.log(rew);
     this.data = rew
-    console.log(this.data);
+    //console.log(this.data);
 
     this.data = this.sort(this.data, "ControlID")
     this.dataSource = new MatTableDataSource(this.data)
@@ -220,7 +220,7 @@ export class ApproveComponent {
   }
 
   view(item: any) {
-    console.log(item);
+    //console.log(item);
 
     let params
     if (item.BusinessModel == "IT asset takeout application form") {
@@ -234,8 +234,8 @@ export class ApproveComponent {
     //   // window.location.reload()
     // })
     let set1 = localStorage.setItem("IT-asset-takeout-ViewApprove", JSON.stringify(item.id))
-    console.log(item.BusinessModel);
-    console.log();
+    //console.log(item.BusinessModel);
+    //console.log();
 
     if (item["Business Model"] == "IT asset takeout application form") {
       this.router.navigate(['/ApproveFormConfirm'], {

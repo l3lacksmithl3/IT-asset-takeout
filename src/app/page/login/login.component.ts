@@ -102,7 +102,7 @@ export class LoginComponent {
       login[0].code_abbname = code[0]?.code_abbname
       login[0].code_fullname = code[0]?.code_fullname
 
-      console.log(login[0].employee);
+      // console.log(login[0].employee);
 
       switch (login[0].employee) {
 
@@ -167,7 +167,7 @@ export class LoginComponent {
       setTimeout(() => {
         this.router.queryParams.subscribe(async res => {
           let Check = await lastValueFrom(this.api.Master_Code_ByCondition({ "code_employee": login[0].employee }))
-          console.log(Check[0]);
+          // console.log(Check[0]);
 
           if (Check.length > 0) {
             if (Check[0].position == "corporate") { login[0].level = 4, login[0].position_code = `${Check[0].code}` }

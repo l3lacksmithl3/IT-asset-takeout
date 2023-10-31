@@ -79,7 +79,7 @@ export class ApproveReturnComponent {
       this.data_status.type = "return"
 
 
-      console.log(this.data);
+      // console.log(this.data);
 
       this.ngxService.stop()
     })
@@ -264,8 +264,8 @@ export class ApproveReturnComponent {
     if (this.reject?.length > 0) {
       id = this.reject
     }
-    console.log(this.id);
-    console.log("askdkaskdk");
+    // console.log(this.id);
+    // console.log("askdkaskdk");
 
 
     this.router.navigate(['/ITAssetTakeout'], {
@@ -333,7 +333,7 @@ export class ApproveReturnComponent {
       asset: data?.takeout.item
     }
     let Mail_Takeout_success = lastValueFrom(this.api.Takeout_success(mail_data))
-    console.log(mail_data);
+    // console.log(mail_data);
   }
 
   //TODO mail
@@ -347,7 +347,7 @@ export class ApproveReturnComponent {
       return_count: this.return_count
     }
     let Mail_Return_success = lastValueFrom(this.api.Return_success(mail_data))
-    console.log(mail_data);
+    // console.log(mail_data);
   }
 
 
@@ -361,7 +361,7 @@ export class ApproveReturnComponent {
       asset: data?.takeout.item
     }
     let Mail_Reject = lastValueFrom(this.api.Mail_Reject(mail_data))
-    console.log(mail_data);
+    // console.log(mail_data);
 
 
     //TODO--------------------------------------------------------------------------------------------------------------------------------------------

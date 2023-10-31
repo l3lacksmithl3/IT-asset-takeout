@@ -212,7 +212,7 @@ export class ApprovedHistoryComponent {
 
 
   view(item: any) {
-    console.log(item);
+    // console.log(item);
 
 
     if (item["Business Model"] == "IT asset return") {

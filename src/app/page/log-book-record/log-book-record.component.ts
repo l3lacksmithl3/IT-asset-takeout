@@ -81,7 +81,7 @@ export class LogBookRecordComponent {
       }
     }
 
-    console.log(data);
+    // console.log(data);
 
 
 
@@ -111,7 +111,7 @@ export class LogBookRecordComponent {
       }
     })
 
-    console.log(this.data);
+    // console.log(this.data);
 
 
 
@@ -131,7 +131,7 @@ export class LogBookRecordComponent {
 
 
   lop(d: any) {
-    console.log(d);
+    // console.log(d);
   }
 
 
@@ -245,7 +245,7 @@ export class LogBookRecordComponent {
                 // console.log(ABC.split(""));
                 const worksheet = workbook.getWorksheet("report");
 
-                console.log(data_select);
+                // console.log(data_select);
                 for (const [index, item] of data_select.entries()) {
 
                   if (moment(item["Temp_Take out period"].split('-')[1]).diff(moment(item["Temp_ReturnOver"]), "day") < 0 && item["Temp_Status"] == 'PASS' && item["Temp_ReturnDate"]) {
@@ -307,12 +307,13 @@ export class LogBookRecordComponent {
 
 
 
+
                 });
               });
           });
         },
         error => {
-          console.log(error);
+          // console.log(error);
         }
       );
 

@@ -44,13 +44,13 @@ export class MasterOrganizationEditComponent implements OnInit {
 
     let key = d.code[1].toString().slice(0, 2)
     let user = await lastValueFrom(this.api.MasterUserAll())
-    console.log("🚀 ~ file: master-organization-edit.component.ts:48 ~ MasterOrganizationEditComponent ~ MasterUserAll ~ user:", user)
+    // console.log("🚀 ~ file: master-organization-edit.component.ts:48 ~ MasterOrganizationEditComponent ~ MasterUserAll ~ user:", user)
 
     let res = user.filter((d: any) => d["department"].match(new RegExp(`^${key}.*`, "i")));
     res = this.sort(res, "name")
     if (res.length > 0) {
       this.list_employee = res
-      console.log("🚀 ~ file: master-organization-edit.component.ts:51 ~ MasterOrganizationEditComponent ~ MasterUserAll ~ res:", res)
+      // console.log("🚀 ~ file: master-organization-edit.component.ts:51 ~ MasterOrganizationEditComponent ~ MasterUserAll ~ res:", res)
     }
 
   }
@@ -63,11 +63,11 @@ export class MasterOrganizationEditComponent implements OnInit {
     if (this.list_value) code[0] = this.list_value
     if (this.list_value_2) code[1] = this.list_value_2
     data[0].code_employee = code
-    console.log(this.data._id);
-    console.log(data[0]);
+    // console.log(this.data._id);
+    // console.log(data[0]);
 
     let update = await lastValueFrom(this.api.Master_Code_update(data[0]._id, data[0]))
-    console.log("🚀 ~ file: master-organization-edit.component.ts:63 ~ MasterOrganizationEditComponent ~ submit ~ update:", update)
+    // console.log("🚀 ~ file: master-organization-edit.component.ts:63 ~ MasterOrganizationEditComponent ~ submit ~ update:", update)
     this.dialog.close("success")
   }
 
@@ -78,7 +78,7 @@ export class MasterOrganizationEditComponent implements OnInit {
 
   async select() {
     let data = await lastValueFrom(this.api.Master_Code_ByCondition({ code: { $in: [Number(this.data.code[this.list_name - 1]), this.data.code[this.list_name - 1]] } }))
-    console.log(data);
+    // console.log(data);
 
     this.list_value = data[0]?.code_employee[0]
     this.list_value_2 = data[0]?.code_employee[1]

@@ -322,7 +322,7 @@ export class ItAssetTakeout2Component implements OnInit {
             approver: mail
           }
           let Mail_Approve = lastValueFrom(this.api.Mail_Approve_Request(mail_data))
-          console.log(mail_data);
+          // console.log(mail_data);
 
           // let Mail_Approve = lastValueFrom(this.api.Mail_Approve_Request(mail_data))
           // let Mail_Received = lastValueFrom(this.api.Mail_Received_mail(mail_data))
@@ -673,7 +673,7 @@ export class ItAssetTakeout2Component implements OnInit {
         delete this.data.ITassetsNo_3
         //TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO
         this.update_status_asset()
-        console.log(this.dataValue);
+        // console.log(this.dataValue);
 
         const user = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
         let data_organization = await lastValueFrom(this.api.MasterOrganization_ByCondition({ organization: `${user.section}` }))

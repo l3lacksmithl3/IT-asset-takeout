@@ -87,7 +87,7 @@ export class LogbookHeadComponent {
 
 
     let job = await lastValueFrom(this.api.getDataApprove(filter))
-    console.log(job);
+    // console.log(job);
 
     let data = []
     for (const list of job) {
@@ -164,7 +164,7 @@ export class LogbookHeadComponent {
 
 
     this.dataSource = new MatTableDataSource(this.data)
-    console.log("🚀 ~ file: inventory.component.ts:102 ~ InventoryComponent ~ ngOnInit ~ this.data:", this.data)
+    // console.log("🚀 ~ file: inventory.component.ts:102 ~ InventoryComponent ~ ngOnInit ~ this.data:", this.data)
     this.dataSource.paginator = this.paginator;
 
 
