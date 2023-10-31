@@ -81,18 +81,18 @@ td, th {
 
 
 .blacklist {
-	box-shadow:inset -1px 2px 0px 0px #8eadf5;
-	background:linear-gradient(to bottom, #3740f2 5%, #251fc6 100%);
-	background-color:#3763f2;
-	border-radius:5px;
-	border:2px solid #1837d0;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	padding:4px 8px;
-	text-decoration:none;
+  box-shadow: inset -1px 2px 0px 0px #8eadf5;
+  background: linear-gradient(to bottom, #3782f2 5%, #1f4bc6 100%);
+  background-color: #377df2;
+  border-radius: 5px;
+  border: 2px solid #1896d0;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  padding: 4px 8px;
+  text-decoration: none;
 }
 
 .blacklist:hover {
@@ -100,6 +100,30 @@ td, th {
 	background-color:#1f59c6;
 }
 .blacklist:active {
+	position:relative;
+	top:1px;
+}
+
+.blacklistA {
+  box-shadow: inset -1px 2px 0px 0px #f58e8e;
+  background: linear-gradient(to bottom, #f23737 5%, #c61f1f 100%);
+  background-color: #f23737;
+  border-radius: 5px;
+  border: 2px solid #d01818;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  padding: 4px 8px;
+  text-decoration: none;
+}
+
+.blacklistA:hover {
+  background: linear-gradient(to bottom, #c61f1f 5%, #f23737 100%);
+  background-color: #c61f1f;
+}
+.blacklistA:active {
 	position:relative;
 	top:1px;
 }

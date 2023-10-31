@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MasterOrganizationEditComponent } from '../master-organization-edit/master-organization-edit.component';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class MasterOrganizationComponent implements OnInit {
     private dialog: MatDialog,
     private route: Router,
     private routers: ActivatedRoute,
+    private ngxService: NgxUiLoaderService
   ) { }
 
   displayedColumns: string[] = ['0', '1', '2', '3', '4', '5', '6', '7'];
@@ -36,7 +38,9 @@ export class MasterOrganizationComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.ngxService.start()
     this.MaterOr_Getall()
+    this.ngxService.stop()
   }
 
 
@@ -58,7 +62,6 @@ export class MasterOrganizationComponent implements OnInit {
         temp_section: convert(code.filter((e: any) => e.code == d.code[3])[0]?.code_employee)
       }
     })
-    console.log(list);
 
     function convert(params: any) {
       if (params) {

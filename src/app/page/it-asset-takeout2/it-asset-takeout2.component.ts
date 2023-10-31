@@ -373,20 +373,16 @@ export class ItAssetTakeout2Component implements OnInit {
     let login = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
     let asset = await lastValueFrom(this.api.getAssetIT())
     this.CheckData = asset
-    let MyDevice = asset.filter((d: any) => d.EmpCD == login.employee)
+
+    let MyDevice = await lastValueFrom(this.api.AssetPCGetByID({ "EmpCD": login.employee }))
     let DeviceIT = asset.filter((d: any) => (d.Type != "Laptop") && (d.Type != "Desktop") && (d.Type != "Workstation"))
     DeviceIT = sort(DeviceIT, "Type")
     this.device = MyDevice.concat(DeviceIT)
-
-
-    // this.device = this.device.filter((d: any) => d.status_return == "available")
-    // console.log(this.device);
+    this.device = this.device.map((d: any) => { return { ...d, "Host Name": d["Host Name"].toLowerCase() } })
 
     this.asset_full = asset.filter((d: any) => (d.EmpCD != login.employee) && ((d.Type == "Laptop") || (d.Type == "Desktop") || (d.Type == "Workstation")))
-    // console.log(this.device);
     const unique = [...new Set(this.device.map((item: any) => item.Type))]; // [ 'A', 'B']
 
-    // for (const item of unique) {
     this.UniqueDevice = unique.map((d: any) => {
       let filter = this.device.filter((e: any) => e.Type == d)
       let NewData = filter.map((d: any) => {
@@ -412,6 +408,8 @@ export class ItAssetTakeout2Component implements OnInit {
 
 
     const unique_2 = [...new Set(this.asset_full.map((item: any) => item.Type))]; // [ 'A', 'B']
+    ;
+
     this.asset_full = unique_2.map((d: any) => {
       let filter = this.asset_full.filter((e: any) => e.Type == d)
       let NewData = filter.map((d: any) => {
@@ -437,6 +435,8 @@ export class ItAssetTakeout2Component implements OnInit {
 
 
     this.stateGroups_1 = this.UniqueDevice.concat(this.asset_full)
+
+
 
     this.stateGroupOptions_1 = this.stateForm_1.get('stateGroup_1')!.valueChanges.pipe(
       startWith(''),
@@ -494,19 +494,19 @@ export class ItAssetTakeout2Component implements OnInit {
 
   dataChange() {
     setTimeout(() => {
-      let data1 = this.CheckData.filter((d: any) => d["Host Name"] == this.stateForm_1.value.stateGroup_1?.toLowerCase())
+      let data1 = this.CheckData.filter((d: any) => d["Host Name"] == this.stateForm_1.value.stateGroup_1?.toLowerCase() || d["Host Name"] == this.stateForm_1.value.stateGroup_1?.toUpperCase())
       if (data1.length > 0) {
         this.data.ITassets_1 = data1[0].Type.toUpperCase()
         this.data.ITassetsNo_1 = data1[0]["Host Name"].toUpperCase()
       }
 
-      let data2 = this.CheckData.filter((d: any) => d["Host Name"] == this.stateForm_1.value.stateGroup_2?.toLowerCase())
+      let data2 = this.CheckData.filter((d: any) => d["Host Name"] == this.stateForm_1.value.stateGroup_2?.toLowerCase() || d["Host Name"] == this.stateForm_1.value.stateGroup_2?.toUpperCase())
       if (data2.length > 0) {
         this.data.ITassets_2 = data2[0].Type.toUpperCase()
         this.data.ITassetsNo_2 = data2[0]["Host Name"].toUpperCase()
       }
 
-      let data3 = this.CheckData.filter((d: any) => d["Host Name"] == this.stateForm_1.value.stateGroup_3?.toLowerCase())
+      let data3 = this.CheckData.filter((d: any) => d["Host Name"] == this.stateForm_1.value.stateGroup_3?.toLowerCase() || d["Host Name"] == this.stateForm_1.value.stateGroup_3?.toUpperCase())
       if (data3.length > 0) {
         this.data.ITassets_3 = data3[0].Type.toUpperCase()
         this.data.ITassetsNo_3 = data3[0]["Host Name"].toUpperCase()
@@ -521,8 +521,12 @@ export class ItAssetTakeout2Component implements OnInit {
   check_empty() {
 
     if (this.data.ITassetsNo_1 != this.stateForm_1.value.stateGroup_1) {
+
+
       for (let group of this.stateGroups_1) {
+
         const index = group.names.indexOf(this.data.ITassetsNo_1?.toLowerCase());
+
         if (index !== -1) {
           group.blacklist[index] = 'F';
         }
@@ -566,6 +570,7 @@ export class ItAssetTakeout2Component implements OnInit {
       this.updateInput()
       this.stateGroups_1 = this.UniqueDevice.concat(this.asset_full)
     }
+
     if (this.stateForm_1.value.stateGroup_2 == "") {
       for (let group of this.stateGroups_1) {
         const index = group.names.indexOf(this.data.ITassetsNo_2?.toLowerCase());
@@ -577,6 +582,7 @@ export class ItAssetTakeout2Component implements OnInit {
       this.data.ITassetsNo_2 = null
       this.updateInput()
     }
+
     if (this.stateForm_1.value.stateGroup_3 == "") {
       for (let group of this.stateGroups_1) {
         const index = group.names.indexOf(this.data.ITassetsNo_3?.toLowerCase());
