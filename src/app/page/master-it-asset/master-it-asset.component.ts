@@ -507,6 +507,7 @@ export class MasterITAssetComponent {
       let group_asset = group_A.concat(group_B)
       const unique = [...new Set(group_asset.map((item: any) => item))];
 
+
       for (const name of unique) {
         if (rawdata.filter((d: any) => d["Control Code"] == name).length != 0) {
           if (database_asset.filter((d: any) => d["Control Code"] == name).length != 0) {
@@ -581,7 +582,7 @@ export class MasterITAssetComponent {
       const unique = [...new Set(group_asset.map((item: any) => item))];
 
       for (const name of unique) {
-        if (rawdata.filter((d: any) => d["Control Code"] == name).length != 0) {
+        if (rawdata.filter((d: any) => d["Control Code"] == name ).length != 0) {
           if (database_asset.filter((d: any) => d["Control Code"] == name).length != 0) {
             let id = database_asset.filter((d: any) => d["Control Code"] == name)
             let data = rawdata.filter((d: any) => d["Control Code"] == name)
@@ -721,6 +722,8 @@ export class MasterITAssetComponent {
       title: 'Success',
       showConfirmButton: false,
       timer: 1500,
+    }).then(()=>{
+      window.location.reload()
     })
 
 

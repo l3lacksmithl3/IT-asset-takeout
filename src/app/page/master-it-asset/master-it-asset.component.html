@@ -19,7 +19,7 @@
                       style="background-color: rgb(255, 255, 255);border-right: none;"><img src="assets/search.png"
                         style="width: 25px;"></span>
                   </div>
-                  <input style="border-left: none;background-color: rgba(255, 255, 255, 0.998);" type="text"
+                  <input style="border-left: none;background-color: rgba(255, 255, 255, 0.998);border-radius: 0px 4px 4px 0px;" type="text"
                     class="form-control" id="basic-url" aria-describedby="basic-addon3" [(ngModel)]="inputFilter"
                     (keyup)="applyFilter1()">
                   <input hidden type="file" id="files" (change)="def_import($event)" multiple="false">
@@ -40,13 +40,13 @@
                       <button class="success mr-1" (click)="def_view(element)"><img src="assets/search-file.png  "
                           matTooltip="View" matTooltipPosition="above" style="width: 21px;" alt=""></button>
                       <button class="blacklist mr-1" *ngIf="Blacklist(element['Host Name'])"
-                        (click)="def_black_true(element['Host Name'])" matTooltip="UnLock"
+                        (click)="def_black_true(element['Host Name'])" matTooltip="Lock"
                         matTooltipPosition="above"><img src="assets/unlock_2.png" style="width: 20px;" alt=""></button>
                       <button class="blacklistA mr-1" *ngIf="!Blacklist(element['Host Name'])"
-                        (click)="def_black_false(element['Host Name'])" matTooltip="Lock"
+                        (click)="def_black_false(element['Host Name'])" matTooltip="UnLock"
                         matTooltipPosition="above"><img src="assets/padlock.png" style="width: 20px;" alt=""></button>
                       <button class="yellow mr-1" *ngIf="ReturnForce(element['Control Code'])"
-                        (click)="return_force(element['Host Name'],element['Type'])" matTooltip="Lock"
+                        (click)="return_force(element['Host Name'],element['Type'])" matTooltip="UnLock"
                         matTooltipPosition="above"><img src="assets/product-return.png" style="width: 20px;"
                           alt=""></button>
                     </td>
@@ -82,7 +82,7 @@
                       style="background-color: rgb(255, 255, 255);border-right: none;"><img src="assets/search.png"
                         style="width: 25px;"></span>
                   </div>
-                  <input style="border-left: none;background-color: rgba(255, 255, 255, 0.998);" type="text"
+                  <input style="border-left: none;background-color: rgba(255, 255, 255, 0.998);border-radius: 0px 4px 4px 0px;" type="text"
                     class="form-control" id="basic-url" aria-describedby="basic-addon3" [(ngModel)]="inputFilter"
                     (keyup)="applyFilter2()">
                   <input hidden type="file" id="files" (change)="def_import_mouse($event)" multiple="false">
@@ -102,13 +102,13 @@
                       <button class="success mr-1" (click)="def_view(element)"><img src="assets/search-file.png  "
                           matTooltip="View" matTooltipPosition="above" style="width: 21px;" alt=""></button>
                       <button class="blacklist mr-1" *ngIf="Blacklist(element['Control Code'])"
-                        (click)="def_black_true(element['Control Code'])" matTooltip="UnLock"
+                        (click)="def_black_true(element['Control Code'])" matTooltip="Lock"
                         matTooltipPosition="above"><img src="assets/unlock_2.png" style="width: 20px;" alt=""></button>
                       <button class="blacklistA mr-1" *ngIf="!Blacklist(element['Control Code'])"
-                        (click)="def_black_false(element['Control Code'])" matTooltip="Lock"
+                        (click)="def_black_false(element['Control Code'])" matTooltip="UnLock"
                         matTooltipPosition="above"><img src="assets/padlock.png" style="width: 20px;" alt=""></button>
                       <button class="yellow mr-1" *ngIf="ReturnForce(element['Control Code'])"
-                        (click)="return_force(element['Control Code'],'Mouse')" matTooltip="Lock"
+                        (click)="return_force(element['Control Code'],'Mouse')" matTooltip="UnLock"
                         matTooltipPosition="above"><img src="assets/product-return.png" style="width: 20px;"
                           alt=""></button>
                     </td>
@@ -138,13 +138,13 @@
           <mat-tab label="Keypad-Keyboard">
             <div class="col">
               <div class="row">
-                <div class="input-group">
-                  <div class="input-group-prepend">
+                <div class="input-group" >
+                  <div class="input-group-prepend" >
                     <span class="input-group-text" id="basic-addon3"
                       style="background-color: rgb(255, 255, 255);border-right: none;"><img src="assets/search.png"
                         style="width: 25px;"></span>
                   </div>
-                  <input style="border-left: none;background-color: rgba(255, 255, 255, 0.998);" type="text"
+                  <input style="border-left: none;background-color: rgba(255, 255, 255, 0.998);border-radius: 0px 4px 4px 0px;" type="text"
                     class="form-control" id="basic-url" aria-describedby="basic-addon3" [(ngModel)]="inputFilter"
                     (keyup)="applyFilter3()">
                   <input hidden type="file" id="files" (change)="def_import_keypadkeyboard($event)" multiple="false">
@@ -164,13 +164,13 @@
                       <button class="success mr-1" (click)="def_view(element)"><img src="assets/search-file.png  "
                           matTooltip="View" matTooltipPosition="above" style="width: 21px;" alt=""></button>
                       <button class="blacklist mr-1" *ngIf="Blacklist(element['Control Code'])"
-                        (click)="def_black_true(element['Control Code'])" matTooltip="UnLock"
+                        (click)="def_black_true(element['Control Code'])" matTooltip="Lock"
                         matTooltipPosition="above"><img src="assets/unlock_2.png" style="width: 20px;" alt=""></button>
                       <button class="blacklistA mr-1" *ngIf="!Blacklist(element['Control Code'])"
-                        (click)="def_black_false(element['Control Code'])" matTooltip="Lock"
+                        (click)="def_black_false(element['Control Code'])" matTooltip="UnLock"
                         matTooltipPosition="above"><img src="assets/padlock.png" style="width: 20px;" alt=""></button>
                       <button class="yellow mr-1" *ngIf="ReturnForce(element['Control Code'])"
-                        (click)="return_force(element['Control Code'],'Keypad Keyboard')" matTooltip="Lock"
+                        (click)="return_force(element['Control Code'],'Keypad Keyboard')" matTooltip="UnLock"
                         matTooltipPosition="above"><img src="assets/product-return.png" style="width: 20px;"
                           alt=""></button>
                     </td>
