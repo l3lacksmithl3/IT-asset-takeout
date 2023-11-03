@@ -36,7 +36,7 @@ export class ItAssetTakeout2Component implements OnInit {
   asset_full: any
   CheckData: any
   employee: any
-
+  asset: any
   parentElement: any
   dataValue: any
   holiday: any
@@ -68,6 +68,7 @@ export class ItAssetTakeout2Component implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
+    this.asset = await lastValueFrom(this.api.getAssetIT())
     this.holiday = await lastValueFrom(this.api.MasterHoliDay())
     this.ngxService.start()
     this.getPosition()
@@ -169,6 +170,7 @@ export class ItAssetTakeout2Component implements OnInit {
 
     this.updateInput()
     this.Device()
+    // this.check_unavailable("")
   }
 
   setLastDay(d: any) {
@@ -374,10 +376,16 @@ export class ItAssetTakeout2Component implements OnInit {
     let asset = await lastValueFrom(this.api.getAssetIT())
     this.CheckData = asset
 
-    let MyDevice = await lastValueFrom(this.api.AssetPCGetByID({ "EmpCD": login.employee }))
+    let asset_login = await lastValueFrom(this.api.AssetPCGetByID({ "EmpCD": login.employee }))
+    let MyDevice = await lastValueFrom(this.api.getAssetByID({ "Host Name": asset_login[0]['Host Name']}))
+    // console.log("🚀 ~ file: it-asset-takeout2.component.ts:381 ~ ItAssetTakeout2Component ~ Device ~ MyDevice:", MyDevice)
+
     let DeviceIT = asset.filter((d: any) => (d.Type != "Laptop") && (d.Type != "Desktop") && (d.Type != "Workstation"))
     DeviceIT = sort(DeviceIT, "Type")
     this.device = MyDevice.concat(DeviceIT)
+    // this.device = DeviceIT
+    // console.log(DeviceIT);
+
     this.device = this.device.map((d: any) => { return { ...d, "Host Name": d["Host Name"].toLowerCase() } })
 
     this.asset_full = asset.filter((d: any) => (d.EmpCD != login.employee) && ((d.Type == "Laptop") || (d.Type == "Desktop") || (d.Type == "Workstation")))
@@ -476,16 +484,40 @@ export class ItAssetTakeout2Component implements OnInit {
 
 
   private _filterGroup_1(value: string): StateGroup_1[] {
+
     if (value) {
+      // console.log(value);
+      // console.log(this.stateGroups_1
+      //   .map(group => ({
+      //     ...group,
+      //     letter: group.letter,
+      //     names: _filter_1(group.names, value.toLowerCase()),
+      //     status_return: converse(value.toLowerCase(), group.names,group.status_return),
+      //     reason: converse(value.toLowerCase(), group.names,group.reason),
+      //     blacklist: converse(value.toLowerCase(), group.names,group.blacklist),
+      //   }))
+      //   .filter(group => group.names.length > 0));
+
+
+
       return this.stateGroups_1
         .map(group => ({
           ...group,
           letter: group.letter,
-          names: _filter_1(group.names, value),
+          names: _filter_1(group.names, value.toLowerCase()),
+          status_return: converse(value.toLowerCase(), group.names,group.status_return),
+          reason: converse(value.toLowerCase(), group.names,group.reason),
+          blacklist: converse(value.toLowerCase(), group.names,group.blacklist),
         }))
         .filter(group => group.names.length > 0);
     }
     return this.stateGroups_1;
+
+    function converse(value: any, group: any ,list:any) {
+      const filteredIndices = group.map((name:any, index:any) => name.includes(value) ? index.toString() : null).filter((index:any) => index !== null)
+      let index = filteredIndices.map((d: any) => list[+d])
+      return index
+    }
   }
 
 
@@ -519,14 +551,26 @@ export class ItAssetTakeout2Component implements OnInit {
 
 
   check_empty() {
+    this.stateGroupOptions_1 = this.stateForm_1.get('stateGroup_1')!.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterGroup_1('' || '')),
+    );
+
+    this.stateGroupOptions_2 = this.stateForm_1.get('stateGroup_2')!.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterGroup_1('' || '')),
+    );
+
+    this.stateGroupOptions_3 = this.stateForm_1.get('stateGroup_3')!.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterGroup_1('' || '')),
+    );
+
+
 
     if (this.data.ITassetsNo_1 != this.stateForm_1.value.stateGroup_1) {
-
-
       for (let group of this.stateGroups_1) {
-
         const index = group.names.indexOf(this.data.ITassetsNo_1?.toLowerCase());
-
         if (index !== -1) {
           group.blacklist[index] = 'F';
         }
@@ -760,7 +804,14 @@ export class ItAssetTakeout2Component implements OnInit {
 
 
 
-
+  // check_unavailable(e:any){
+  //   let item = this.asset.filter((d: any) => d["Host Name"].match(new RegExp(e, "i")));
+  //   if (item.length && item[0].status_return == "unavailable") {
+  //     return true
+  //   }else{
+  //     return false
+  //   }
+  // }
 
 
 
