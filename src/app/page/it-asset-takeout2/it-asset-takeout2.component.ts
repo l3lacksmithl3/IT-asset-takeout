@@ -484,6 +484,42 @@ export class ItAssetTakeout2Component implements OnInit {
 
 
   private _filterGroup_1(value: string): StateGroup_1[] {
+    // // console.log(this.data.ITassetsNo_1 );
+    // console.log(this.stateForm_1.get('stateGroup_1')?.value);
+    // console.log(this.stateForm_1.get('stateGroup_2')?.value);
+
+    if (this.data.ITassetsNo_1 != this.stateForm_1.get('stateGroup_1')?.value) {
+      for (let group of this.stateGroups_1) {
+        const index = group.names.indexOf(this.data.ITassetsNo_1?.toLowerCase());
+        if (index !== -1) {
+          group.blacklist[index] = 'F';
+        }
+      }
+      this.data.ITassets_1 = null
+      this.data.ITassetsNo_1 = null
+    }
+
+    if (this.data.ITassetsNo_2 != this.stateForm_1.get('stateGroup_2')?.value) {
+      for (let group of this.stateGroups_1) {
+        const index = group.names.indexOf(this.data.ITassetsNo_2?.toLowerCase());
+        if (index !== -1) {
+          group.blacklist[index] = 'F';
+        }
+      }
+      this.data.ITassets_2 = null
+      this.data.ITassetsNo_2 = null
+    }
+
+    if (this.data.ITassetsNo_3 != this.stateForm_1.get('stateGroup_3')?.value) {
+      for (let group of this.stateGroups_1) {
+        const index = group.names.indexOf(this.data.ITassetsNo_3?.toLowerCase());
+        if (index !== -1) {
+          group.blacklist[index] = 'F';
+        }
+      }
+      this.data.ITassets_3 = null
+      this.data.ITassetsNo_3 = null
+    }
 
     if (value) {
       // console.log(value);
@@ -497,9 +533,6 @@ export class ItAssetTakeout2Component implements OnInit {
       //     blacklist: converse(value.toLowerCase(), group.names,group.blacklist),
       //   }))
       //   .filter(group => group.names.length > 0));
-
-
-
       return this.stateGroups_1
         .map(group => ({
           ...group,
@@ -551,22 +584,6 @@ export class ItAssetTakeout2Component implements OnInit {
 
 
   check_empty() {
-    this.stateGroupOptions_1 = this.stateForm_1.get('stateGroup_1')!.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterGroup_1('' || '')),
-    );
-
-    this.stateGroupOptions_2 = this.stateForm_1.get('stateGroup_2')!.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterGroup_1('' || '')),
-    );
-
-    this.stateGroupOptions_3 = this.stateForm_1.get('stateGroup_3')!.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterGroup_1('' || '')),
-    );
-
-
 
     if (this.data.ITassetsNo_1 != this.stateForm_1.value.stateGroup_1) {
       for (let group of this.stateGroups_1) {
