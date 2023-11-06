@@ -46,7 +46,6 @@
                     [disabled]="(group.blacklist[i] == 'T' || group.blacklist[i] == 'Z') || group.status_return[i] == 'unavailable' "
                     [matTooltip]="group.reason[i] || null" matTooltipPosition="above">
                     ❁{{name.toUpperCase()}}❁
-                    {{i}}
                   </mat-option>
                   <!-- {{group | json}} -->
 
@@ -79,7 +78,6 @@
                     [disabled]="(group.blacklist[i] == 'T' || group.blacklist[i] == 'Z') || group.status_return[i] == 'unavailable' "
                     [matTooltip]="group.reason[i] || null" matTooltipPosition="above">
                     ❁{{name.toUpperCase()}}❁
-                    {{i}}
                   </mat-option>
                 </mat-optgroup>
               </mat-autocomplete>
