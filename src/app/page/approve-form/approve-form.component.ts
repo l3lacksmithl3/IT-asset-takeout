@@ -90,8 +90,11 @@ export class ApproveFormComponent {
         let res = await lastValueFrom(this.api.getDataApprove({ _id: approve }))
         this.user.level == 3 ? this.mode = 1 : this.mode = 1
         if (res[0].return) {
-          this.data = res[0].return
-          this.type = 2
+          this.data = res[0].takeout
+          // this.data = res[0].return
+          // this.type = 2
+          this.type = 1
+
         } else {
           this.data = res[0].takeout
           this.type = 1
@@ -109,39 +112,42 @@ export class ApproveFormComponent {
 
         if (res[0].return) {
           this.data = res[0].return
-          this.type = 2
+          // this.type = 2
+          this.type = 1
         } else {
           this.data = res[0].takeout
           this.type = 1
         }
         this.data.reason = res[0].reason
-        //console.log(this.data.comment);
         this.ControlID = res[0].ControlID
       }
 
 
-      if (Object.keys(res).length === 0) {
-        let id = JSON.parse(`${localStorage.getItem("IT-asset-takeout-ViewApprove")}`)
-        this.mode = 2
-        let res = await lastValueFrom(this.api.getDataApprove({ _id: id }))
-        if (res[0].return) {
-          this.data = res[0].return
-          this.type = 2
-        } else {
-          this.data = res[0].takeout
-          this.type = 1
-        }
-        this.ControlID = res[0].ControlID
-        let reject = JSON.parse(`${localStorage.getItem("IT-asset-takeout-ViewApprove-type")}`)
-        if (reject?.ApplyStatus == 'Reject') {
-          this.mode = 0
-        }
-        this.data.reason = res[0].reason
-      }
+      // if (Object.keys(res).length === 0) {
+      //   let id = JSON.parse(`${localStorage.getItem("IT-asset-takeout-ViewApprove")}`)
+      //   this.mode = 2
+      //   let res = await lastValueFrom(this.api.getDataApprove({ _id: id }))
+      //   if (res[0].return) {
+      //     this.data = res[0].return
+      //     this.type = 2
+      //   } else {
+      //     this.data = res[0].takeout
+      //     this.type = 1
+      //   }
+      //   this.ControlID = res[0].ControlID
+      //   let reject = JSON.parse(`${localStorage.getItem("IT-asset-takeout-ViewApprove-type")}`)
+      //   if (reject?.ApplyStatus == 'Reject') {
+      //     this.mode = 0
+      //   }
+      //   this.data.reason = res[0].reason
+      // }
 
       this.data_status = { ...this.data }
       this.data_status.type = 'takeout'
       this.ngxService.stop()
+
+
+
     })
 
 

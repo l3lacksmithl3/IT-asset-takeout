@@ -220,12 +220,12 @@ export class HttpService {
     return this.http.post(this.Url + "/Mailer/Mail_Reject_Extend/", data)
   }
 
-  //TODO mail takeout
+  //TODO mail extend approve
   Mail_Approve_Extends(data: any): Observable<any> {
     return this.http.post(this.Url + "/Mailer/Approve_Extend/", data)
   }
 
-  //TODO mail extend approve
+  //TODO mail takeout
   Mail_Approve_Request(data: any): Observable<any> {
     return this.http.post(this.Url + "/Mailer/Approve_request/", data)
   }

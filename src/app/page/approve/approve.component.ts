@@ -211,6 +211,7 @@ export class ApproveComponent {
     // console.log(rew);
     this.data = rew
     //console.log(this.data);
+    console.log(this.data);
 
     this.data = this.sort(this.data, "ControlID")
     this.dataSource = new MatTableDataSource(this.data)

@@ -29,7 +29,6 @@ export class StatusMonitorComponent implements OnInit {
 
   ngOnInit(): void {
 
-
     this.username = []
     if (this.data_status.type == 'takeout') {
       if (this.data_status.Approve_Step == 1) {
@@ -74,10 +73,13 @@ export class StatusMonitorComponent implements OnInit {
 
 
   async getApprove(data: any) {
+
     let employee = await lastValueFrom(this.api.MasterUserAll())
 
     let data_organization = await lastValueFrom(this.api.MasterOrganization_ByCondition({ organization: `${data.section}` }))
     let approver: any = []
+    console.log(data.level);
+    console.log(data_organization);
 
     if (Number(data.level) == 3) {
       let Organ = await lastValueFrom(this.api.Master_Code_ByCondition({ code: { $in: [data_organization[0].code[0], Number(data_organization[0].code[0])] } }))
@@ -95,6 +97,7 @@ export class StatusMonitorComponent implements OnInit {
         approver.push(...Organ[0].code_employee)
       }
     }
+    console.log(approver);
 
 
     let user = employee.filter((d: any) => approver.includes(d.employee));
@@ -102,6 +105,7 @@ export class StatusMonitorComponent implements OnInit {
       return d.name
     })
     this.username = user_name
+    console.log(this.username);
 
   }
 }

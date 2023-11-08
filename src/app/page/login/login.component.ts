@@ -59,6 +59,8 @@ export class LoginComponent {
     }
     let login = await lastValueFrom(this.api.SSO_login(list))
     login = this.employee.filter((d: any) => d.employee == login.description )
+
+
     let code = await this.getCode(login[0]?.department)
     if (code.length != 0) {
       login[0].code_abbname = code[0]?.code_abbname
@@ -166,18 +168,22 @@ export class LoginComponent {
       this.loginSuccess()
       setTimeout(() => {
         this.router.queryParams.subscribe(async res => {
+
+
           let Check = await lastValueFrom(this.api.Master_Code_ByCondition({ "code_employee": login[0].employee }))
-          // console.log(Check[0]);
+          console.log(Check);
+
 
           if (Check.length > 0) {
             if (Check[0].position == "corporate") { login[0].level = 4, login[0].position_code = `${Check[0].code}` }
             if (Check[0].position == "division") { login[0].level = 3, login[0].position_code = `${Check[0].code}` }
             if (Check[0].position == "department") { login[0].level = 2, login[0].position_code = `${Check[0].code}` }
+            if (Check[0].position == "section") { login[0].level = 1, login[0].position_code = `${Check[0].code}` }
           } else {
             login[0].level = 1, login[0].position_code = login[0].department
           }
 
-
+    
           if (res) {
             this.route.navigate(['/AppliedList'], { queryParamsHandling: 'preserve' }).then((v: any) => {
               window.location.reload()
