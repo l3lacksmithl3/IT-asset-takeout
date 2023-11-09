@@ -189,48 +189,48 @@ export class LoginComponent {
 
 
 
-          // if (res) {
-          //   this.route.navigate(['/AppliedList'], { queryParamsHandling: 'preserve' }).then((v: any) => {
-          //     window.location.reload()
-          //     let res = localStorage.setItem("IT-asset-takeout-login", JSON.stringify(login[0]))
-          //   })
-          // }
-          // if (res["id"] != null) {
-          //   this.route.navigate(['/ApproveFormConfirm'], { queryParamsHandling: 'preserve' }).then((v: any) => {
-          //     // window.location.reload()
-          //     let res = localStorage.setItem("IT-asset-takeout-login", JSON.stringify(login[0]))
-          //   })
-          // }
-          // if (res["id_1"] != null) {
-          //   this.route.navigate(['/ApplicationProgress'], { queryParamsHandling: 'preserve' }).then((v: any) => {
-          //     // window.location.reload()
-          //     let res = localStorage.setItem("IT-asset-takeout-login", JSON.stringify(login[0]))
-          //   })
-          // }
-          // if (res["mode"] != null) {
-          //   this.route.navigate(['/ApproveFormConfirm'], { queryParamsHandling: 'preserve' }).then((v: any) => {
-          //     // window.location.reload()
-          //     let res = localStorage.setItem("IT-asset-takeout-login", JSON.stringify(login[0]))
-          //   })
-          // }
-          // if (res["approve"] != null) {
-          //   this.route.navigate(['/ApproveFormConfirm'], { queryParamsHandling: 'preserve' }).then((v: any) => {
-          //     // window.location.reload()
-          //     let res = localStorage.setItem("IT-asset-takeout-login", JSON.stringify(login[0]))
-          //   })
-          // }
-          // if (res["approve-return"] != null) {
-          //   this.route.navigate(['/ApproveReturn'], { queryParamsHandling: 'preserve' }).then((v: any) => {
-          //     // window.location.reload()
-          //     let res = localStorage.setItem("IT-asset-takeout-login", JSON.stringify(login[0]))
-          //   })
-          // }
-          // if (res["approve-extend"] != null) {
-          //   this.route.navigate(['/ApproveExtend'], { queryParamsHandling: 'preserve' }).then((v: any) => {
-          //     // window.location.reload()
-          //     let res = localStorage.setItem("IT-asset-takeout-login", JSON.stringify(login[0]))
-          //   })
-          // }
+          if (res) {
+            this.route.navigate(['/AppliedList'], { queryParamsHandling: 'preserve' }).then((v: any) => {
+              window.location.reload()
+              let res = localStorage.setItem("IT-asset-takeout-login", JSON.stringify(login[0]))
+            })
+          }
+          if (res["id"] != null) {
+            this.route.navigate(['/ApproveFormConfirm'], { queryParamsHandling: 'preserve' }).then((v: any) => {
+              // window.location.reload()
+              let res = localStorage.setItem("IT-asset-takeout-login", JSON.stringify(login[0]))
+            })
+          }
+          if (res["id_1"] != null) {
+            this.route.navigate(['/ApplicationProgress'], { queryParamsHandling: 'preserve' }).then((v: any) => {
+              // window.location.reload()
+              let res = localStorage.setItem("IT-asset-takeout-login", JSON.stringify(login[0]))
+            })
+          }
+          if (res["mode"] != null) {
+            this.route.navigate(['/ApproveFormConfirm'], { queryParamsHandling: 'preserve' }).then((v: any) => {
+              // window.location.reload()
+              let res = localStorage.setItem("IT-asset-takeout-login", JSON.stringify(login[0]))
+            })
+          }
+          if (res["approve"] != null) {
+            this.route.navigate(['/ApproveFormConfirm'], { queryParamsHandling: 'preserve' }).then((v: any) => {
+              // window.location.reload()
+              let res = localStorage.setItem("IT-asset-takeout-login", JSON.stringify(login[0]))
+            })
+          }
+          if (res["approve-return"] != null) {
+            this.route.navigate(['/ApproveReturn'], { queryParamsHandling: 'preserve' }).then((v: any) => {
+              // window.location.reload()
+              let res = localStorage.setItem("IT-asset-takeout-login", JSON.stringify(login[0]))
+            })
+          }
+          if (res["approve-extend"] != null) {
+            this.route.navigate(['/ApproveExtend'], { queryParamsHandling: 'preserve' }).then((v: any) => {
+              // window.location.reload()
+              let res = localStorage.setItem("IT-asset-takeout-login", JSON.stringify(login[0]))
+            })
+          }
 
 
 

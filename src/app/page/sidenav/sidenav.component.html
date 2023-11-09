@@ -8,7 +8,7 @@
     [routerLinkActive]="['is-active']"><img [src]="item.icon"
       style="width: 25px;margin-right: 5px;margin-bottom: 4px;">&nbsp;{{item.title}}</button>
 </div>
-<!-- {{inventory_count.length}} -->
+
 
 <mat-expansion-panel class="" hideToggle style="box-shadow: none;background-color: inherit" [expanded]="0">
   <mat-expansion-panel-header style="padding: 0px;background-color:inherit">
@@ -16,7 +16,7 @@
         src="assets/clipboard.png" style="width: 25px;margin-right: 5px;margin-bottom: 4px;">&nbsp;IT
       Asset Takeout</button>
   </mat-expansion-panel-header>
-  <div style="width: 50%; " *ngFor="let item of apply">
+  <div style="width: 50%;" *ngFor="let item of apply">
     <button class="btn " style="width: 50%; background-color: inherit; text-align: left;" (click)="onClick()"
       [routerLink]="[item.path]" [routerLinkActive]="['is-active']" [ngClass]="{'blacklist': item.title == 'Takeout application' && this.blacklist}" ><img [src]="item.icon"
         style="width: 25px;margin-right: 5px;margin-bottom: 4px;">&nbsp;{{item.title}}</button>

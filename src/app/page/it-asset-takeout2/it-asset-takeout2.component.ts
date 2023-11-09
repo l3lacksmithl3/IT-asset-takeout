@@ -74,7 +74,9 @@ export class ItAssetTakeout2Component implements OnInit {
     this.getPosition()
     this.employee = await lastValueFrom(this.api.MasterUserAll())
 
-    this.minDate = moment().format()
+    this.minDate = moment().add(1, 'days').format()
+
+
     this.minDate_fromDate = moment().format()
     this.maxDate = moment(this.data.FromDate).add(31, 'days').format()
 
@@ -211,7 +213,9 @@ export class ItAssetTakeout2Component implements OnInit {
         this.checkRequired = false
       }
       let max = moment(this.data.FromDate).add(31, 'days').format()
-      this.minDate = this.data.FromDate
+      this.minDate = moment(this.data.FromDate).add(1, 'days').format()
+      console.log(this.data.FromDate);
+
       this.maxDate = moment(max).format()
     }, 200);
     // console.log(this.data.ITassets_1);

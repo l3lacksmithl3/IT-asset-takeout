@@ -30,7 +30,7 @@
     ------------------------------------------------------
     <app-sidenav style="padding-top: 7vh;" (dataChange)="drawer.toggle()" *ngIf="this.CheckLogin"></app-sidenav>
   </mat-drawer>
-  <mat-drawer-content style="padding-top: 12px;padding-bottom: 12px;background-image: url('assets/12858.jpg');height: 92vh;">
+  <mat-drawer-content style="padding-top: 12px;padding-bottom: 12px;background-image: url('assets/12858.jpg');height: 92vh;margin-left: 305px">
     <router-outlet *ngIf="this.CheckLogin"></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>

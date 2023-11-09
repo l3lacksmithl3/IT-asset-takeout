@@ -7,7 +7,6 @@
 }
 
 .showgrid > div {
-
   // background-color: lavender;
   // border: 1px solid rgba(0, 0, 0, 0.459);
 }
@@ -16,8 +15,7 @@
   font-weight: 600;
 }
 
-
-.head{
+.head {
   display: flex;
   align-items: center;
   height: 2rem;
@@ -28,35 +26,57 @@
   font-size: 16px;
 }
 
-input{
+input {
   color: blue;
 }
 
-.shake{
+.shake {
   animation: shake 0.5s;
   border: solid 1px red;
 }
 
 @keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
 }
 
-::ng-deep .swal2-height-auto{
-  height: 100vh !important
+::ng-deep .swal2-height-auto {
+  height: 100vh !important;
 }
 
-
-ul, #myUL {
+ul,
+#myUL {
   list-style-type: none;
 }
 
@@ -94,11 +114,9 @@ ul, #myUL {
   display: block;
 }
 
-
 // ::ng-deep.swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation {
 //   background: rgb(0 0 0) !important;
 // }
-
 
 ::ng-deep.swal2-loader {
   display: none !important;
@@ -108,20 +126,23 @@ ul, #myUL {
   height: 2.2em;
   margin: 0 1.875em;
   animation: swal2-rotate-loading 1.5s linear 0s infinite normal;
-  border-width: .25em;
+  border-width: 0.25em;
   border-style: solid;
   border-radius: 100%;
-  border-color: #2778c4 rgba(0,0,0,0) #2778c4 rgba(0,0,0,0);
+  border-color: #2778c4 rgba(0, 0, 0, 0) #2778c4 rgba(0, 0, 0, 0);
 }
 
-
-.bar{
-  background: linear-gradient(90deg, rgba(37,0,54,1) 0%, rgba(9,70,121,1) 38%, rgba(0,212,255,1) 100%);
+.bar {
+  background: linear-gradient(
+    90deg,
+    rgba(37, 0, 54, 1) 0%,
+    rgba(9, 70, 121, 1) 38%,
+    rgba(0, 212, 255, 1) 100%
+  );
   border-radius: 5px;
 }
 
-
-.setCSS{
+.setCSS {
   box-shadow: 2px 2px 5px;
   border-radius: 5px;
 }
@@ -131,17 +152,28 @@ ul, #myUL {
   margin-bottom: 8px;
 }
 
-.offborder:focus{
-    outline: 0;
+.offborder:focus {
+  outline: 0;
 }
 
-
-.set_color_red{
-  color: red
+.set_color_red {
+  color: red;
 }
-
 
 .filtered-date .mat-input-element {
   color: red; /* สีของตัวอักษร */
   border-color: red; /* สีเส้นขอบ */
+}
+
+.ban {
+  width: 111px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ban-active {
+  pointer-events: none;
+  opacity: 50%;
 }
