@@ -73,6 +73,7 @@ export class ItAssetTakeout2Component implements OnInit {
     this.ngxService.start()
     this.getPosition()
     this.employee = await lastValueFrom(this.api.MasterUserAll())
+
     this.minDate = moment().format()
     this.minDate_fromDate = moment().format()
     this.maxDate = moment(this.data.FromDate).add(31, 'days').format()
