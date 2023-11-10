@@ -30,8 +30,9 @@ export class ItAssetReturnComponent {
 
   last_item: any = []
   extend_item: any = []
-  positionName:any
-  temp_extend : any
+  positionName: any
+  temp_extend: any
+  asset: any
 
   constructor(
     private api: HttpService,
@@ -46,6 +47,8 @@ export class ItAssetReturnComponent {
     this.employee = await lastValueFrom(this.api.MasterUserAll())
     this.setData()
     this.holiday = await lastValueFrom(this.api.MasterHoliDay())
+    this.asset = await lastValueFrom(this.api.getAssetIT())
+    console.log("🚀 ~ file: it-asset-return.component.ts:51 ~ ItAssetReturnComponent ~ ngOnInit ~ this.asset:", this.asset)
   }
 
 
@@ -131,6 +134,27 @@ export class ItAssetReturnComponent {
         }
 
       })
+
+      this.data.old_data.return.item = this.data.old_data.return.item.map((d:any)=>{
+        let ban = this.asset.filter((e: any) => e["Host Name"].match(new RegExp(d.value, "i")))
+        if (ban[0].blacklist == "T") {
+          return{
+            ...d,
+            Ban : true,
+            Reason : ban[0].reason
+          }
+        }else{
+          return{
+            ...d,
+          }
+        }
+
+
+      })
+      console.log(this.data.old_data.return.item);
+
+
+
       // console.log(this.data.old_data.return.item);
 
 
@@ -377,8 +401,8 @@ export class ItAssetReturnComponent {
 
 
     if (Number(user.level) == 2) {
-        let Organ = await lastValueFrom(this.api.Master_Code_ByCondition({ code: { $in: [data_organization[0].code[1], Number(data_organization[0].code[1])] } }))
-        approver.push(...Organ[0].code_employee)
+      let Organ = await lastValueFrom(this.api.Master_Code_ByCondition({ code: { $in: [data_organization[0].code[1], Number(data_organization[0].code[1])] } }))
+      approver.push(...Organ[0].code_employee)
     }
 
 
@@ -422,8 +446,8 @@ export class ItAssetReturnComponent {
 
 
     if (Number(user.level) == 2) {
-        let Organ = await lastValueFrom(this.api.Master_Code_ByCondition({ code: { $in: [data_organization[0].code[1], Number(data_organization[0].code[1])] } }))
-        approver.push(...Organ[0].code_employee)
+      let Organ = await lastValueFrom(this.api.Master_Code_ByCondition({ code: { $in: [data_organization[0].code[1], Number(data_organization[0].code[1])] } }))
+      approver.push(...Organ[0].code_employee)
     }
 
 
@@ -519,7 +543,7 @@ export class ItAssetReturnComponent {
       x.extend_success = true
       x.extend = true
       this.def_check_action_mode()
-    }else{
+    } else {
       this.extend_btn = false
     }
     // console.log(this.data.old_data.return.item[i]);
@@ -660,19 +684,23 @@ export class ItAssetReturnComponent {
   extend_btn = false;
   @ViewChild('def_extend_return') defExtendReturn!: MatDatepicker<any>;
   Extend_function(item: any, i: any) {
-      this.defExtendReturn.open()
-      this.temp_extend = i
-      this.extend_data(item)
+    this.defExtendReturn.open()
+    this.temp_extend = i
+    this.extend_data(item)
   }
 
 
 
 
-  Debug(){
+  Debug() {
     // console.log(this.extend_item);
-    // console.log(this.last_item);
-
+    // console.log(this.last_item)
 
   }
+
+
+
+
+
 }
 

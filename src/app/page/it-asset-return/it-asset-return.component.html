@@ -45,10 +45,10 @@
         <div *ngIf="mode == 1" class="col-lg-12" style="padding: 5px;;">
           <div class="row" style="padding-top: 1rem">
             <div class="col-lg-12" *ngFor="let item of this.data?.old_data?.return.item;let i = index">
-              <mat-card class="example-card " [ngClass]="{'ban-active': item.autoBan}">
+              <mat-card class="example-card " [ngClass]="{'ban-active': item.Ban}">
                 <mat-card-header style="padding: 6px 16px 0;">
                   <mat-card-title-group>
-                    <img src="assets/Ban.png" alt="" class="ban" *ngIf="item.autoBan">
+                    <img src="assets/Ban.png" alt="" class="ban" *ngIf="item.Ban">
                     <mat-card-title>{{item.name}}</mat-card-title>
                     <mat-card-subtitle>{{item.value}}</mat-card-subtitle>
                     <mat-card-subtitle

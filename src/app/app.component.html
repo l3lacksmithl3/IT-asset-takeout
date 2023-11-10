@@ -27,10 +27,10 @@
 
 <mat-drawer-container [hidden]="!this.CheckLogin" >
   <mat-drawer #drawer mode="side" opened="true" style="color: aqua; width: auto;background-image: url('assets/12858.jpg');">
-    ------------------------------------------------------
+    ---------------------------------------------------------------
     <app-sidenav style="padding-top: 7vh;" (dataChange)="drawer.toggle()" *ngIf="this.CheckLogin"></app-sidenav>
   </mat-drawer>
-  <mat-drawer-content style="padding-top: 12px;padding-bottom: 12px;background-image: url('assets/12858.jpg');height: 92vh;margin-left: 305px">
+  <mat-drawer-content style="padding-top: 12px;padding-bottom: 12px;background-image: url('assets/12858.jpg');height: 92vh">
     <router-outlet *ngIf="this.CheckLogin"></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
