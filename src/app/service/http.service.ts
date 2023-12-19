@@ -365,6 +365,15 @@ export class HttpService {
   }
 
 
+  //TODO UserOutSSO
+  GetUserOutSSO(data: any): Observable<any> {
+    return this.http.post(this.Url + "/UserOutSSO/getByCondition", data)
+  }
+  addUserOutSSO(data: any): Observable<any> {
+    return this.http.post(this.Url + "/UserOutSSO/", data)
+  }
+
+
 }
 
 // getDataView

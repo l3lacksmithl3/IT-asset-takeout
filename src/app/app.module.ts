@@ -53,6 +53,8 @@ import { StatusMonitorComponent } from './page/status-monitor/status-monitor.com
 import { InventoryComponent } from './page/inventory/inventory.component';
 import { LogbookHeadComponent } from './page/logbook-head/logbook-head.component';
 import { ItAssetTakeout2Component } from './page/it-asset-takeout2/it-asset-takeout2.component';
+import { ManualComponent } from './page/manual/manual.component';
+import { ReportComponent } from './report/report.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: "red",
@@ -68,7 +70,6 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1; // Remove this line to use Angular Universal
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
-  // console.log(message);
 }
 
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -149,7 +150,9 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     StatusMonitorComponent,
     InventoryComponent,
     LogbookHeadComponent,
-    ItAssetTakeout2Component
+    ItAssetTakeout2Component,
+    ManualComponent,
+    ReportComponent
 
   ],
   imports: [

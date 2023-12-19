@@ -41,6 +41,8 @@ export class AppliedListComponent {
 
   ) { }
 
+
+
   async ngOnInit(): Promise<void> {
     this.ngxService.start()
     this.runtime()
@@ -56,12 +58,13 @@ export class AppliedListComponent {
 
   }
 
-  ngOnDestroy(): void { clearInterval(this.interval) }
+  ngOnDestroy(): void { clearInterval(this.interval)  }
 
   async runtime() {
     let login = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
+
     const condition = {
-      "takeout.email": login.email
+      "takeout.email": login.email || '-'
     };
     let res = await lastValueFrom(this.api.getDataApprove(condition))
 
@@ -141,7 +144,6 @@ export class AppliedListComponent {
 
 
     this.data = list
-    console.log(this.data);
 
 
     this.data = this.data.map((d: any) => {
@@ -162,7 +164,7 @@ export class AppliedListComponent {
       }
     })
 
-    // console.log(this.data);
+    // this.data);
 
     this.data = this.sort(this.data, "time")
     // element.Value?.Apply_Date
@@ -206,6 +208,7 @@ export class AppliedListComponent {
 
     this.data = this.data.filter((d: any) => d.ApplyStatus != 'Reject ')
     this.dataTable = this.data
+
 
 
     this.dataSource = new MatTableDataSource(this.dataTable)
@@ -352,7 +355,6 @@ export class AppliedListComponent {
 
 
   filter() {
-    // console.log(this.inputFilter);
     let res1 = this.data.filter((d: any) => d["ControlID"].match(new RegExp(this.inputFilter, "i")));
     let res2 = this.data.filter((d: any) => d["Business Model"].match(new RegExp(this.inputFilter, "i")));
     let res3 = this.data.filter((d: any) => d["ApplyStatus"].match(new RegExp(this.inputFilter, "i")));
@@ -367,7 +369,6 @@ export class AppliedListComponent {
     let res = res1.concat(res2).concat(res3).concat(res4);
     this.dataTable = removeDuplicates(res)
 
-    // console.log(this.data);
 
 
 
@@ -465,10 +466,12 @@ export class AppliedListComponent {
     } else {
       return ``
     }
+
   }
 
 
 
-
 }
+
+
 

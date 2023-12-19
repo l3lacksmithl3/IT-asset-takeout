@@ -108,7 +108,6 @@ export class ApproveFormComponent {
       if (res['reject']) {
         this.mode = 0
         let res = await lastValueFrom(this.api.getDataApprove({ _id: this.reject }))
-        //console.log(res);
 
         if (res[0].return) {
           this.data = res[0].return
@@ -188,7 +187,6 @@ export class ApproveFormComponent {
                 Approve_time: moment().format()
               }
             })
-            // console.log(aoo);
 
             data[0].return.item = data[0].return.item.map((d: any) => {
               const foo = aoo.find((a: any) => a.value == d.value)
@@ -323,7 +321,7 @@ export class ApproveFormComponent {
   async ShowFlowApplied() {
     this.Applicant = this.data
     this.Applicant.code_abbname = this.user.code_abbname
-    this.Applicant.code_fullname = this.user.code_fullname
+    // this.Applicant.code_fullname = this.user.code_fullname
     var format = 'YYYY/MM/DD HH:mm:ss';
     this.Applicant.FromDateNew = moment(this.Applicant.Apply_Date).format(format)
 

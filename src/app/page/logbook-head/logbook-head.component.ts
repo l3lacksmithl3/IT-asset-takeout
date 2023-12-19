@@ -57,6 +57,11 @@ export class LogbookHeadComponent {
       return d.code
     })
 
+    if (data_organization[0].section == 'QMS') {
+      NewFormate[0].push('62110')
+    }
+
+
     let result
     let flattenedData
     let level = 1
@@ -147,6 +152,7 @@ export class LogbookHeadComponent {
         "Temp_section": d.section
       }
     })
+    console.log(this.data);
 
     const customOrder = ['OVER', 'Borrowing', 'PASS'];
     this.data.sort((obj1: any, obj2: any) => {
@@ -161,6 +167,7 @@ export class LogbookHeadComponent {
         "Temp_No.": i + 1
       }
     })
+    console.log("🚀 ~ file: logbook-head.component.ts:164 ~ LogbookHeadComponent ~ this.data=this.data.map ~ this.data:", this.data)
 
 
     this.dataSource = new MatTableDataSource(this.data)

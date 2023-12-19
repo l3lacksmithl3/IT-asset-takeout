@@ -23,7 +23,7 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 export class LogBookRecordComponent {
 
   data: any = []
-
+  moment :any = moment
   displayedColumns: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   dataSource = new MatTableDataSource
   @ViewChild(MatPaginator) paginator: any = MatPaginator;
@@ -115,7 +115,20 @@ export class LogBookRecordComponent {
 
 
 
-    this.data = this.sort(this.data, "Temp_RecordDate")
+    // this.data = this.sort(this.data, "Temp_RecordDate")
+    this.data = this.data.map((d:any)=>{
+      return {
+        ...d,
+        sortDate : new Date(d.Temp_RecordDate)
+      }
+    })
+    // console.log(this.data);
+
+    // console.log(this.data[0].Temp_RecordDate);
+    // console.log(typeof this.data[0].Temp_RecordDate);
+
+    this.data = this.data.sort((a:any,b:any) => b.sortDate - a.sortDate)
+
     this.dataTable = this.data
     this.dataSource = new MatTableDataSource(this.dataTable)
     this.showFilter(this.mode)
@@ -176,12 +189,12 @@ export class LogBookRecordComponent {
 
 
   // this.temp = sort(this.temp, "BoxNo")
-  sort(array: any, key: any) {
-    array = array.sort(function (a: any, b: any) {
-      return b[key].localeCompare(a[key])
-    })
-    return array
-  }
+  // sort(array: any, key: any) {
+  //   array = array.sort(function (a: any, b: any) {
+  //     return b[key].localeCompare(a[key])
+  //   })
+  //   return array
+  // }
 
 
   showFilter(mode: any) {
@@ -196,6 +209,7 @@ export class LogBookRecordComponent {
       this.dataTable = this.data.filter((d: any) => d.Temp_Status == "OVER")
     }
     this.dataTable = this.setNo(this.dataTable)
+    // this.dataTable= this.sort(this.dataTable, "Temp_RecordDate")
     this.dataSource = new MatTableDataSource(this.dataTable)
     this.dataSource.paginator = this.paginator;
   }

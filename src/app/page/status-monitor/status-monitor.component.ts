@@ -78,8 +78,6 @@ export class StatusMonitorComponent implements OnInit {
 
     let data_organization = await lastValueFrom(this.api.MasterOrganization_ByCondition({ organization: `${data.section}` }))
     let approver: any = []
-    console.log(data.level);
-    console.log(data_organization);
 
     if (Number(data.level) == 3) {
       let Organ = await lastValueFrom(this.api.Master_Code_ByCondition({ code: { $in: [data_organization[0].code[0], Number(data_organization[0].code[0])] } }))
@@ -97,15 +95,15 @@ export class StatusMonitorComponent implements OnInit {
         approver.push(...Organ[0].code_employee)
       }
     }
-    console.log(approver);
 
 
     let user = employee.filter((d: any) => approver.includes(d.employee));
     let user_name = user.map((d: any) => {
       return d.name
     })
+    user_name = [...new Set(user_name.map((item:any) => item))]; // [ 'A', 'B']
+
     this.username = user_name
-    console.log(this.username);
 
   }
 }

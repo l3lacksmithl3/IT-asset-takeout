@@ -41,7 +41,6 @@ export class SidenavComponent {
 
   async ngOnInit(): Promise<void> {
 
-
     let level = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
 
     // console.log("🚀 ~ file: sidenav.component.ts:18 ~ SidenavComponent ~ ngOnInit ~ level:", level)
@@ -110,6 +109,7 @@ export class SidenavComponent {
       ]
       this.page = [
         { path: '/Approve', title: 'Request approval', icon: 'assets/approved.png', class: '' },
+
       ]
       if (level.level > 1) {
         this.logbook_head = [
@@ -179,6 +179,9 @@ export class SidenavComponent {
       if (this.user.level == 2) { level = 3 }
       if (this.user.level == 3) { level = 2 }
       flattenedData = NewFormate.reduce((acc: any, row: any) => acc.concat(row.slice(level, 4)), []);
+      if (this.user.section == "QMS" && this.user.level == 2) {
+        flattenedData.push('62110')
+      }
       result = [...new Set(flattenedData)];
     }
 

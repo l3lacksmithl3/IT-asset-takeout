@@ -8,8 +8,8 @@
         <input type="text" class="input" placeholder="Username" [(ngModel)]="this.data.username" (keyup.enter)="login_sso()" />
         <input type="password" class="input" placeholder="Password" [(ngModel)]="this.data.password" (keyup.enter)="login_sso()" />
       </div>
-      <!-- <button class="submit-btn" (click)="submit()">Login</button> -->
-      <button class="submit-btn" (click)="login_sso()">Login SSO</button>
+      <!-- <button class="submit-btn" (click)="submit()" matTooltip="Employee code  Ex.TH0688/xx" matTooltipPosition="after" >Login</button> -->
+      <button class="submit-btn" (click)="login_sso()" matTooltip="Windows login" matTooltipPosition="after">Login SSO</button>
     </div>
   </div>
 </div>

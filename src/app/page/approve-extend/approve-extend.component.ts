@@ -70,7 +70,6 @@ export class ApproveExtendComponent {
 
           this.data.last_item = res[0].extend[`extend_${this.extend_count}`]
           // http://localhost:4200/ApproveExtend?approve-extend=64f6f0d0b89eb3a3bae480d1&extend=1
-          // console.log("🚀 ~ file: approve-return.component.ts:69 ~ ApproveReturnComponent ~ ngOnInit ~ this.data.last_item:", this.data.last_item)
           this.type = 2
         }
         this.id = approve
@@ -184,8 +183,6 @@ export class ApproveExtendComponent {
             })
           }
 
-          // console.log(data[0]);
-          // console.log(this.extend_count);
           let update = await lastValueFrom(this.api.ApproveUpdate(this.id, data[0]))
           if (update) {
             this.reject_mail(this.id, data[0], reason)
@@ -219,7 +216,7 @@ export class ApproveExtendComponent {
   async ShowFlowApplied() {
     this.Applicant = this.data
     this.Applicant.code_abbname = this.user.code_abbname
-    this.Applicant.code_fullname = this.user.code_fullname
+    // this.Applicant.code_fullname = this.user.code_fullname
     var format = 'YYYY/MM/DD HH:mm:ss';
     this.Applicant.FromDateNew = moment(this.Applicant.Apply_Date).format(format)
 
@@ -241,8 +238,6 @@ export class ApproveExtendComponent {
     if (this.reject?.length > 0) {
       id = this.reject
     }
-    //console.log(this.id);
-    //console.log("askdkaskdk");
 
 
     this.router.navigate(['/ITAssetTakeout'], {
@@ -318,7 +313,6 @@ export class ApproveExtendComponent {
     }
 
     let Mail_Extend_success = lastValueFrom(this.api.Extend_success(mail_data))
-    // console.log(mail_data);
   }
 
 
@@ -340,7 +334,6 @@ export class ApproveExtendComponent {
       extend_count: this.extend_count
     }
     let Mail_Reject = lastValueFrom(this.api.Mail_Reject_Extend(mail_data))
-    //console.log(mail_data);
     //TODO--------------------------------------------------------------------------------------------------------------------------------------------
     // Takeout_success_to_div
   }

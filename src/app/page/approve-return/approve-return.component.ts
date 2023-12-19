@@ -242,7 +242,7 @@ export class ApproveReturnComponent {
   async ShowFlowApplied() {
     this.Applicant = this.data
     this.Applicant.code_abbname = this.user.code_abbname
-    this.Applicant.code_fullname = this.user.code_fullname
+    // this.Applicant.code_fullname = this.user.code_fullname
     var format = 'YYYY/MM/DD HH:mm:ss';
     this.Applicant.FromDateNew = moment(this.Applicant.Apply_Date).format(format)
 

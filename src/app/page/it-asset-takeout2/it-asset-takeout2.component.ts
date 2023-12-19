@@ -76,7 +76,6 @@ export class ItAssetTakeout2Component implements OnInit {
 
     this.minDate = moment().add(1, 'days').format()
 
-
     this.minDate_fromDate = moment().format()
     this.maxDate = moment(this.data.FromDate).add(31, 'days').format()
 
@@ -110,7 +109,7 @@ export class ItAssetTakeout2Component implements OnInit {
         section: data.section,
         Approve_Step: 1,
         level: data.level,
-        position_code: data.position_code,
+        position_code: data.position_code.toString(),
         Apply_Date_Start: moment().format(),
         Apply_Date_Latest: moment().format()
       }
@@ -144,7 +143,7 @@ export class ItAssetTakeout2Component implements OnInit {
           section: data.section,
           Approve_Step: 1,
           level: data.level,
-          position_code: data.position_code,
+          position_code: data.position_code.toString(),
           Apply_Date_Start: moment(dataOld[0].takeout.Apply_Date_Start).format(),
           Apply_Date_Latest: moment().format()
         }
@@ -321,6 +320,7 @@ export class ItAssetTakeout2Component implements OnInit {
           mail = mail.map((d: any) => {
             return d.email
           })
+          mail = [...new Set(mail.map((item:any) => item))]
           let mail_data = {
             _id: this.id,
             requester: this.dataValue?.takeout.name,
@@ -331,7 +331,10 @@ export class ItAssetTakeout2Component implements OnInit {
           let Mail_Approve = lastValueFrom(this.api.Mail_Approve_Request(mail_data))
           // console.log(mail_data);
 
-          // let Mail_Approve = lastValueFrom(this.api.Mail_Approve_Request(mail_data))
+
+          // console.log(mail_data);
+
+          // let Mail_Approve = lastValueFrom(this.api.Mail_Approve_Reques(mail_data))
           // let Mail_Received = lastValueFrom(this.api.Mail_Received_mail(mail_data))
         }
 
@@ -367,13 +370,13 @@ export class ItAssetTakeout2Component implements OnInit {
 
   async getPosition() {
     const user = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
+    let head = user.section?.split('-')
+    if (head.length == 3) {
+      user.section = `${head[0]}-${head[1]}`
+    }
     let data_organization = await lastValueFrom(this.api.MasterOrganization_ByCondition({ organization: `${user.section}` }))
     this.positionName = `${data_organization[0].organization[0]} / ${data_organization[0].organization[1]} / ${data_organization[0].organization[2]}`
   }
-
-
-
-
 
 
   async Device() {
@@ -698,6 +701,9 @@ export class ItAssetTakeout2Component implements OnInit {
         }
         else {
           let num = get[0].ControlID.split("-")[1]
+          if (Number(num) == 9998) {
+            num = 0
+          }
           this.ControlID = `IT${moment().format("YYMM")}-${(Number(num) + 1).toString().padStart(4, '0')}`
           let updata = await lastValueFrom(this.api.UpdateControlID(get[0]._id, { ControlID: this.ControlID }))
         }
@@ -743,6 +749,7 @@ export class ItAssetTakeout2Component implements OnInit {
 
         const user = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
         let data_organization = await lastValueFrom(this.api.MasterOrganization_ByCondition({ organization: `${user.section}` }))
+
         let approver: any = []
 
         if (Number(user.level) == 1) {
@@ -784,6 +791,9 @@ export class ItAssetTakeout2Component implements OnInit {
           mail = mail.map((d: any) => {
             return d.email
           })
+          mail = [...new Set(mail.map((item:any) => item))]
+          // console.log(mail);
+
           let mail_data = {
             _id: this.dataApply[0]?._id,
             requester: this.dataApply[0]?.takeout.name,
@@ -793,6 +803,7 @@ export class ItAssetTakeout2Component implements OnInit {
             asset: this.dataApply[0]?.takeout.item,
           }
           let Mail_Approve = lastValueFrom(this.api.Mail_Approve_Request(mail_data))
+          // console.log(mail_data);
         }
 
         //code end

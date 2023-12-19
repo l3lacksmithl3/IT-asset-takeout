@@ -27,24 +27,23 @@ export class AppComponent {
 
   constructor(
     private api: HttpService,
-    private route: Router,
+
     private http: HttpClient,
     private authService: MsalService,
+    private router: Router,
   ) { }
-
 
 
 
   // updateAt
   async ngOnInit(): Promise<void> {
     this.CheckLogin = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
-    this.name = this.CheckLogin?.name
+    this.name = this.CheckLogin?.full_name
     this.CheckApprove()
     this.number = `IT asset takeout`
 
 
 
-    // console.log(this.name);
     // this.interval$ = interval(1000).subscribe(res => this.checkUpdate)
 
 
@@ -66,7 +65,8 @@ export class AppComponent {
   }
 
 
-  ngOnDestroy(): void { clearInterval(this.interval) }
+  ngOnDestroy(): void { clearInterval(this.interval)
+  }
 
 
 
@@ -95,8 +95,13 @@ export class AppComponent {
         if (this.user.level == 2) { level = 3 }
         if (this.user.level == 3) { level = 2 }
         flattenedData = NewFormate.reduce((acc: any, row: any) => acc.concat(row.slice(level, 4)), []);
+        if (this.user.section == "QMS" && this.user.level == 2) {
+          flattenedData.push('62110')
+        }
         result = [...new Set(flattenedData)];
       }
+
+
 
       result = result.map((e: any) => {
         if (typeof e == 'string') {
@@ -208,5 +213,11 @@ export class AppComponent {
     this.loo = true
   }
 
+  manual(){
+
+    this.router.navigate(['/manual']).then(() => {
+      // window.open('/manual', '_blank');
+    });
+  }
 
 }

@@ -1,14 +1,18 @@
-
 <title>{{this.number}}</title>
 <ngx-ui-loader></ngx-ui-loader>
 <app-login *ngIf="!this.CheckLogin"></app-login>
 
 <mat-toolbar *ngIf="this.CheckLogin" style="background-color: #9cabff;height: 8vh;"
   class="d-flex justify-content-between bar">
-  <span >
-    <button class="offh " style="background-color: inherit;border: inherit;cursor: pointer;" (click)="drawer.toggle()" >
-      <mat-icon *ngIf="icons" class="maticon"  >menu</mat-icon>
-      <span [matBadge]="this.item_approve.length" [matBadgeHidden]="this.item_approve.length == 0" matBadgeColor="warn" style="font-size: 30px;color: white; padding-right: 10px; font-weight: 600;">IT asset takeout</span>
+  <span>
+    <button class="offh " style="background-color: inherit;border: inherit;cursor: pointer;" (click)="drawer.toggle()">
+      <mat-icon *ngIf="icons" class="maticon">menu</mat-icon>
+      <span [matBadge]="this.item_approve.length" [matBadgeHidden]="this.item_approve.length == 0" matBadgeColor="warn"
+        style="font-size: 30px;color: white; padding-right: 10px; font-weight: 600;">IT asset takeout </span>
+    </button>
+    <button class="offh " style="background-color: inherit;border: inherit;cursor: pointer;" (click)="manual()">
+      <img src="./assets/Manuals.png" alt="" style="width: 30px;    margin-bottom: 5px;      ">
+      <span style="font-size: 24px;color: white; padding-right: 10px; font-weight: 600;">Manual</span>
     </button>
   </span>
   <button class="offh" mat-button [matMenuTriggerFor]="menu" style="font-weight: 600;">{{this.name}}</button>
@@ -22,16 +26,16 @@
       </div>
     </div>
   </mat-menu>
-
 </mat-toolbar>
 
-<mat-drawer-container [hidden]="!this.CheckLogin" >
-  <mat-drawer #drawer mode="side" opened="true" style="color: aqua; width: auto;background-image: url('assets/12858.jpg');">
+<mat-drawer-container [hidden]="!this.CheckLogin">
+  <mat-drawer #drawer mode="side" opened="true"
+    style="color: aqua; width: auto;background-image: url('assets/12858.jpg');">
     ---------------------------------------------------------------
     <app-sidenav style="padding-top: 7vh;" (dataChange)="drawer.toggle()" *ngIf="this.CheckLogin"></app-sidenav>
   </mat-drawer>
-  <mat-drawer-content style="padding-top: 12px;padding-bottom: 12px;background-image: url('assets/12858.jpg');height: 92vh">
+  <mat-drawer-content
+    style="padding-top: 12px;padding-bottom: 12px;background-image: url('assets/12858.jpg');height: 92vh">
     <router-outlet *ngIf="this.CheckLogin"></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
-

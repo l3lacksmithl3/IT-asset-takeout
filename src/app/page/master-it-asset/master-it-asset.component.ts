@@ -178,7 +178,7 @@ export class MasterITAssetComponent {
     let AssetKeypad = await lastValueFrom(this.api.AssetKeypadKeyboardGetAll())
     this.ITAsset = await lastValueFrom(this.api.getAssetIT())
     // this.table = AssetPC
-    // console.log(this.table);
+    // console.log(AssetPC);
 
     this.dataSourcePC = new MatTableDataSource(AssetPC)
     this.dataSourcePC.paginator = this.paginator1;
@@ -194,6 +194,7 @@ export class MasterITAssetComponent {
 
 
     this.ngxService.stop()
+    let asdasd = this.ITAsset.filter((d:any)=>d.status_return=="unavailable")
 
   }
 
@@ -638,7 +639,6 @@ export class MasterITAssetComponent {
               reason: reason,
               asset_type: e
             }
-            console.log(data);
             // let res = await lastValueFrom(this.api.Mail_Return_Force(data))
           }
         });

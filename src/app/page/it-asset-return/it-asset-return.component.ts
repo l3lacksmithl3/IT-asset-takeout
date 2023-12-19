@@ -48,7 +48,7 @@ export class ItAssetReturnComponent {
     this.setData()
     this.holiday = await lastValueFrom(this.api.MasterHoliDay())
     this.asset = await lastValueFrom(this.api.getAssetIT())
-    console.log("🚀 ~ file: it-asset-return.component.ts:51 ~ ItAssetReturnComponent ~ ngOnInit ~ this.asset:", this.asset)
+    // console.log("🚀 ~ file: it-asset-return.component.ts:51 ~ ItAssetReturnComponent ~ ngOnInit ~ this.asset:", this.asset)
   }
 
 
@@ -72,6 +72,7 @@ export class ItAssetReturnComponent {
 
 
     this.dataList = await lastValueFrom(this.api.getDataApprove(list))
+    console.log("🚀 ~ file: it-asset-return.component.ts:75 ~ ItAssetReturnComponent ~ setData ~ this.dataList:", this.dataList)
     // console.log(data.name);
 
     // console.log("🚀 ~ file: it-asset-return.component.ts:70 ~ ItAssetReturnComponent ~ setData ~  this.dataList:",  this.dataList)
@@ -135,23 +136,22 @@ export class ItAssetReturnComponent {
 
       })
 
-      this.data.old_data.return.item = this.data.old_data.return.item.map((d:any)=>{
+      this.data.old_data.return.item = this.data.old_data.return.item.map((d: any) => {
         let ban = this.asset.filter((e: any) => e["Host Name"].match(new RegExp(d.value, "i")))
         if (ban[0].blacklist == "T") {
-          return{
+          return {
             ...d,
-            Ban : true,
-            Reason : ban[0].reason
+            Ban: true,
+            Reason: ban[0].reason
           }
-        }else{
-          return{
+        } else {
+          return {
             ...d,
           }
         }
 
 
       })
-      console.log(this.data.old_data.return.item);
 
 
 
@@ -240,6 +240,7 @@ export class ItAssetReturnComponent {
         let item = this.data.old_data.return.item.filter((a: any) => a.value == d.value)
         item[0].return_approve = true
       })
+
       this.update_status_asset(this.last_item)
     }
     //TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO//TODO
@@ -261,11 +262,13 @@ export class ItAssetReturnComponent {
         })
 
         this.data.old_data.return[`return_${this.data.old_data.return.count_return}`] = this.last_item
+
         if (login.level == 4 && this.item_return(this.data.old_data.return)) {
-          this.data.old_data.return.Approve_Step = 2
+            this.data.old_data.return.Approve_Step = 2
         }
 
         let update = await lastValueFrom(this.api.ApproveUpdate(this.data.id, { return: this.data.old_data.return }))
+
         if (login.level == 4) {
           this.return_success_mail(this.last_item, this.data.old_data.return.count_return)
         } else {
@@ -312,6 +315,7 @@ export class ItAssetReturnComponent {
     if (set_3 && set_3.length > 0) {
       count = count + set_3.length
     }
+
     if (count == data.item.length) {
       return true
     } else {
@@ -418,6 +422,7 @@ export class ItAssetReturnComponent {
     mail = mail.map((d: any) => {
       return d.email
     })
+    mail = [...new Set(mail.map((item:any) => item))]
     // console.log(mail);
 
     let mail_data = {
@@ -428,6 +433,7 @@ export class ItAssetReturnComponent {
       asset: data,
       return_count: count
     }
+    // console.log(mail_data);
 
     let Mail_Approve = await lastValueFrom(this.api.Mail_Approve_return(mail_data))
   }
@@ -462,6 +468,7 @@ export class ItAssetReturnComponent {
     mail = mail.map((d: any) => {
       return d.email
     })
+    mail = [...new Set(mail.map((item:any) => item))]
     // console.log(mail);
 
     data = data.map((d: any) => {
@@ -567,6 +574,7 @@ export class ItAssetReturnComponent {
     if (login.level == 4) {
 
       this.extend_item = this.extend_item.map((e: any) => {
+        let period = e.period.split("-")[0]
         return {
           ...e,
           Approve_by: "Admin",
@@ -575,17 +583,25 @@ export class ItAssetReturnComponent {
         }
       })
 
-      let loo = this.extend_item.map((d: any) => {
-        const items = data[0].return.item
-        const indexItem = items.findIndex((a: any) => a.value == d.value)
-        if (indexItem !== -1) {
-          let period = items[indexItem].period.split("-")[0]
-          items[indexItem].period = `${period}- ${moment(d.title).format('ll')}`
-          items[indexItem].extend = false
-          items[indexItem].extend_success = false
+      let change = this.data.old_data.return.item.map((e: any) => {
+        let period = e.period.split("-")[0]
+        if (e.extend ) {
+          return {
+            ...e,
+            period : `${period}- ${moment(e.title).format('ll')}`,
+            extend_success : false,
+            extend : false
+          }
+        } else {
+          return {
+            ...e
+          }
         }
+
       })
-      let update = await lastValueFrom(this.api.ApproveUpdate(this.data.id, { return: data[0].return }))
+      let update = await lastValueFrom(this.api.ApproveUpdate(this.data.id, { "return.item" : change }))
+      // console.log("🚀 ~ file: it-asset-return.component.ts:619 ~ ItAssetReturnComponent ~ update ~ update:", change)
+
     }
 
 

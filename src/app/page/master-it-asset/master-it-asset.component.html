@@ -45,7 +45,7 @@
                       <button class="blacklistA mr-1" *ngIf="!Blacklist(element['Host Name'])"
                         (click)="def_black_false(element['Host Name'])" matTooltip="UnLock"
                         matTooltipPosition="above"><img src="assets/padlock.png" style="width: 20px;" alt=""></button>
-                      <button class="yellow mr-1" *ngIf="ReturnForce(element['Control Code'])"
+                      <button class="yellow mr-1" *ngIf="ReturnForce(element['Host Name'])"
                         (click)="return_force(element['Host Name'],element['Type'])" matTooltip="UnLock"
                         matTooltipPosition="above"><img src="assets/product-return.png" style="width: 20px;"
                           alt=""></button>

@@ -43,8 +43,8 @@ export class ApproveComponent {
     let data_old = ""
     setInterval(async () => {
       let ck = await lastValueFrom(this.api.updateAt())
-      if (data_old != ck.toString()) {
-        data_old = ck.toString()
+      if (data_old != ck?.toString()) {
+        data_old = ck?.toString()
         this.run()
       }
     }, 5000)
@@ -74,7 +74,15 @@ export class ApproveComponent {
       if (this.user.level == 1) { level = 4 }
       if (this.user.level == 2) { level = 3 }
       if (this.user.level == 3) { level = 2 }
+
+
+
       flattenedData = NewFormate.reduce((acc: any, row: any) => acc.concat(row.slice(level, 4)), []);
+
+      if (this.user.section == "QMS" && this.user.level == 2) {
+        flattenedData.push('62110')
+      }
+
       result = [...new Set(flattenedData)];
     }
 
@@ -86,7 +94,6 @@ export class ApproveComponent {
       }
     })
 
-    //console.log(result);
 
     let filter = {
       $or: [
@@ -96,7 +103,6 @@ export class ApproveComponent {
     }
 
     let rew = await lastValueFrom(this.api.getDataApprove(filter))
-    //console.log(rew);
 
 
 
@@ -182,7 +188,6 @@ export class ApproveComponent {
         })
       };
     }
-    // console.log(list);
     list = list.filter((d: any) => d.Value.Approve_Step == 1)
     rew = list.map((e: any) => {
       return {
@@ -194,7 +199,6 @@ export class ApproveComponent {
 
 
     // rew = rew.map((e: any) => {
-    //   console.log(e);
     //   let label
     //   if (e.takeout.Approve_Step == 1 || e.takeout.Approve_Step == 2) { label = "IT asset takeout application form" }
     //   if (e.return.Approve_Step == 1 || e.return.Approve_Step == 2) { label = "IT asset return" }
@@ -207,11 +211,7 @@ export class ApproveComponent {
     // })
 
 
-
-    // console.log(rew);
     this.data = rew
-    //console.log(this.data);
-    console.log(this.data);
 
     this.data = this.sort(this.data, "ControlID")
     this.dataSource = new MatTableDataSource(this.data)
@@ -221,7 +221,6 @@ export class ApproveComponent {
   }
 
   view(item: any) {
-    //console.log(item);
 
     let params
     if (item.BusinessModel == "IT asset takeout application form") {
@@ -235,8 +234,6 @@ export class ApproveComponent {
     //   // window.location.reload()
     // })
     let set1 = localStorage.setItem("IT-asset-takeout-ViewApprove", JSON.stringify(item.id))
-    //console.log(item.BusinessModel);
-    //console.log();
 
     if (item["Business Model"] == "IT asset takeout application form") {
       this.router.navigate(['/ApproveFormConfirm'], {
