@@ -40,7 +40,7 @@ export class ApproveReturnComponent {
 
   mode: any
   check_approve: boolean = false
-
+  Need_OT:any = false
 
   constructor(
     private api: HttpService,
@@ -79,8 +79,9 @@ export class ApproveReturnComponent {
       this.data_status.type = "return"
 
 
-      // console.log(this.data);
 
+
+      this.CheckClass()
       this.ngxService.stop()
     })
 
@@ -386,7 +387,18 @@ export class ApproveReturnComponent {
 
 
 
-
+  async CheckClass() {
+    if (this.data.StatusOT) {
+      this.Need_OT = true
+    }else{
+      let data = await lastValueFrom(this.api.CheckClass({ 'email': this.data.email }))
+      if (data.length != 0) {
+        let Check = data[0].grade.split('').filter((d: any) => d == 'M')
+        let Japan = data[0].user_id.split('').filter((d: any) => d == 'J')
+        Check.length != 0 || Japan.length != 0 ? this.Need_OT = false : this.Need_OT = true
+      }
+    }
+  }
 
 
 

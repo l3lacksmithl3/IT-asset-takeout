@@ -31,6 +31,18 @@
                   <input type="text" class="form-control" [(ngModel)]="this.data.CorpDivDep" readonly>
                 </div>
               </div>
+
+              <div class="row showgrid">
+                <div class="col-lg-12">
+                  <input type="checkbox" id="vehicle1" name="name" [(ngModel)]="!Need_OT" disabled>
+                  <span> Not need to submit OT Request</span>
+                </div>
+                <div class="col-lg-12">
+                  <input type="checkbox" id="vehicle2" name="name" [(ngModel)]="Need_OT" disabled>
+                  <span> Need submit OT Request </span>
+                </div>
+              </div>
+
               <div class="row showgrid">
                 <div class="col-lg-12">
                   <label for="">Reason <sup style="color: red;font-size: 8px;">Required</sup> </label>

@@ -5,6 +5,7 @@ import { HttpService } from './service/http.service';
 import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
 import { AuthenticationResult, InteractionStatus, PopupRequest, RedirectRequest, EventMessage, EventType } from '@azure/msal-browser';
 import { HttpClient } from '@angular/common/http';
+import * as moment from 'moment';
 
 
 @Component({
@@ -37,6 +38,8 @@ export class AppComponent {
 
   // updateAt
   async ngOnInit(): Promise<void> {
+    this.auto_logout()
+
     this.CheckLogin = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
     this.name = this.CheckLogin?.full_name
     this.CheckApprove()
@@ -65,6 +68,18 @@ export class AppComponent {
   }
 
 
+  auto_logout(){
+    let time_key = localStorage.getItem('IT-asset-takeout-timer')
+    let login = localStorage.getItem('IT-asset-takeout-login')
+    if (time_key != moment().format('ll') && time_key) {
+      this.logout()
+    }
+    if (login && !time_key ) {
+      this.logout()
+    }
+  }
+
+
   ngOnDestroy(): void { clearInterval(this.interval)
   }
 
@@ -72,6 +87,7 @@ export class AppComponent {
 
   logout() {
     let data = localStorage.removeItem("IT-asset-takeout-login");
+    let key = localStorage.removeItem("IT-asset-takeout-timer");
     window.location.reload()
   }
 

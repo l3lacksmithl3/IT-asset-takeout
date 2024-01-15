@@ -132,6 +132,9 @@ export class HttpService {
   MasterHoliDay(): Observable<any> {
     return this.http.get("http://10.200.90.152:4012/date_masterGet")
   }
+  CheckClass(data: any): Observable<any> {
+    return this.http.post("http://10.200.90.152:4012/getByCondition/", data)
+  }
 
 
 
@@ -372,6 +375,8 @@ export class HttpService {
   addUserOutSSO(data: any): Observable<any> {
     return this.http.post(this.Url + "/UserOutSSO/", data)
   }
+
+
 
 
 }

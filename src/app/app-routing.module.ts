@@ -26,6 +26,7 @@ import { InventoryComponent } from './page/inventory/inventory.component';
 import { LogbookHeadComponent } from './page/logbook-head/logbook-head.component';
 import { ItAssetTakeout2Component } from './page/it-asset-takeout2/it-asset-takeout2.component';
 import { ManualComponent } from './page/manual/manual.component';
+import { ReportedComponent } from './page/reported/reported.component';
 
 const routes: Routes = [
 
@@ -95,6 +96,9 @@ const routes: Routes = [
   },
   {
     path: 'manual', component: ManualComponent,canActivate:[AdminGuard]
+  },
+  {
+    path: 'reported', component: ReportedComponent
   },
 
 

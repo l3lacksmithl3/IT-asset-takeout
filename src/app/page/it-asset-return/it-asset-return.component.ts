@@ -61,7 +61,7 @@ export class ItAssetReturnComponent {
       name: data.full_name,
       CorpDivDep: this.positionName,
     }
-    // console.log(this.positionName);
+    console.log(data.name);
 
 
     let list = {

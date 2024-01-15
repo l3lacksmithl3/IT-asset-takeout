@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
 import { AuthenticationResult, InteractionStatus, PopupRequest, RedirectRequest, EventMessage, EventType } from '@azure/msal-browser';
+import * as moment from 'moment';
 
 
 
@@ -44,9 +45,6 @@ export class LoginComponent {
 
   async ngOnInit(): Promise<void> {
     this.employee = await lastValueFrom(this.api.MasterUserAll())
-
-
-
     // let profile = await this.getProfile()
     // this.submit(profile)
   }
@@ -255,6 +253,9 @@ export class LoginComponent {
   login_select(login: any) {
     if (login) {
       this.loginSuccess()
+      //TODO logout auto
+      let settime = localStorage.setItem('IT-asset-takeout-timer',moment().format('ll'))
+
       // console.log(login);
 
 
@@ -276,6 +277,7 @@ export class LoginComponent {
             login.position_code = login.position_code.toString().slice(0, -1) + '0'
             let data_organization = await lastValueFrom(this.api.MasterOrganization_ByCondition({ code: { $in: [`${login.position_code}`, Number(login.position_code)] } }))
             login.section = data_organization[0].section
+            console.log("🚀 ~ file: login.component.ts:280 ~ LoginComponent ~ setTimeout ~ data_organization:", data_organization)
           }
 
           let head = login.section?.split('-')
@@ -287,6 +289,7 @@ export class LoginComponent {
             login.position_code = '62110'
           }
 
+          console.log(login);
 
 
 

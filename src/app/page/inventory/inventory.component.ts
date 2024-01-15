@@ -57,7 +57,7 @@ export class InventoryComponent{
     }
 
     let job = await lastValueFrom(this.api.getDataApprove(filter))
-    console.log(job);
+    // console.log(job);
 
     let data = []
     for (const list of job) {

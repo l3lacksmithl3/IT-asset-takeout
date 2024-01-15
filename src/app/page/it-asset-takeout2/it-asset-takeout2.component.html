@@ -18,6 +18,17 @@
           </div>
         </div>
 
+        <div class="row showgrid">
+          <div class="col-lg-12">
+            <input type="checkbox" id="vehicle1" name="name" [(ngModel)]="!Need_OT" disabled>
+            <span> Not need to submit OT Request</span>
+          </div>
+          <div class="col-lg-12">
+            <input type="checkbox" id="vehicle2" name="name" [(ngModel)]="Need_OT" disabled>
+            <span> Need submit OT Request </span>
+          </div>
+        </div>
+
 
         <div class="row showgrid">
           <div class="col-lg-12">
@@ -36,7 +47,7 @@
             </button> -->
             <form [formGroup]="stateForm_1">
               <input class="form-control" id="ITassets_1" type="text" matInput formControlName="stateGroup_1" required
-                [matAutocomplete]="autoGroup4" (keyup)="check_empty()" >
+                [matAutocomplete]="autoGroup4" (keyup)="check_empty()">
               <mat-autocomplete #autoGroup4="matAutocomplete">
                 <mat-optgroup style="color: aqua;" *ngFor="let group of stateGroupOptions_1  | async"
                   [label]="group.letter.toUpperCase()">
@@ -68,7 +79,7 @@
             </button> -->
             <form [formGroup]="stateForm_1">
               <input class="form-control" id="ITassets_2" type="text" matInput formControlName="stateGroup_2" required
-                [matAutocomplete]="autoGroup2" (keyup)="check_empty()" >
+                [matAutocomplete]="autoGroup2" (keyup)="check_empty()">
               <mat-autocomplete #autoGroup2="matAutocomplete">
                 <mat-optgroup style="color: aqua;" *ngFor="let group of stateGroupOptions_2  | async"
                   [label]="group.letter.toUpperCase()">
@@ -97,7 +108,7 @@
             </button> -->
             <form [formGroup]="stateForm_1">
               <input class="form-control" id="ITassets_3" type="text" matInput formControlName="stateGroup_3" required
-                [matAutocomplete]="autoGroup3" (keyup)="check_empty()" >
+                [matAutocomplete]="autoGroup3" (keyup)="check_empty()">
               <mat-autocomplete #autoGroup3="matAutocomplete">
                 <mat-optgroup style="color: aqua;" *ngFor="let group of stateGroupOptions_3  | async"
                   [label]="group.letter.toUpperCase()">

@@ -42,6 +42,8 @@ export class ItAssetTakeout2Component implements OnInit {
   holiday: any
   id: any
 
+  Need_OT: any = false
+
   stateForm_1 = new FormGroup({
     stateGroup_1: new FormControl(''),
     stateGroup_2: new FormControl(''),
@@ -68,6 +70,7 @@ export class ItAssetTakeout2Component implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
+    this.CheckClass()
     this.asset = await lastValueFrom(this.api.getAssetIT())
     this.holiday = await lastValueFrom(this.api.MasterHoliDay())
     this.ngxService.start()
@@ -111,15 +114,17 @@ export class ItAssetTakeout2Component implements OnInit {
         level: data.level,
         position_code: data.position_code.toString(),
         Apply_Date_Start: moment().format(),
-        Apply_Date_Latest: moment().format()
+        Apply_Date_Latest: moment().format(),
+        StatusOT : this.Need_OT
       }
       this.dataValue = {
         takeout: this.data
       }
 
-      // console.log(this.data);
 
     }
+    console.log(this.data);
+
 
 
     if (this.mode == 'edit') {
@@ -145,7 +150,8 @@ export class ItAssetTakeout2Component implements OnInit {
           level: data.level,
           position_code: data.position_code.toString(),
           Apply_Date_Start: moment(dataOld[0].takeout.Apply_Date_Start).format(),
-          Apply_Date_Latest: moment().format()
+          Apply_Date_Latest: moment().format(),
+          StatusOT : this.Need_OT
         }
         this.stateForm_1 = new FormGroup({
           stateGroup_1: new FormControl(dataOld[0]?.takeout?.item[0]?.value),
@@ -173,6 +179,7 @@ export class ItAssetTakeout2Component implements OnInit {
     this.updateInput()
     this.Device()
     // this.check_unavailable("")
+
   }
 
   setLastDay(d: any) {
@@ -320,7 +327,7 @@ export class ItAssetTakeout2Component implements OnInit {
           mail = mail.map((d: any) => {
             return d.email
           })
-          mail = [...new Set(mail.map((item:any) => item))]
+          mail = [...new Set(mail.map((item: any) => item))]
           let mail_data = {
             _id: this.id,
             requester: this.dataValue?.takeout.name,
@@ -374,6 +381,7 @@ export class ItAssetTakeout2Component implements OnInit {
     if (head.length == 3) {
       user.section = `${head[0]}-${head[1]}`
     }
+    console.log("🚀 ~ file: it-asset", user.section)
     let data_organization = await lastValueFrom(this.api.MasterOrganization_ByCondition({ organization: `${user.section}` }))
     this.positionName = `${data_organization[0].organization[0]} / ${data_organization[0].organization[1]} / ${data_organization[0].organization[2]}`
   }
@@ -385,7 +393,7 @@ export class ItAssetTakeout2Component implements OnInit {
     this.CheckData = asset
 
     let asset_login = await lastValueFrom(this.api.AssetPCGetByID({ "EmpCD": login.employee }))
-    let MyDevice = await lastValueFrom(this.api.getAssetByID({ "Host Name": asset_login[0]['Host Name']}))
+    let MyDevice = await lastValueFrom(this.api.getAssetByID({ "Host Name": asset_login[0]['Host Name'] }))
     // console.log("🚀 ~ file: it-asset-takeout2.component.ts:381 ~ ItAssetTakeout2Component ~ Device ~ MyDevice:", MyDevice)
 
     let DeviceIT = asset.filter((d: any) => (d.Type != "Laptop") && (d.Type != "Desktop") && (d.Type != "Workstation"))
@@ -546,16 +554,16 @@ export class ItAssetTakeout2Component implements OnInit {
           ...group,
           letter: group.letter,
           names: _filter_1(group.names, value.toLowerCase()),
-          status_return: converse(value.toLowerCase(), group.names,group.status_return),
-          reason: converse(value.toLowerCase(), group.names,group.reason),
-          blacklist: converse(value.toLowerCase(), group.names,group.blacklist),
+          status_return: converse(value.toLowerCase(), group.names, group.status_return),
+          reason: converse(value.toLowerCase(), group.names, group.reason),
+          blacklist: converse(value.toLowerCase(), group.names, group.blacklist),
         }))
         .filter(group => group.names.length > 0);
     }
     return this.stateGroups_1;
 
-    function converse(value: any, group: any ,list:any) {
-      const filteredIndices = group.map((name:any, index:any) => name.includes(value) ? index.toString() : null).filter((index:any) => index !== null)
+    function converse(value: any, group: any, list: any) {
+      const filteredIndices = group.map((name: any, index: any) => name.includes(value) ? index.toString() : null).filter((index: any) => index !== null)
       let index = filteredIndices.map((d: any) => list[+d])
       return index
     }
@@ -791,7 +799,7 @@ export class ItAssetTakeout2Component implements OnInit {
           mail = mail.map((d: any) => {
             return d.email
           })
-          mail = [...new Set(mail.map((item:any) => item))]
+          mail = [...new Set(mail.map((item: any) => item))]
           // console.log(mail);
 
           let mail_data = {
@@ -856,6 +864,19 @@ export class ItAssetTakeout2Component implements OnInit {
   //   console.log(this.stateForm_1.value.stateGroup_3);
 
   // }
+
+
+  async CheckClass() {
+    let login = JSON.parse(`${localStorage.getItem("IT-asset-takeout-login")}`)
+    let data = await lastValueFrom(this.api.CheckClass({ 'email': login.email }))
+    if (data.length != 0) {
+      let Check = data[0].grade.split('').filter((d: any) => d == 'M')
+      let Japan = data[0].user_id.split('').filter((d: any) => d == 'J')
+      Check.length != 0 || Japan.length != 0 ? this.Need_OT = false : this.Need_OT = true
+    }
+  }
+
+
 }
 
 

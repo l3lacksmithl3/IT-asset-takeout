@@ -43,6 +43,7 @@ export class ApproveFormComponent {
   mode: any
   check_approve: boolean = false
 
+  Need_OT:any = false
 
   constructor(
     private api: HttpService,
@@ -54,6 +55,7 @@ export class ApproveFormComponent {
 
   async ngOnInit(): Promise<void> {
     this.ngxService.start()
+
 
     // this.loading()
     this.route.queryParams.subscribe(async res => {
@@ -143,8 +145,8 @@ export class ApproveFormComponent {
 
       this.data_status = { ...this.data }
       this.data_status.type = 'takeout'
+      this.CheckClass()
       this.ngxService.stop()
-
 
 
     })
@@ -452,6 +454,18 @@ export class ApproveFormComponent {
 
 
 
+  async CheckClass() {
+    if (this.data.StatusOT) {
+      this.Need_OT = true
+    }else{
+      let data = await lastValueFrom(this.api.CheckClass({ 'email': this.data.email }))
+      if (data.length != 0) {
+        let Check = data[0].grade.split('').filter((d: any) => d == 'M')
+        let Japan = data[0].user_id.split('').filter((d: any) => d == 'J')
+        Check.length != 0 || Japan.length != 0 ? this.Need_OT = false : this.Need_OT = true
+      }
+    }
+  }
 
 
 

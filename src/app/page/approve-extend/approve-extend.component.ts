@@ -40,7 +40,7 @@ export class ApproveExtendComponent {
 
   mode: any
   check_approve: boolean = false
-
+  Need_OT: any = false
 
   constructor(
     private api: HttpService,
@@ -75,12 +75,12 @@ export class ApproveExtendComponent {
         this.id = approve
         this.ControlID = res[0].ControlID
       }
-      this.data_status = {...this.data}
+      this.data_status = { ...this.data }
       this.data_status.count = this.extend_count
-      this.data_status.type  = 'extend'
+      this.data_status.type = 'extend'
+      this.CheckClass()
       this.ngxService.stop()
     })
-
 
 
 
@@ -361,7 +361,18 @@ export class ApproveExtendComponent {
 
 
 
-
+  async CheckClass() {
+    if (this.data.StatusOT) {
+      this.Need_OT = true
+    } else {
+      let data = await lastValueFrom(this.api.CheckClass({ 'email': this.data.email }))
+      if (data.length != 0) {
+        let Check = data[0].grade.split('').filter((d: any) => d == 'M')
+        let Japan = data[0].user_id.split('').filter((d: any) => d == 'J')
+        Check.length != 0 || Japan.length != 0 ? this.Need_OT = false : this.Need_OT = true
+      }
+    }
+  }
 
 
 
